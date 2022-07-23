@@ -1,3 +1,4 @@
 # Project exclude paths
 /minestrum-bungee/target/
 /minestrum-core/target/
+/minestrum-core/src/main/resources
