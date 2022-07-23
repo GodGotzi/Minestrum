@@ -1,0 +1,43 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="minestrum-core:ear exploded">
+    <output-path>$PROJECT_DIR$/minestrum-core/target/minestrum-core-1.0-SNAPSHOT</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>minestrum-core</module>
+        <packaging>ear</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="minestrum-core/javaeeApplication/JavaEE" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/minestrum-core/target/minestrum-core-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="archive" name="minestrum-bungee-1.0-SNAPSHOT.jar">
+        <element id="module-output" name="minestrum-bungee" />
+      </element>
+      <element id="library" level="project" name="Maven: net.dv8tion:JDA:5.0.0-alpha.13" />
+      <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:3.0.2" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:23.0.0" />
+      <element id="library" level="project" name="Maven: com.neovisionaries:nv-websocket-client:2.14" />
+      <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:4.9.3" />
+      <element id="library" level="project" name="Maven: com.squareup.okio:okio:2.8.0" />
+      <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.0" />
+      <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.4.10" />
+      <element id="library" level="project" name="Maven: club.minnced:opus-java:1.1.1" />
+      <element id="library" level="project" name="Maven: club.minnced:opus-java-api:1.1.1" />
+      <element id="library" level="project" name="Maven: net.java.dev.jna:jna:4.4.0" />
+      <element id="library" level="project" name="Maven: club.minnced:opus-java-natives:1.1.1" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.4" />
+      <element id="library" level="project" name="Maven: net.sf.trove4j:trove4j:3.0.3" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.2.2" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" />
+      <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
+      <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.36" />
+      <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.11" />
+      <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.11" />
+    </root>
+  </artifact>
+</component>

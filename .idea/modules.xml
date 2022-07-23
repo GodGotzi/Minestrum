@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/minestrum-bungee/minestrum-bungee.iml" filepath="$PROJECT_DIR$/minestrum-bungee/minestrum-bungee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/minestrum-core/minestrum-core.iml" filepath="$PROJECT_DIR$/minestrum-core/minestrum-core.iml" />
+    </modules>
+  </component>
+</project>
