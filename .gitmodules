@@ -1,0 +1,3 @@
+[submodule "GotziAPI"]
+	path = GotziAPI
+	url = https://github.com/GodGotzi/GotziAPI
