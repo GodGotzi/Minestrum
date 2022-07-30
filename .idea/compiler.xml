@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="minestrum-core" />
+        <module name="minestrum-email" />
+        <module name="minestrum-data" />
+        <module name="minestrum-gui" />
+        <module name="minestrum-bungee" />
+        <module name="GotziAPI" />
+        <module name="minestrum-discord" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bootstrap" target="7" />
+      <module name="bungeecord-api" target="17" />
+      <module name="bungeecord-bootstrap" target="1.6" />
+      <module name="bungeecord-chat" target="17" />
+      <module name="bungeecord-config" target="17" />
+      <module name="bungeecord-event" target="17" />
+      <module name="bungeecord-log" target="17" />
+      <module name="bungeecord-module" target="17" />
+      <module name="bungeecord-module-cmd-alert" target="17" />
+      <module name="bungeecord-module-cmd-find" target="17" />
+      <module name="bungeecord-module-cmd-kick" target="17" />
+      <module name="bungeecord-module-cmd-list" target="17" />
+      <module name="bungeecord-module-cmd-send" target="17" />
+      <module name="bungeecord-module-cmd-server" target="17" />
+      <module name="bungeecord-module-reconnect-yaml" target="17" />
+      <module name="bungeecord-native" target="17" />
+      <module name="bungeecord-protocol" target="17" />
+      <module name="bungeecord-proxy" target="17" />
+      <module name="bungeecord-query" target="17" />
+      <module name="bungeecord-slf4j" target="17" />
+      <module name="cmd-alert" target="8" />
+      <module name="cmd-find" target="8" />
+      <module name="cmd-kick" target="8" />
+      <module name="cmd-list" target="8" />
+      <module name="cmd-send" target="8" />
+      <module name="cmd-server" target="8" />
+      <module name="log" target="8" />
+      <module name="query" target="8" />
+      <module name="reconnect-yaml" target="8" />
+      <module name="slf4j" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

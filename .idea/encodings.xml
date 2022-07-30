@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/bootstrap/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/bootstrap/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/chat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/chat/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/config/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/config/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/event/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/event/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/log/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/log/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-alert/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-alert/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-find/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-find/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-kick/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-kick/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-list/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-list/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-send/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-send/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/cmd-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/reconnect-yaml/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/reconnect-yaml/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/native/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/native/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/protocol/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/protocol/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/proxy/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/proxy/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/query/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/query/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/slf4j/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/slf4j/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-bungee/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
