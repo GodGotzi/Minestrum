@@ -13,8 +13,7 @@ import net.md_5.bungee.protocol.ProtocolConstants;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class EncryptionRequest extends DefinedPacket
-{
+public class EncryptionRequest extends DefinedPacket {
 
     private String serverId;
     private byte[] publicKey;

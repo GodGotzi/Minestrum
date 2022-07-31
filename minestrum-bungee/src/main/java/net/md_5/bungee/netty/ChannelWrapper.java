@@ -1,6 +1,5 @@
 package net.md_5.bungee.netty;
 
-import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Preconditions;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
@@ -10,7 +9,6 @@ import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.Setter;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.compress.PacketCompressor;
 import net.md_5.bungee.compress.PacketDecompressor;
 import net.md_5.bungee.protocol.MinecraftDecoder;
@@ -98,15 +96,7 @@ public class ChannelWrapper {
             // Minecraft client can take some time to switch protocols.
             // Sending the wrong disconnect packet whilst a protocol switch is in progress will crash it.
             // Delay 250ms to ensure that the protocol switch (if any) has definitely taken place.
-            ch.eventLoop().schedule( new Runnable()
-            {
-
-                @Override
-                public void run()
-                {
-                    close( kick );
-                }
-            }, 250, TimeUnit.MILLISECONDS );
+            ch.eventLoop().schedule(() -> close( kick ), 250, TimeUnit.MILLISECONDS );
         }
     }
 

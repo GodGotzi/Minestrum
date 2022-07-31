@@ -103,14 +103,14 @@ public class ServerConnector extends PacketHandler
         Handshake originalHandshake = user.getPendingConnection().getHandshake();
         Handshake copiedHandshake = new Handshake( originalHandshake.getProtocolVersion(), originalHandshake.getHost(), originalHandshake.getPort(), 2 );
 
-        if ( MinestrumBungee.getInstance().config.isIpForward() && user.getSocketAddress() instanceof InetSocketAddress )
+        if ( Bungee.getInstance().config.isIpForward() && user.getSocketAddress() instanceof InetSocketAddress )
         {
             String newHost = copiedHandshake.getHost() + "\00" + AddressUtil.sanitizeAddress( user.getAddress() ) + "\00" + user.getUUID();
 
             LoginResult profile = user.getPendingConnection().getLoginProfile();
             if ( profile != null && profile.getProperties() != null && profile.getProperties().length > 0 )
             {
-                newHost += "\00" + MinestrumBungee.getInstance().gson.toJson( profile.getProperties() );
+                newHost += "\00" + Bungee.getInstance().gson.toJson( profile.getProperties() );
             }
             copiedHandshake.setHost( newHost );
         } else if ( !user.getExtraDataInHandshake().isEmpty() )
@@ -185,7 +185,7 @@ public class ServerConnector extends PacketHandler
         ServerConnectedEvent event = new ServerConnectedEvent( user, server );
         bungee.getPluginManager().callEvent( event );
 
-        ch.write( MinestrumBungee.getInstance().registerChannels( user.getPendingConnection().getVersion() ) );
+        ch.write( Bungee.getInstance().registerChannels( user.getPendingConnection().getVersion() ) );
         Queue<DefinedPacket> packetQueue = target.getPacketQueue();
         synchronized ( packetQueue )
         {
@@ -373,7 +373,7 @@ public class ServerConnector extends PacketHandler
     @Override
     public void handle(PluginMessage pluginMessage) throws Exception
     {
-        if ( MinestrumBungee.getInstance().config.isForgeSupport() )
+        if ( Bungee.getInstance().config.isForgeSupport() )
         {
             if ( pluginMessage.getTag().equals( ForgeConstants.FML_REGISTER ) )
             {

@@ -9,7 +9,7 @@ import at.gotzi.minestrum.discord.DiscordBot;
 import at.gotzi.minestrum.error.ErrorView;
 import at.gotzi.minestrum.utils.ConnectionHelper;
 import at.gotzi.minestrum.utils.ShutdownTimer;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.api.BungeeFile;
 
 import java.util.Scanner;
@@ -19,7 +19,7 @@ public class Minestrum extends Application {
     private DiscordBot discordBot;
     private EmailBot emailBot;
     private ErrorHandler errorHandler;
-    private MinestrumBungee bungee;
+    private Bungee bungee;
 
     public Minestrum() {
         instance = this;
@@ -58,7 +58,7 @@ public class Minestrum extends Application {
 
         try {
             BungeeFile.setFolder(this.properties.getProperty("bungee_dir"));
-            this.bungee = new MinestrumBungee(this.getLogger(), this.properties);
+            this.bungee = new Bungee(this.getLogger(), this.properties);
             this.bungee.start();
         } catch (Exception e) {
             this.errorHandler.registerError(new ErrorView("failed while starting Proxy", e));
@@ -75,7 +75,7 @@ public class Minestrum extends Application {
         getBungee().stop();
     }
 
-    public MinestrumBungee getBungee() {
+    public Bungee getBungee() {
         return bungee;
     }
 

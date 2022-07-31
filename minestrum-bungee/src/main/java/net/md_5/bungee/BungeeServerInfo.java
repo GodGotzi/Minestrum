@@ -181,9 +181,9 @@ public class BungeeServerInfo implements ServerInfo
         };
         new Bootstrap()
                 .channel( PipelineUtils.getChannel( socketAddress ) )
-                .group( MinestrumBungee.getInstance().eventLoops )
+                .group( Bungee.getInstance().eventLoops )
                 .handler( PipelineUtils.BASE )
-                .option( ChannelOption.CONNECT_TIMEOUT_MILLIS, MinestrumBungee.getInstance().getConfig().getRemotePingTimeout() )
+                .option( ChannelOption.CONNECT_TIMEOUT_MILLIS, Bungee.getInstance().getConfig().getRemotePingTimeout() )
                 .remoteAddress( socketAddress )
                 .connect()
                 .addListener( listener );

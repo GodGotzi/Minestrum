@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import javax.crypto.SecretKey;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.BungeeServerInfo;
 import net.md_5.bungee.EncryptionUtil;
 import net.md_5.bungee.UserConnection;
@@ -71,7 +71,7 @@ import net.md_5.bungee.util.QuietException;
 public class InitialHandler extends PacketHandler implements PendingConnection
 {
 
-    private final MinestrumBungee bungee;
+    private final Bungee bungee;
     private ChannelWrapper ch;
     @Getter
     private final ListenerInfo listener;
@@ -95,7 +95,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
     };
 
     @Getter
-    private boolean onlineMode = MinestrumBungee.getInstance().config.isOnlineMode();
+    private boolean onlineMode = Bungee.getInstance().config.isOnlineMode();
     @Getter
     private InetSocketAddress virtualHost;
     private String name;
@@ -232,7 +232,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
         return new ServerPing(
                 new ServerPing.Protocol( bungee.getName() + " " + bungee.getGameVersion(), protocol ),
                 new ServerPing.Players( listener.getMaxPlayers(), bungee.getOnlineCount(), null ),
-                motd, MinestrumBungee.getInstance().config.getFaviconObject()
+                motd, Bungee.getInstance().config.getFaviconObject()
         );
     }
 
@@ -261,7 +261,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                     @Override
                     public void done(ProxyPingEvent pingResult, Throwable error)
                     {
-                        Gson gson = MinestrumBungee.getInstance().gson;
+                        Gson gson = Bungee.getInstance().gson;
                         unsafe.sendPacket( new StatusResponse( gson.toJson( pingResult.getResponse() ) ) );
                         if ( bungee.getConnectionThrottle() != null )
                         {
@@ -366,7 +366,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
             return;
         }
 
-        if ( MinestrumBungee.getInstance().config.isEnforceSecureProfile() )
+        if ( Bungee.getInstance().config.isEnforceSecureProfile() )
         {
             PlayerPublicKey publicKey = loginRequest.getPublicKey();
             if ( publicKey == null )
@@ -390,7 +390,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
 
         this.loginRequest = loginRequest;
 
-        int limit = MinestrumBungee.getInstance().config.getPlayerLimit();
+        int limit = Bungee.getInstance().config.getPlayerLimit();
         if ( limit > 0 && bungee.getOnlineCount() >= limit )
         {
             disconnect( bungee.getTranslation( "proxy_full" ) );
@@ -430,7 +430,6 @@ public class InitialHandler extends PacketHandler implements PendingConnection
 
     @Override
     public void handle(final EncryptionResponse encryptResponse) throws Exception {
-        ProxyServer.getInstance().getLogger().log(GLevel.Debug, "compute encrypt response: " + encryptResponse);
 
         Preconditions.checkState( thisState == State.ENCRYPT, "Not expecting ENCRYPT" );
         Preconditions.checkState( EncryptionUtil.check( loginRequest.getPublicKey(), encryptResponse, request ), "Invalid verification" );
@@ -453,7 +452,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
         }
         String encodedHash = URLEncoder.encode( new BigInteger( sha.digest() ).toString( 16 ), "UTF-8" );
 
-        String preventProxy = ( MinestrumBungee.getInstance().config.isPreventProxyConnections() && getSocketAddress() instanceof InetSocketAddress ) ? "&ip=" + URLEncoder.encode( getAddress().getAddress().getHostAddress(), "UTF-8" ) : "";
+        String preventProxy = ( Bungee.getInstance().config.isPreventProxyConnections() && getSocketAddress() instanceof InetSocketAddress ) ? "&ip=" + URLEncoder.encode( getAddress().getAddress().getHostAddress(), "UTF-8" ) : "";
         String authURL = "https://sessionserver.mojang.com/session/minecraft/hasJoined?username=" + encName + "&serverId=" + encodedHash + preventProxy;
 
         Callback<String> handler = new Callback<String>()
@@ -463,7 +462,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
             {
                 if ( error == null )
                 {
-                    LoginResult obj = MinestrumBungee.getInstance().gson.fromJson( result, LoginResult.class );
+                    LoginResult obj = Bungee.getInstance().gson.fromJson( result, LoginResult.class );
                     if ( obj != null && obj.getId() != null )
                     {
                         loginProfile = obj;
@@ -546,7 +545,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                         if ( !ch.isClosing() )
                         {
                             UserConnection userCon = new UserConnection( bungee, ch, getName(), InitialHandler.this );
-                            userCon.setCompressionThreshold( MinestrumBungee.getInstance().config.getCompressionThreshold() );
+                            userCon.setCompressionThreshold( Bungee.getInstance().config.getCompressionThreshold() );
                             userCon.init();
 
                             unsafe.sendPacket( new LoginSuccess( getUniqueId(), getName(), ( loginProfile == null ) ? null : loginProfile.getProperties() ) );

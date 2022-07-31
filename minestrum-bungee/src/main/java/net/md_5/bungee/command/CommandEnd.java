@@ -1,7 +1,7 @@
 package net.md_5.bungee.command;
 
 import com.google.common.base.Joiner;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
@@ -23,10 +23,10 @@ public class CommandEnd extends Command
     {
         if ( args.length == 0 )
         {
-            MinestrumBungee.getInstance().stop();
+            Bungee.getInstance().stop();
         } else
         {
-            MinestrumBungee.getInstance().stop( ChatColor.translateAlternateColorCodes( '&', Joiner.on( ' ' ).join( args ) ) );
+            Bungee.getInstance().stop( ChatColor.translateAlternateColorCodes( '&', Joiner.on( ' ' ).join( args ) ) );
         }
     }
 }

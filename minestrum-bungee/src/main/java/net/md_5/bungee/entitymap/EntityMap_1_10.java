@@ -3,7 +3,7 @@ package net.md_5.bungee.entitymap;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.netty.buffer.ByteBuf;
 import java.util.UUID;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.protocol.DefinedPacket;
@@ -122,7 +122,7 @@ class EntityMap_1_10 extends EntityMap
                 int idLength = packet.readerIndex() - readerIndex - packetIdLength;
                 UUID uuid = DefinedPacket.readUUID( packet );
                 ProxiedPlayer player;
-                if ( ( player = MinestrumBungee.getInstance().getPlayerByOfflineUUID( uuid ) ) != null )
+                if ( ( player = Bungee.getInstance().getPlayerByOfflineUUID( uuid ) ) != null )
                 {
                     int previous = packet.writerIndex();
                     packet.readerIndex( readerIndex );
@@ -164,11 +164,11 @@ class EntityMap_1_10 extends EntityMap
         int packetId = DefinedPacket.readVarInt( packet );
         int packetIdLength = packet.readerIndex() - readerIndex;
 
-        if ( packetId == 0x1B /* Spectate : PacketPlayInSpectate */ && !MinestrumBungee.getInstance().getConfig().isIpForward() )
+        if ( packetId == 0x1B /* Spectate : PacketPlayInSpectate */ && !Bungee.getInstance().getConfig().isIpForward() )
         {
             UUID uuid = DefinedPacket.readUUID( packet );
             ProxiedPlayer player;
-            if ( ( player = MinestrumBungee.getInstance().getPlayer( uuid ) ) != null )
+            if ( ( player = Bungee.getInstance().getPlayer( uuid ) ) != null )
             {
                 int previous = packet.writerIndex();
                 packet.readerIndex( readerIndex );

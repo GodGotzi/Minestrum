@@ -48,28 +48,29 @@ public class EncryptionUtil
     private static final PublicKey MOJANG_KEY;
 
     static {
-        ProxyServer.getInstance().getLogger().log(GLevel.Debug, "1");
         try
         {
             KeyPairGenerator generator = KeyPairGenerator.getInstance( "RSA" );
-            ProxyServer.getInstance().getLogger().log(GLevel.Debug, "2");
             generator.initialize( 1024 );
-            ProxyServer.getInstance().getLogger().log(GLevel.Debug, "3");
             keys = generator.generateKeyPair();
         } catch ( NoSuchAlgorithmException ex )
         {
             throw new ExceptionInInitializerError( ex );
         }
 
-        ProxyServer.getInstance().getLogger().log(GLevel.Debug, "4");
         try
         {
-            ProxyServer.getInstance().getLogger().log(GLevel.Debug, "5");
-            ProxyServer.getInstance().getLogger().log(GLevel.Debug, EncryptionUtil.class.getResourceAsStream("/yggdrasil_session_pubkey.der").toString());
-            ProxyServer.getInstance().getLogger().log(GLevel.Debug, "7");
-            EncodedKeySpec encodedKeySpec = new X509EncodedKeySpec( ByteStreams.toByteArray(Objects.requireNonNull(EncryptionUtil.class.getResourceAsStream("/yggdrasil_session_pubkey.der"))));
-            ProxyServer.getInstance().getLogger().log(GLevel.Debug, "8");
-            MOJANG_KEY = KeyFactory.getInstance( "RSA" ).generatePublic(encodedKeySpec);
+            MOJANG_KEY = KeyFactory.getInstance( "RSA" )
+                    .generatePublic(
+                            new X509EncodedKeySpec(
+                                    ByteStreams.toByteArray(
+                                            Objects.requireNonNull(
+                                                    EncryptionUtil.class
+                                                            .getResourceAsStream("/yggdrasil_session_pubkey.der")
+                                            )
+                                    )
+                            )
+                    );
         } catch ( IOException | NoSuchAlgorithmException | InvalidKeySpecException ex )
         {
             throw new ExceptionInInitializerError( ex );

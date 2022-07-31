@@ -1,6 +1,5 @@
 net\md_5\bungee\chat\SelectorComponentSerializer.class
 net\md_5\bungee\protocol\packet\LoginPayloadResponse.class
-net\md_5\bungee\MinestrumBungee$3.class
 net\md_5\bungee\entitymap\EntityMap_1_13.class
 net\md_5\bungee\protocol\packet\StatusRequest.class
 net\md_5\bungee\api\event\ServerConnectEvent$Reason.class
@@ -76,7 +75,6 @@ net\md_5\bungee\http\HttpInitializer.class
 net\md_5\bungee\api\chat\hover\content\ItemSerializer.class
 net\md_5\bungee\api\plugin\TabExecutor.class
 net\md_5\bungee\forge\ForgeClientHandshakeState$4.class
-net\md_5\bungee\MinestrumBungee$2.class
 net\md_5\bungee\util\BufUtil.class
 net\md_5\bungee\api\connection\Server.class
 net\md_5\bungee\jni\cipher\BungeeCipher.class
@@ -91,8 +89,8 @@ net\md_5\bungee\protocol\Property.class
 net\md_5\bungee\chat\TextComponentSerializer.class
 net\md_5\bungee\entitymap\EntityMap.class
 net\md_5\bungee\module\ModuleVersion.class
+net\md_5\bungee\Bungee$4.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$3.class
-net\md_5\bungee\MinestrumBungee.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry.class
 net\md_5\bungee\ConnectionThrottle$1.class
 net\md_5\bungee\netty\PipelineUtils.class
@@ -139,7 +137,6 @@ net\md_5\bungee\protocol\packet\PlayerListItem$1.class
 net\md_5\bungee\api\event\PluginMessageEvent.class
 net\md_5\bungee\UserConnection$1.class
 net\md_5\bungee\config\YamlConfiguration.class
-net\md_5\bungee\netty\ChannelWrapper$1.class
 net\md_5\bungee\protocol\packet\Respawn.class
 net\md_5\bungee\forge\ForgeUtils.class
 net\md_5\bungee\config\JsonConfiguration$1.class
@@ -149,7 +146,6 @@ net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$DummyType.class
 net\md_5\bungee\query\RemoteQuery.class
 net\md_5\bungee\api\connection\Connection$Unsafe.class
 net\md_5\bungee\protocol\packet\PlayerChat.class
-net\md_5\bungee\MinestrumBungee$4.class
 net\md_5\bungee\netty\cipher\CipherDecoder.class
 net\md_5\bungee\ServerConnection$1.class
 net\md_5\bungee\netty\PipelineUtils$Base.class
@@ -194,6 +190,7 @@ net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$4.class
 net\md_5\bungee\protocol\PlayerPublicKey.class
 net\md_5\bungee\jni\NativeCodeException.class
 net\md_5\bungee\protocol\packet\Team.class
+net\md_5\bungee\Bungee$3.class
 net\md_5\bungee\api\chat\TextComponent.class
 net\md_5\bungee\protocol\BadPacketException.class
 net\md_5\bungee\protocol\Varint21LengthFieldPrepender.class
@@ -229,7 +226,6 @@ net\md_5\bungee\api\event\ProxyPingEvent.class
 net\md_5\bungee\util\ChatComponentTransformer.class
 net\md_5\bungee\api\event\ServerSwitchEvent.class
 net\md_5\bungee\entitymap\EntityMap_1_15.class
-net\md_5\bungee\MinestrumBungee$1.class
 net\md_5\bungee\api\event\ServerDisconnectEvent.class
 net\md_5\bungee\api\scheduler\TaskScheduler$Unsafe.class
 net\md_5\bungee\chat\ComponentSerializer.class
@@ -256,12 +252,14 @@ net\md_5\bungee\chat\TranslationRegistry$ResourceBundleProvider.class
 net\md_5\bungee\netty\cipher\CipherEncoder.class
 net\md_5\bungee\protocol\PacketWrapper.class
 net\md_5\bungee\api\chat\ItemTag$Builder.class
+net\md_5\bungee\Bungee$2.class
 net\md_5\bungee\ServerConnection.class
 net\md_5\bungee\entitymap\EntityMap_1_16.class
 net\md_5\bungee\chat\TranslatableComponentSerializer.class
 net\md_5\bungee\protocol\Protocol$4.class
 net\md_5\bungee\protocol\Location.class
 net\md_5\bungee\protocol\MinecraftEncoder.class
+net\md_5\bungee\Bungee.class
 net\md_5\bungee\api\event\PlayerDisconnectEvent.class
 net\md_5\bungee\util\CaseInsensitiveMap.class
 net\md_5\bungee\config\YamlConfiguration$1.class
@@ -274,6 +272,7 @@ net\md_5\bungee\api\event\TargetedEvent.class
 net\md_5\bungee\api\plugin\Listener.class
 net\md_5\bungee\protocol\MinecraftDecoder.class
 net\md_5\bungee\api\connection\ProxiedPlayer$ChatMode.class
+net\md_5\bungee\Bungee$1.class
 net\md_5\bungee\BungeeServerInfo.class
 net\md_5\bungee\tab\TabList.class
 net\md_5\bungee\command\PlayerCommand$1.class

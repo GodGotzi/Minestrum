@@ -61,7 +61,7 @@ public class Metrics extends TimerTask
     {
         // Construct the post data
         final StringBuilder data = new StringBuilder();
-        data.append( encode( "guid" ) ).append( '=' ).append( encode( MinestrumBungee.getInstance().config.getUuid() ) );
+        data.append( encode( "guid" ) ).append( '=' ).append( encode( Bungee.getInstance().config.getUuid() ) );
         encodeDataPair( data, "version", ProxyServer.getInstance().getVersion() );
         encodeDataPair( data, "server", "0" );
         encodeDataPair( data, "players", Integer.toString( ProxyServer.getInstance().getOnlineCount() ) );

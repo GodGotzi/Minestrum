@@ -8,7 +8,7 @@ import io.netty.channel.Channel;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.ServerConnection.KeepAliveData;
 import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.Util;
@@ -47,9 +47,9 @@ public class UpstreamBridge extends PacketHandler
         this.bungee = bungee;
         this.con = con;
 
-        MinestrumBungee.getInstance().addConnection( con );
+        Bungee.getInstance().addConnection( con );
         con.getTabListHandler().onConnect();
-        con.unsafe().sendPacket( MinestrumBungee.getInstance().registerChannels( con.getPendingConnection().getVersion() ) );
+        con.unsafe().sendPacket( Bungee.getInstance().registerChannels( con.getPendingConnection().getVersion() ) );
     }
 
     @Override
@@ -65,7 +65,7 @@ public class UpstreamBridge extends PacketHandler
         PlayerDisconnectEvent event = new PlayerDisconnectEvent( con );
         bungee.getPluginManager().callEvent( event );
         con.getTabListHandler().onDisconnect();
-        MinestrumBungee.getInstance().removeConnection( con );
+        Bungee.getInstance().removeConnection( con );
 
         if ( con.getServer() != null )
         {
@@ -261,7 +261,7 @@ public class UpstreamBridge extends PacketHandler
             throw CancelSendSignal.INSTANCE;
         }
 
-        if ( MinestrumBungee.getInstance().config.isForgeSupport() )
+        if ( Bungee.getInstance().config.isForgeSupport() )
         {
             // Hack around Forge race conditions
             if ( pluginMessage.getTag().equals( "FML" ) && pluginMessage.getStream().readUnsignedByte() == 1 )

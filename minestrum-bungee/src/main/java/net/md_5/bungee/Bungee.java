@@ -13,7 +13,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelException;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -32,7 +31,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jline.console.ConsoleReader;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
@@ -60,7 +59,6 @@ import net.md_5.bungee.command.CommandEnd;
 import net.md_5.bungee.command.CommandIP;
 import net.md_5.bungee.command.CommandPerms;
 import net.md_5.bungee.command.CommandReload;
-import net.md_5.bungee.command.ConsoleCommandCompleter;
 import net.md_5.bungee.command.ConsoleCommandSender;
 import net.md_5.bungee.conf.Configuration;
 import net.md_5.bungee.conf.YamlConfig;
@@ -78,7 +76,7 @@ import org.fusesource.jansi.AnsiConsole;
 /**
  * Main BungeeCord proxy class.
  */
-public class MinestrumBungee extends ProxyServer {
+public class Bungee extends ProxyServer {
 
     /**
      * Current operation state.
@@ -156,13 +154,13 @@ public class MinestrumBungee extends ProxyServer {
         registerChannel( "BungeeCord" );
     }
 
-    public static MinestrumBungee getInstance()
+    public static Bungee getInstance()
     {
-        return (MinestrumBungee) ProxyServer.getInstance();
+        return (Bungee) ProxyServer.getInstance();
     }
 
     @SuppressFBWarnings("DM_DEFAULT_ENCODING")
-    public MinestrumBungee(Logger logger, Properties properties) throws IOException {
+    public Bungee(Logger logger, Properties properties) throws IOException {
         setInstance(this);
         this.logger = logger;
         this.properties = properties;
@@ -258,11 +256,8 @@ public class MinestrumBungee extends ProxyServer {
         } );
     }
 
-    public void startListeners()
-    {
-        for ( final ListenerInfo info : config.getListeners() )
-        {
-            getLogger().log(GLevel.Debug, info.toString());
+    public void startListeners() {
+        for ( final ListenerInfo info : config.getListeners() ) {
 
             if ( info.isProxyProtocol() )
             {
@@ -475,7 +470,7 @@ public class MinestrumBungee extends ProxyServer {
     @Override
     public String getVersion()
     {
-        return ( MinestrumBungee.class.getPackage().getImplementationVersion() == null ) ? "unknown" : MinestrumBungee.class.getPackage().getImplementationVersion();
+        return ( Bungee.class.getPackage().getImplementationVersion() == null ) ? "unknown" : Bungee.class.getPackage().getImplementationVersion();
     }
 
     public void reloadMessages()

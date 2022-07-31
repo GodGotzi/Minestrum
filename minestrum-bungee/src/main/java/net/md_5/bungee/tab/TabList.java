@@ -1,7 +1,7 @@
 package net.md_5.bungee.tab;
 
 import lombok.RequiredArgsConstructor;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.connection.LoginResult;
@@ -32,7 +32,7 @@ public abstract class TabList
             {
                 continue;
             }
-            UserConnection player = MinestrumBungee.getInstance().getPlayerByOfflineUUID( item.getUuid() );
+            UserConnection player = Bungee.getInstance().getPlayerByOfflineUUID( item.getUuid() );
             if ( player != null )
             {
                 item.setUuid( player.getUniqueId() );

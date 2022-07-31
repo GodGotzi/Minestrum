@@ -30,7 +30,7 @@ import java.net.SocketAddress;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import net.md_5.bungee.MinestrumBungee;
+import net.md_5.bungee.Bungee;
 import net.md_5.bungee.Util;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ListenerInfo;
@@ -53,14 +53,14 @@ public class PipelineUtils
         protected void initChannel(Channel ch) throws Exception {
             SocketAddress remoteAddress = (ch.remoteAddress() == null) ? ch.parent().localAddress() : ch.remoteAddress();
 
-            if (MinestrumBungee.getInstance().getConnectionThrottle() != null && MinestrumBungee.getInstance().getConnectionThrottle().throttle(remoteAddress)) {
+            if (Bungee.getInstance().getConnectionThrottle() != null && Bungee.getInstance().getConnectionThrottle().throttle(remoteAddress)) {
                 ch.close();
                 return;
             }
 
             ListenerInfo listener = ch.attr(LISTENER).get();
 
-            if (MinestrumBungee.getInstance().getPluginManager().callEvent(new ClientConnectEvent(remoteAddress, listener)).isCancelled()) {
+            if (Bungee.getInstance().getPluginManager().callEvent(new ClientConnectEvent(remoteAddress, listener)).isCancelled()) {
                 ch.close();
                 return;
             }
@@ -70,7 +70,7 @@ public class PipelineUtils
             ch.pipeline().addAfter(FRAME_DECODER, PACKET_DECODER, new MinecraftDecoder(Protocol.HANDSHAKE, true, ProxyServer.getInstance().getProtocolVersion()));
             ch.pipeline().addAfter(FRAME_PREPENDER, PACKET_ENCODER, new MinecraftEncoder(Protocol.HANDSHAKE, true, ProxyServer.getInstance().getProtocolVersion()));
             ch.pipeline().addBefore(FRAME_PREPENDER, LEGACY_KICKER, legacyKicker);
-            ch.pipeline().get(HandlerBoss.class).setHandler(new InitialHandler(MinestrumBungee.getInstance(), listener));
+            ch.pipeline().get(HandlerBoss.class).setHandler(new InitialHandler(Bungee.getInstance(), listener));
 
             if (listener.isProxyProtocol()) {
                 ch.pipeline().addFirst(new HAProxyMessageDecoder());
@@ -164,7 +164,7 @@ public class PipelineUtils
             ch.config().setWriteBufferWaterMark( MARK );
 
             ch.pipeline().addLast( FRAME_DECODER, new Varint21FrameDecoder() );
-            ch.pipeline().addLast( TIMEOUT_HANDLER, new ReadTimeoutHandler( MinestrumBungee.getInstance().config.getTimeout(), TimeUnit.MILLISECONDS ) );
+            ch.pipeline().addLast( TIMEOUT_HANDLER, new ReadTimeoutHandler( Bungee.getInstance().config.getTimeout(), TimeUnit.MILLISECONDS ) );
             ch.pipeline().addLast( FRAME_PREPENDER, framePrepender );
 
             ch.pipeline().addLast( BOSS_HANDLER, new HandlerBoss() );
