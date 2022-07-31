@@ -1,6 +1,5 @@
 package net.md_5.bungee.conf;
 
-import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Preconditions;
 import gnu.trove.map.TMap;
 import java.io.File;
@@ -9,7 +8,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import lombok.Getter;

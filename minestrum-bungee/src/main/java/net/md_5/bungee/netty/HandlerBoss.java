@@ -1,6 +1,5 @@
 package net.md_5.bungee.netty;
 
-import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Preconditions;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

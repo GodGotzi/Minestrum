@@ -1,12 +1,21 @@
 package at.gotzi.minestrum;
 
+import at.gotzi.api.GHelper;
 import at.gotzi.api.ano.Comment;
+import at.gotzi.api.command.CommandHandler;
 import at.gotzi.api.logging.GLevel;
 import at.gotzi.api.logging.GLogger;
 import at.gotzi.minestrum.api.ArgumentStartable;
 import at.gotzi.minestrum.utils.ShutdownTimer;
+import jline.console.ConsoleReader;
+import org.fusesource.jansi.AnsiConsole;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public abstract class Application  implements ArgumentStartable<String[]> {
@@ -14,17 +23,25 @@ public abstract class Application  implements ArgumentStartable<String[]> {
     public static boolean DEBUG;
 
     private final Logger logger;
-    protected Properties properties;
+    private final List<ConsoleReader> consoleReaders;
+
+    private CommandHandler commandHandler;
+
+    private Properties properties;
     private String[] args;
 
     @Comment.Constructor
     public Application() {
+        System.setProperty( "library.jansi.version", "BungeeCord" );
+        AnsiConsole.systemInstall();
         this.logger = GLogger.getDefaultGotziLogger("main", true, true);
+        GHelper.LOGGER = (GLogger) this.logger;
+        this.consoleReaders = new ArrayList<>();
     }
 
     @Comment.Init
     @Override
-    public void start(String[] strings) {
+    public void start(String[] strings) throws IOException {
         final InputStream propertyStream = getClass().getClassLoader().getResourceAsStream("core.properties");
 
         this.logger.log(GLevel.Info, "Starting... Minestrum");
@@ -49,6 +66,14 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         this.logProperties();
 
         Application.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
+        ((GLogger)this.logger).setDebug(Application.DEBUG);
+
+        this.logger.log(GLevel.Info, "Loading CommandHandler");
+        Scanner scanner = new Scanner(System.in);
+        this.commandHandler = new CommandHandler(scanner::nextLine, ' ');
+
+        this.logger.log(GLevel.Info, "Loading ConsoleReader");
+
         this.start();
     }
 
@@ -73,5 +98,21 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         return logger;
     }
 
-    public abstract void start();
+    public List<ConsoleReader> getConsoleReaders() {
+        return consoleReaders;
+    }
+
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
+    }
+
+    public String[] getArgs() {
+        return args;
+    }
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public abstract void start() throws IOException;
 }

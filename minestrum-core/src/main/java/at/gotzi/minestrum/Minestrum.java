@@ -57,8 +57,8 @@ public class Minestrum extends Application {
         this.getLogger().log(GLevel.Important, "ErrorHandler ready!");
 
         try {
-            BungeeFile.setFolder(this.properties.getProperty("bungee_dir"));
-            this.bungee = new Bungee(this.getLogger(), this.properties);
+            BungeeFile.setFolder(this.getProperties().getProperty("bungee_dir"));
+            this.bungee = new Bungee(this.getLogger(), this.getProperties());
             this.bungee.start();
         } catch (Exception e) {
             this.errorHandler.registerError(new ErrorView("failed while starting Proxy", e));
@@ -80,7 +80,7 @@ public class Minestrum extends Application {
     }
 
     private void loadFolders() {
-        GHelper.initDir(this.properties.getProperty("bungee_dir"));
+        GHelper.initDir(this.getProperties().getProperty("bungee_dir"));
     }
 
     @Comment.Getter

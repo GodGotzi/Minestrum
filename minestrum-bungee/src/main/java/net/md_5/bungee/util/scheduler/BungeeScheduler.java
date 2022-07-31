@@ -1,4 +1,4 @@
-package net.md_5.bungee.scheduler;
+package net.md_5.bungee.util.scheduler;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
@@ -9,7 +9,6 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -21,18 +20,10 @@ public class BungeeScheduler implements TaskScheduler
 
     private final Object lock = new Object();
     private final AtomicInteger taskCounter = new AtomicInteger();
-    private final TIntObjectMap<BungeeTask> tasks = TCollections.synchronizedMap( new TIntObjectHashMap<BungeeTask>() );
+    private final TIntObjectMap<BungeeTask> tasks = TCollections.synchronizedMap(new TIntObjectHashMap<>() );
     private final Multimap<Plugin, BungeeTask> tasksByPlugin = Multimaps.synchronizedMultimap( HashMultimap.<Plugin, BungeeTask>create() );
     //
-    private final Unsafe unsafe = new Unsafe()
-    {
-
-        @Override
-        public ExecutorService getExecutorService(Plugin plugin)
-        {
-            return plugin.getExecutorService();
-        }
-    };
+    private final Unsafe unsafe = Plugin::getExecutorService;
 
     @Override
     public void cancel(int id)

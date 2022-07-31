@@ -1,4 +1,4 @@
-package net.md_5.bungee.scheduler;
+package net.md_5.bungee.util.scheduler;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;

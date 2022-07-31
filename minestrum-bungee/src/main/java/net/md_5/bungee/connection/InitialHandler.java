@@ -1,6 +1,5 @@
 package net.md_5.bungee.connection;
 
-import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;

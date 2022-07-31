@@ -1,6 +1,5 @@
 package net.md_5.bungee;
 
-import at.gotzi.api.logging.GLevel;
 import com.google.common.io.ByteStreams;
 import com.google.common.primitives.Longs;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.Signature;
-import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
@@ -24,7 +22,6 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.Getter;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.jni.NativeCode;
 import net.md_5.bungee.jni.cipher.BungeeCipher;
 import net.md_5.bungee.jni.cipher.JavaCipher;

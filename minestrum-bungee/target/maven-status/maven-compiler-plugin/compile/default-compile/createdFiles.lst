@@ -27,7 +27,6 @@ net\md_5\bungee\protocol\AbstractPacketHandler.class
 net\md_5\bungee\UserConnection.class
 net\md_5\bungee\http\HttpClient$1.class
 net\md_5\bungee\connection\InitialHandler$3.class
-net\md_5\bungee\command\PlayerCommand$2.class
 net\md_5\bungee\protocol\packet\ViewDistance.class
 net\md_5\bungee\protocol\ProtocolConstants$Direction.class
 net\md_5\bungee\PlayerSkinConfiguration.class
@@ -113,7 +112,6 @@ net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$ProperArgumentSerializ
 net\md_5\bungee\api\plugin\PluginDescription.class
 net\md_5\bungee\entitymap\EntityMap_1_8.class
 net\md_5\bungee\api\ServerPing$PlayerInfo.class
-net\md_5\bungee\scheduler\BungeeScheduler.class
 net\md_5\bungee\command\CommandPerms.class
 net\md_5\bungee\forge\ForgeClientHandshakeState$5.class
 net\md_5\bungee\protocol\Protocol$1.class
@@ -124,7 +122,6 @@ net\md_5\bungee\api\event\ChatEvent.class
 net\md_5\bungee\entitymap\EntityMap_1_12_1.class
 net\md_5\bungee\connection\InitialHandler$State.class
 net\md_5\bungee\api\chat\hover\content\TextSerializer.class
-net\md_5\bungee\command\ConsoleCommandSender.class
 net\md_5\bungee\protocol\packet\PlayerListHeaderFooter.class
 net\md_5\bungee\api\score\Scoreboard.class
 net\md_5\bungee\forge\ForgeConstants.class
@@ -208,7 +205,6 @@ net\md_5\bungee\netty\HandlerBoss.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$ArgumentSerializer.class
 net\md_5\bungee\api\event\ServerConnectedEvent.class
 net\md_5\bungee\api\config\ListenerInfo.class
-net\md_5\bungee\scheduler\BungeeTask.class
 net\md_5\bungee\BungeeTitle.class
 net\md_5\bungee\jni\zlib\JavaZlib.class
 net\md_5\bungee\api\CommandSender.class
@@ -275,7 +271,6 @@ net\md_5\bungee\api\connection\ProxiedPlayer$ChatMode.class
 net\md_5\bungee\Bungee$1.class
 net\md_5\bungee\BungeeServerInfo.class
 net\md_5\bungee\tab\TabList.class
-net\md_5\bungee\command\PlayerCommand$1.class
 net\md_5\bungee\api\AbstractReconnectHandler.class
 net\md_5\bungee\api\event\ProxyReloadEvent.class
 net\md_5\bungee\protocol\packet\PluginMessage.class
@@ -309,7 +304,6 @@ net\md_5\bungee\protocol\packet\EncryptionResponse.class
 net\md_5\bungee\connection\DownstreamBridge.class
 net\md_5\bungee\protocol\packet\LoginPayloadRequest.class
 net\md_5\bungee\protocol\packet\ScoreboardObjective$HealthDisplay.class
-net\md_5\bungee\command\ConsoleCommandCompleter.class
 net\md_5\bungee\forge\ForgeLogger.class
 net\md_5\bungee\protocol\packet\Subtitle.class
 net\md_5\bungee\api\config\ConfigurationAdapter.class
@@ -326,7 +320,6 @@ net\md_5\bungee\api\ChatColor.class
 net\md_5\bungee\jni\cipher\NativeCipherImpl.class
 net\md_5\bungee\jni\zlib\NativeZlib.class
 net\md_5\bungee\api\scheduler\GroupedThreadFactory$BungeeGroup.class
-net\md_5\bungee\scheduler\BungeeScheduler$1.class
 net\md_5\bungee\api\Favicon.class
 net\md_5\bungee\forge\ForgeClientHandler.class
 net\md_5\bungee\api\SkinConfiguration.class

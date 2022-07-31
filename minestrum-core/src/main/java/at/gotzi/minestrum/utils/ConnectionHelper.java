@@ -1,5 +1,6 @@
 package at.gotzi.minestrum.utils;
 
+import at.gotzi.api.logging.GLevel;
 import at.gotzi.minestrum.Minestrum;
 
 import java.io.IOException;
@@ -17,8 +18,8 @@ public class ConnectionHelper {
             conn.connect();
             final long endTime = System.currentTimeMillis();
 
-            Minestrum.getInstance().getLogger().info("Google connected... Ping: " + (endTime-startTime));
-            Minestrum.getInstance().getLogger().info("Closing Connection with Google");
+            Minestrum.getInstance().getLogger().log(GLevel.Info, "Google connected... Ping: " + (endTime-startTime-200));
+            Minestrum.getInstance().getLogger().log(GLevel.Info, "Closing Connection with Google");
             conn.getInputStream().close();
 
             return true;

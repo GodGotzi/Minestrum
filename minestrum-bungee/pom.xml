@@ -38,6 +38,7 @@
             <version>1.0.18</version>
             <scope>compile</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jboss.jbossas/jboss-as-console -->
         <dependency>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>

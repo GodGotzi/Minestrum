@@ -59,7 +59,6 @@ import net.md_5.bungee.command.CommandEnd;
 import net.md_5.bungee.command.CommandIP;
 import net.md_5.bungee.command.CommandPerms;
 import net.md_5.bungee.command.CommandReload;
-import net.md_5.bungee.command.ConsoleCommandSender;
 import net.md_5.bungee.conf.Configuration;
 import net.md_5.bungee.conf.YamlConfig;
 import net.md_5.bungee.forge.ForgeConstants;
@@ -69,9 +68,8 @@ import net.md_5.bungee.protocol.DefinedPacket;
 import net.md_5.bungee.protocol.ProtocolConstants;
 import net.md_5.bungee.protocol.packet.PluginMessage;
 import net.md_5.bungee.query.RemoteQuery;
-import net.md_5.bungee.scheduler.BungeeScheduler;
+import net.md_5.bungee.util.scheduler.BungeeScheduler;
 import net.md_5.bungee.util.CaseInsensitiveMap;
-import org.fusesource.jansi.AnsiConsole;
 
 /**
  * Main BungeeCord proxy class.
@@ -177,18 +175,6 @@ public class Bungee extends ProxyServer {
             baseBundle = ResourceBundle.getBundle( "messages", Locale.ENGLISH );
         }
         reloadMessages();
-
-        // This is a workaround for quite possibly the weirdest bug I have ever encountered in my life!
-        // When jansi attempts to extract its natives, by default it tries to extract a specific version,
-        // using the loading class's implementation version. Normally this works completely fine,
-        // however when on Windows certain characters such as - and : can trigger special behaviour.
-        // Furthermore this behaviour only occurs in specific combinations due to the parsing done by jansi.
-        // For example test-test works fine, but test-test-test does not! In order to avoid this all together but
-        // still keep our versions the same as they were, we set the override property to the essentially garbage version
-        // BungeeCord. This version is only used when extracting the libraries to their temp folder.
-        System.setProperty( "library.jansi.version", "BungeeCord" );
-
-        AnsiConsole.systemInstall();
 
         pluginManager = new PluginManager( this );
         getPluginManager().registerCommand( null, new CommandReload() );
@@ -380,7 +366,7 @@ public class Bungee extends ProxyServer {
         try
         {
             Thread.sleep( 500 );
-        } catch ( InterruptedException ex )
+        } catch ( InterruptedException ignored)
         {
         }
 
@@ -489,27 +475,21 @@ public class Bungee extends ProxyServer {
     }
 
     @Override
-    public String getTranslation(String name, Object... args)
-    {
+    public String getTranslation(String name, Object... args) {
         String translation = "<translation '" + name + "' missing>";
-        try
-        {
+        try {
             translation = MessageFormat.format( customBundle != null && customBundle.containsKey( name ) ? customBundle.getString( name ) : baseBundle.getString( name ), args );
-        } catch ( MissingResourceException ex )
-        {
-            getLogger().log(GLevel.Debug, "Fuck");
+        } catch ( MissingResourceException ignored) {
         }
         return translation;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public Collection<ProxiedPlayer> getPlayers()
-    {
+    public Collection<ProxiedPlayer> getPlayers() {
         connectionLock.readLock().lock();
         try
         {
-            return Collections.unmodifiableCollection( new HashSet( connections.values() ) );
+            return Collections.unmodifiableCollection( new HashSet<>( connections.values() ) );
         } finally
         {
             connectionLock.readLock().unlock();
@@ -628,9 +608,9 @@ public class Bungee extends ProxyServer {
     }
 
     @Override
-    public CommandSender getConsole()
-    {
-        return ConsoleCommandSender.getInstance();
+    @Deprecated
+    public CommandSender getConsole() {
+        return null;
     }
 
     @Override
@@ -640,9 +620,8 @@ public class Bungee extends ProxyServer {
     }
 
     @Override
-    public void broadcast(BaseComponent... message)
-    {
-        getConsole().sendMessage( BaseComponent.toLegacyText( message ) );
+    public void broadcast(BaseComponent... message) {
+        getLogger().log(GLevel.Info, BaseComponent.toLegacyText( message ));
         for ( ProxiedPlayer player : getPlayers() )
         {
             player.sendMessage( message );
@@ -652,9 +631,8 @@ public class Bungee extends ProxyServer {
     @Override
     public void broadcast(BaseComponent message)
     {
-        getConsole().sendMessage( message.toLegacyText() );
-        for ( ProxiedPlayer player : getPlayers() )
-        {
+        getLogger().log(GLevel.Info, BaseComponent.toLegacyText( message ));
+        for ( ProxiedPlayer player : getPlayers() ) {
             player.sendMessage( message );
         }
     }
