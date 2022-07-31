@@ -3,9 +3,12 @@ package at.gotzi.minestrum;
 import at.gotzi.api.GHelper;
 import at.gotzi.api.ano.Comment;
 import at.gotzi.api.command.CommandHandler;
-import at.gotzi.api.logging.GLevel;
-import at.gotzi.api.logging.GLogger;
+import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.template.logging.GLogger;
+import at.gotzi.minestrum.task.AsyncTaskHandler;
 import at.gotzi.minestrum.api.ArgumentStartable;
+import at.gotzi.minestrum.task.MinestrumTaskHandler;
+import at.gotzi.minestrum.task.Task;
 import at.gotzi.minestrum.utils.ShutdownTimer;
 import jline.console.ConsoleReader;
 import org.fusesource.jansi.AnsiConsole;
@@ -24,7 +27,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
 
     private final Logger logger;
     private final List<ConsoleReader> consoleReaders;
-
+    private final AsyncTaskHandler taskHandler;
     private CommandHandler commandHandler;
 
     private Properties properties;
@@ -36,7 +39,10 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         AnsiConsole.systemInstall();
         this.logger = GLogger.getDefaultGotziLogger("main", true, true);
         GHelper.LOGGER = (GLogger) this.logger;
+
         this.consoleReaders = new ArrayList<>();
+        this.taskHandler = new MinestrumTaskHandler();
+
     }
 
     @Comment.Init
@@ -68,13 +74,18 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         Application.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
         ((GLogger)this.logger).setDebug(Application.DEBUG);
 
-        this.logger.log(GLevel.Info, "Loading CommandHandler");
-        Scanner scanner = new Scanner(System.in);
-        this.commandHandler = new CommandHandler(scanner::nextLine, ' ');
+        Task task = new Task("cmd-handler", this::startCommandHandler);
+        this.taskHandler.runTask(task);
 
         this.logger.log(GLevel.Info, "Loading ConsoleReader");
 
         this.start();
+    }
+
+    private void startCommandHandler() {
+        this.logger.log(GLevel.Info, "Loading CommandHandler");
+        Scanner scanner = new Scanner(System.in);
+        this.commandHandler = new CommandHandler(scanner::nextLine, ' ');
     }
 
     private void logProperties() {
@@ -104,6 +115,10 @@ public abstract class Application  implements ArgumentStartable<String[]> {
 
     public CommandHandler getCommandHandler() {
         return commandHandler;
+    }
+
+    public AsyncTaskHandler getTaskHandler() {
+        return taskHandler;
     }
 
     public String[] getArgs() {

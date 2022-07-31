@@ -74,8 +74,7 @@ public class BungeeScheduler implements TaskScheduler
     }
 
     @Override
-    public ScheduledTask schedule(Plugin owner, Runnable task, long delay, TimeUnit unit)
-    {
+    public ScheduledTask schedule(Plugin owner, Runnable task, long delay, TimeUnit unit) {
         return schedule( owner, task, delay, 0, unit );
     }
 

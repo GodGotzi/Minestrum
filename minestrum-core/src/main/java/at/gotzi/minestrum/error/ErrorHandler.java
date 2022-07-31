@@ -1,8 +1,8 @@
 package at.gotzi.minestrum.error;
 
 import at.gotzi.api.ano.Comment;
-import at.gotzi.api.logging.GLevel;
-import at.gotzi.api.logging.GLogger;
+import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.template.logging.GLogger;
 import at.gotzi.minestrum.Minestrum;
 
 import java.io.File;

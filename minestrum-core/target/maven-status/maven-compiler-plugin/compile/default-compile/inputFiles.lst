@@ -1,7 +1,11 @@
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\email\EmailErrorHandler.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\api\Bot.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\api\Process.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\task\Task.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\task\TaskModeFactory.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\MinestrumLoader.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\task\AsyncTaskHandler.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\task\MinestrumThread.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\api\Loader.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\error\ErrorView.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\Application.java
@@ -12,6 +16,7 @@ C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\discord\DiscordBot.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\Minestrum.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\utils\ShutdownTimer.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\task\MinestrumTaskHandler.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\api\Loadable.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\error\ErrorHandler.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\at\gotzi\minestrum\utils\ConnectionHelper.java

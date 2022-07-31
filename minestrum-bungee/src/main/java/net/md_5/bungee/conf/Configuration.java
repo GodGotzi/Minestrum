@@ -141,7 +141,7 @@ public class Configuration implements ProxyConfig
             {
                 if ( !servers.containsKey( server ) )
                 {
-                    ProxyServer.getInstance().getLogger().log( Level.WARNING, "Forced host server {0} is not defined", server );
+                    ProxyServer.getInstance().getLogger().log( Level.WARNING, "Forced host server {0} is not defined", server); //TODO what is this?
                 }
             }
         }

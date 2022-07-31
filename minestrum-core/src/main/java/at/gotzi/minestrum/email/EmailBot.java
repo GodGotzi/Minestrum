@@ -1,6 +1,6 @@
 package at.gotzi.minestrum.email;
 
-import at.gotzi.api.logging.GDefaultFormatter;
+import at.gotzi.api.template.logging.GDefaultFormatter;
 import at.gotzi.minestrum.Minestrum;
 import at.gotzi.minestrum.api.Bot;
 import at.gotzi.minestrum.utils.PropertyHelper;

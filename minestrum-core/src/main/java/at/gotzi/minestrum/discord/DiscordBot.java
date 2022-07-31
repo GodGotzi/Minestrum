@@ -1,8 +1,8 @@
 package at.gotzi.minestrum.discord;
 
-import at.gotzi.api.logging.GDefaultFormatter;
-import at.gotzi.api.logging.GLevel;
-import at.gotzi.api.logging.GLogger;
+import at.gotzi.api.template.logging.GDefaultFormatter;
+import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.template.logging.GLogger;
 import at.gotzi.minestrum.Minestrum;
 import at.gotzi.minestrum.api.Bot;
 import at.gotzi.minestrum.utils.PropertyHelper;
