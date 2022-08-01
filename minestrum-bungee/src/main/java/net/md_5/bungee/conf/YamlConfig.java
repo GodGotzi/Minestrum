@@ -1,5 +1,6 @@
 package net.md_5.bungee.conf;
 
+import at.gotzi.api.template.logging.GLevel;
 import com.google.common.base.Charsets;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -182,7 +183,7 @@ public class YamlConfig implements ConfigurationAdapter
             }
         } catch ( IOException ex )
         {
-            ProxyServer.getInstance().getLogger().log( Level.WARNING, "Could not save config", ex );
+            ProxyServer.getInstance().getLogger().log(GLevel.Warning, "Could not save config", ex );
         }
     }
 

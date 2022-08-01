@@ -1,5 +1,6 @@
 package net.md_5.bungee;
 
+import at.gotzi.api.template.logging.GLevel;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import io.netty.bootstrap.Bootstrap;
@@ -393,7 +394,7 @@ public final class UserConnection implements ProxiedPlayer
     {
         if ( !ch.isClosing() )
         {
-            bungee.getLogger().log( Level.INFO, "[{0}] disconnected with: {1}", new Object[]
+            bungee.getLogger().log(GLevel.Info, "[{0}] disconnected with: {1}", new Object[]
             {
                 getName(), BaseComponent.toLegacyText( reason )
             } );

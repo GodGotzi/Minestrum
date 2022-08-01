@@ -1,6 +1,8 @@
 package net.md_5.bungee.forge;
 
 import java.util.logging.Level;
+
+import at.gotzi.api.template.logging.GLevel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.Bungee;
@@ -21,7 +23,7 @@ final class ForgeLogger
     {
         String dir = direction == LogDirection.SENDING ? "Client -> Bungee" : "Client <- Bungee";
         String log = "[" + stateName + " " + dir + "][" + direction.name() + ": " + getNameFromDiscriminator( message.getTag(), message ) + "]";
-        Bungee.getInstance().getLogger().log( Level.FINE, log );
+        Bungee.getInstance().getLogger().log(Level.FINE, log );
     }
 
     private static String getNameFromDiscriminator(String channel, PluginMessage message)

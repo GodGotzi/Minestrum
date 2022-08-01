@@ -1,5 +1,6 @@
 package net.md_5.bungee.connection;
 
+import at.gotzi.api.template.logging.GLevel;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
@@ -180,7 +181,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
             if ( error != null )
             {
                 result = getPingInfo( bungee.getTranslation( "ping_cannot_connect" ), protocol );
-                bungee.getLogger().log( Level.WARNING, "Error pinging remote server", error );
+                bungee.getLogger().log(GLevel.Warning, "Error pinging remote server", error );
             }
 
             Callback<ProxyPingEvent> callback = (result1, error1) -> {
@@ -252,7 +253,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                 if ( error != null )
                 {
                     result = getPingInfo( bungee.getTranslation( "ping_cannot_connect" ), protocol );
-                    bungee.getLogger().log( Level.WARNING, "Error pinging remote server", error );
+                    bungee.getLogger().log( GLevel.Warning, "Error pinging remote server", error );
                 }
 
                 Callback<ProxyPingEvent> callback = new Callback<ProxyPingEvent>()
@@ -327,14 +328,14 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                 // Ping
                 if ( bungee.getConfig().isLogPings() )
                 {
-                    bungee.getLogger().log( Level.INFO, "{0} has pinged", this );
+                    bungee.getLogger().log( GLevel.Info, "{0} has pinged", this );
                 }
                 thisState = State.STATUS;
                 ch.setProtocol( Protocol.STATUS );
                 break;
             case 2:
                 // Login
-                bungee.getLogger().log( Level.INFO, "{0} has connected", this );
+                bungee.getLogger().log( GLevel.Info, "{0} has connected", this );
                 thisState = State.USERNAME;
                 ch.setProtocol( Protocol.LOGIN );
 

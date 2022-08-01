@@ -233,12 +233,12 @@ public class Bungee extends ProxyServer {
 
             if ( info.isProxyProtocol() )
             {
-                getLogger().log( Level.WARNING, "Using PROXY protocol for listener {0}, please ensure this listener is adequately firewalled.", info.getSocketAddress() );
+                getLogger().log( GLevel.Warning, "Using PROXY protocol for listener {0}, please ensure this listener is adequately firewalled.", info.getSocketAddress() );
 
                 if ( connectionThrottle != null )
                 {
                     connectionThrottle = null;
-                    getLogger().log( Level.WARNING, "Since PROXY protocol is in use, internal connection throttle has been disabled." );
+                    getLogger().log( GLevel.Warning, "Since PROXY protocol is in use, internal connection throttle has been disabled." );
                 }
             }
 
@@ -246,10 +246,10 @@ public class Bungee extends ProxyServer {
                 if ( future.isSuccess() )
                 {
                     listeners.add( future.channel() );
-                    getLogger().log( Level.INFO, "Listening on {0}", info.getSocketAddress());
+                    getLogger().log( GLevel.Info, "Listening on {0}", info.getSocketAddress());
                 } else
                 {
-                    getLogger().log( Level.WARNING, "Could not bind to host " + info.getSocketAddress(), future.cause() );
+                    getLogger().log( GLevel.Warning, "Could not bind to host " + info.getSocketAddress(), future.cause() );
                 }
             };
 
@@ -269,10 +269,10 @@ public class Bungee extends ProxyServer {
                     if ( future.isSuccess() )
                     {
                         listeners.add( future.channel() );
-                        getLogger().log( Level.INFO, "Started query on " + future.channel().localAddress() );
+                        getLogger().log( GLevel.Info, "Started query on " + future.channel().localAddress() );
                     } else
                     {
-                        getLogger().log( Level.WARNING, "Could not bind to host " + info.getSocketAddress(), future.cause() );
+                        getLogger().log( GLevel.Warning, "Could not bind to host " + info.getSocketAddress(), future.cause() );
                     }
                 };
                 new RemoteQuery( this, info ).start( PipelineUtils.getDatagramChannel(), new InetSocketAddress( info.getHost().getAddress(), info.getQueryPort() ), eventLoops, bindListener );
@@ -284,7 +284,7 @@ public class Bungee extends ProxyServer {
     {
         for ( Channel listener : listeners )
         {
-            getLogger().log( Level.INFO, "Closing listener {0}", listener );
+            getLogger().log( GLevel.Info, "Closing listener {0}", listener );
             try
             {
                 listener.close().syncUninterruptibly();
@@ -331,7 +331,7 @@ public class Bungee extends ProxyServer {
         connectionLock.readLock().lock();
         try
         {
-            getLogger().log( Level.INFO, "Disconnecting {0} connections", connections.size() );
+            getLogger().log( GLevel.Info, "Disconnecting {0} connections", connections.size() );
             for ( UserConnection user : connections.values() )
             {
                 user.disconnect( reason );
@@ -411,7 +411,7 @@ public class Bungee extends ProxyServer {
                 customBundle = new PropertyResourceBundle( rd );
             } catch ( IOException ex )
             {
-                getLogger().log( Level.SEVERE, "Could not load custom messages.properties", ex );
+                getLogger().log( GLevel.Warning, "Could not load custom messages.properties", ex );
             }
         }
     }
