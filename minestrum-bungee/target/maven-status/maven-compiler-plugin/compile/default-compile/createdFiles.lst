@@ -135,7 +135,6 @@ net\md_5\bungee\UserConnection$1.class
 net\md_5\bungee\config\YamlConfiguration.class
 net\md_5\bungee\protocol\packet\Respawn.class
 net\md_5\bungee\forge\ForgeUtils.class
-net\md_5\bungee\config\JsonConfiguration$1.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$1.class
 net\md_5\bungee\forge\ForgeClientHandshakeState$6.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$DummyType.class

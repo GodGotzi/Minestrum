@@ -22,23 +22,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class JsonConfiguration extends ConfigurationProvider
-{
+public class JsonConfiguration extends ConfigurationProvider {
 
-    private final Gson json = new GsonBuilder().serializeNulls().setPrettyPrinting().registerTypeAdapter( Configuration.class, new JsonSerializer<Configuration>()
-    {
-        @Override
-        public JsonElement serialize(Configuration src, Type typeOfSrc, JsonSerializationContext context)
-        {
-            return context.serialize( ( (Configuration) src ).self );
-        }
-    } ).create();
+    private final Gson json = new GsonBuilder().serializeNulls().setPrettyPrinting().registerTypeAdapter( Configuration.class, (JsonSerializer<Configuration>) (src, typeOfSrc, context) -> context.serialize( ( (Configuration) src ).self )).create();
 
     @Override
-    public void save(Configuration config, File file) throws IOException
-    {
-        try ( Writer writer = new OutputStreamWriter( new FileOutputStream( file ), Charsets.UTF_8 ) )
-        {
+    public void save(Configuration config, File file) throws IOException {
+        try ( Writer writer = new OutputStreamWriter( new FileOutputStream( file ), Charsets.UTF_8 ) ) {
             save( config, writer );
         }
     }
@@ -102,8 +92,7 @@ public class JsonConfiguration extends ConfigurationProvider
 
     @Override
     @SuppressWarnings("unchecked")
-    public Configuration load(String string, Configuration defaults)
-    {
+    public Configuration load(String string, Configuration defaults) {
         Map<String, Object> map = json.fromJson( string, LinkedHashMap.class );
         if ( map == null )
         {

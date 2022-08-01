@@ -2,13 +2,14 @@ package at.gotzi.minestrum.commands;
 
 import at.gotzi.api.command.GCommand;
 import at.gotzi.api.command.GCommandContext;
+import at.gotzi.api.template.logging.GLevel;
 import at.gotzi.minestrum.Minestrum;
 
-public class StopCommand extends GCommand {
+public class VersionCommand extends GCommand {
 
     private final Minestrum minestrum;
 
-    public StopCommand(String label, Minestrum minestrum) {
+    public VersionCommand(String label, Minestrum minestrum) {
         super(label);
 
         this.minestrum = minestrum;
@@ -20,7 +21,9 @@ public class StopCommand extends GCommand {
         setNativeAction(this::nativeAction);
     }
 
-    private void nativeAction(GCommandContext commandContext) {
-        minestrum.stop();
+    private void nativeAction(GCommandContext gCommandContext) {
+        String version = this.minestrum.getProperties().getProperty("version");
+        getCommandLogger().log(GLevel.Info, "Version: {0}", version);
+
     }
 }

@@ -18,8 +18,7 @@ import lombok.ToString;
 import net.md_5.bungee.api.ProxyServer;
 
 @ToString(of = "desc")
-final class PluginClassloader extends URLClassLoader
-{
+final class PluginClassloader extends URLClassLoader {
 
     private static final Set<PluginClassloader> allLoaders = new CopyOnWriteArraySet<>();
     //

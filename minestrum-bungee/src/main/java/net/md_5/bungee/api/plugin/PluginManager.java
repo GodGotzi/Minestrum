@@ -43,8 +43,7 @@ import org.yaml.snakeyaml.introspector.PropertyUtils;
  * example event handling and plugin management.
  */
 @RequiredArgsConstructor
-public final class PluginManager
-{
+public final class PluginManager {
 
     /*========================================================================*/
     private final ProxyServer proxy;
@@ -58,9 +57,7 @@ public final class PluginManager
     private final Multimap<Plugin, Command> commandsByPlugin = ArrayListMultimap.create();
     private final Multimap<Plugin, Listener> listenersByPlugin = ArrayListMultimap.create();
 
-    @SuppressWarnings("unchecked")
-    public PluginManager(ProxyServer proxy)
-    {
+    public PluginManager(ProxyServer proxy) {
         this.proxy = proxy;
 
         // Ignore unknown entries in the plugin descriptions

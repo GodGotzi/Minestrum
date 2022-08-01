@@ -1,7 +1,6 @@
 package net.md_5.bungee;
 
 import at.gotzi.api.template.logging.GLevel;
-import at.gotzi.minestrum.Minestrum;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -60,7 +59,6 @@ import net.md_5.bungee.command.CommandPerms;
 import net.md_5.bungee.command.CommandReload;
 import net.md_5.bungee.conf.Configuration;
 import net.md_5.bungee.conf.YamlConfig;
-import net.md_5.bungee.forge.ForgeConstants;
 import net.md_5.bungee.module.ModuleManager;
 import net.md_5.bungee.netty.PipelineUtils;
 import net.md_5.bungee.protocol.DefinedPacket;
@@ -174,8 +172,6 @@ public class Bungee extends ProxyServer {
             baseBundle = ResourceBundle.getBundle( "messages", Locale.ENGLISH );
         }
         reloadMessages();
-
-        Minestrum.getInstance().getLogger().log(GLevel.Debug, "test");
 
         pluginManager = new PluginManager( this );
     }

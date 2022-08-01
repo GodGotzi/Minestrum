@@ -4,6 +4,7 @@ import at.gotzi.api.GHelper;
 import at.gotzi.api.ano.Comment;
 import at.gotzi.api.template.logging.GLevel;
 import at.gotzi.minestrum.commands.StopCommand;
+import at.gotzi.minestrum.commands.VersionCommand;
 import at.gotzi.minestrum.email.EmailBot;
 import at.gotzi.minestrum.error.ErrorHandler;
 import at.gotzi.minestrum.discord.DiscordBot;
@@ -91,6 +92,7 @@ public class Minestrum extends Application {
 
     private void registerCommands() {
         getCommandHandler().registerCommand(new StopCommand("stop", this));
+        getCommandHandler().registerCommand(new VersionCommand("version", this));
     }
 
     public Bungee getBungee() {

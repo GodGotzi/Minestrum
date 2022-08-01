@@ -23,7 +23,7 @@ public class MinestrumTaskHandler implements AsyncTaskHandler, Register<Task> {
     public void runDelayedTask(Task task, long millis) {
         this.register(task);
 
-        MinestrumThread minestrumThread = new MinestrumThread(task::run) {
+        MinestrumThread minestrumThread = new MinestrumThread(task::run, task.getName()) {
             @Override
             public void tryStop() {
                 unregister(task);
@@ -38,7 +38,7 @@ public class MinestrumTaskHandler implements AsyncTaskHandler, Register<Task> {
     public void runTask(Task task) {
         this.register(task);
 
-        MinestrumThread minestrumThread = new MinestrumThread(task::run) {
+        MinestrumThread minestrumThread = new MinestrumThread(task::run, task.getName()) {
             @Override
             public void tryStop() {
                 this.stop();
