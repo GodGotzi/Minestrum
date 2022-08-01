@@ -41,11 +41,11 @@ public class MinestrumTaskHandler implements AsyncTaskHandler, Register<Task> {
         MinestrumThread minestrumThread = new MinestrumThread(task::run) {
             @Override
             public void tryStop() {
-                unregister(task);
                 this.stop();
             }
         };
 
+        task.setMinestrumThread(minestrumThread);
         minestrumThread.start();
     }
 
@@ -70,5 +70,6 @@ public class MinestrumTaskHandler implements AsyncTaskHandler, Register<Task> {
 
     public void stopTasks() {
         taskMap.values().forEach(Task::stop);
+        taskMap.clear();
     }
 }

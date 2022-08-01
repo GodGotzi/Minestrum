@@ -88,7 +88,6 @@ net\md_5\bungee\protocol\Property.class
 net\md_5\bungee\chat\TextComponentSerializer.class
 net\md_5\bungee\entitymap\EntityMap.class
 net\md_5\bungee\module\ModuleVersion.class
-net\md_5\bungee\Bungee$4.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry$3.class
 net\md_5\bungee\protocol\packet\Commands$ArgumentRegistry.class
 net\md_5\bungee\ConnectionThrottle$1.class

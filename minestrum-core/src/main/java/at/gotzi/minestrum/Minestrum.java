@@ -3,6 +3,7 @@ package at.gotzi.minestrum;
 import at.gotzi.api.GHelper;
 import at.gotzi.api.ano.Comment;
 import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.minestrum.commands.StopCommand;
 import at.gotzi.minestrum.email.EmailBot;
 import at.gotzi.minestrum.error.ErrorHandler;
 import at.gotzi.minestrum.discord.DiscordBot;
@@ -64,16 +65,32 @@ public class Minestrum extends Application {
             this.errorHandler.registerError(new ErrorView("failed while starting Proxy", e));
         }
 
-        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+        this.getLogger().log(GLevel.Info, "Register Commands");
+        this.registerCommands();
 
-        new Scanner(System.in).nextLine();
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
+    @Override
     public void stop() {
-        getBungee().getReconnectHandler().close();
-        getDiscordBot().getJda().shutdownNow();
-        getBungee().stop();
-        getTaskHandler().stopTasks();
+        new Thread( "Shutdown Thread" ) {
+            @Override
+            public void run() {
+                try {
+                    getDiscordBot().getJda().shutdownNow();
+                    getBungee().stop();
+                    getTaskHandler().stopTasks();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    System.exit(0);
+                }
+            }
+        }.start();
+    }
+
+    private void registerCommands() {
+        getCommandHandler().registerCommand(new StopCommand("stop", this));
     }
 
     public Bungee getBungee() {

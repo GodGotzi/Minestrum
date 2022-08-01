@@ -12,8 +12,7 @@ import net.md_5.bungee.api.CommandSender;
  */
 @Data
 @RequiredArgsConstructor(access = AccessLevel.NONE)
-public abstract class Command
-{
+public abstract class Command {
 
     private final String name;
     private final String permission;

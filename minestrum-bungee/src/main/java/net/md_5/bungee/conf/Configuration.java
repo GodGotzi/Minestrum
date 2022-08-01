@@ -3,6 +3,7 @@ package net.md_5.bungee.conf;
 import com.google.common.base.Preconditions;
 import gnu.trove.map.TMap;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -141,7 +142,7 @@ public class Configuration implements ProxyConfig
             {
                 if ( !servers.containsKey( server ) )
                 {
-                    ProxyServer.getInstance().getLogger().log( Level.WARNING, "Forced host server {0} is not defined", server); //TODO what is this?
+                    ProxyServer.getInstance().getLogger().log( Level.WARNING, "Forced host server {0} is not defined", server);
                 }
             }
         }

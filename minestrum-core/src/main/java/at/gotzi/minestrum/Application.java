@@ -29,7 +29,6 @@ public abstract class Application  implements ArgumentStartable<String[]> {
     private final List<ConsoleReader> consoleReaders;
     private final AsyncTaskHandler taskHandler;
     private CommandHandler commandHandler;
-
     private Properties properties;
     private String[] args;
 
@@ -42,7 +41,6 @@ public abstract class Application  implements ArgumentStartable<String[]> {
 
         this.consoleReaders = new ArrayList<>();
         this.taskHandler = new MinestrumTaskHandler();
-
     }
 
     @Comment.Init
@@ -74,6 +72,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         Application.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
         ((GLogger)this.logger).setDebug(Application.DEBUG);
 
+        this.commandHandler = new CommandHandler(this.properties.getProperty("command_char").charAt(0));
         Task task = new Task("cmd-handler", this::startCommandHandler);
         this.taskHandler.runTask(task);
 
@@ -82,10 +81,12 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         this.start();
     }
 
+    public abstract void stop();
+
     private void startCommandHandler() {
         this.logger.log(GLevel.Info, "Loading CommandHandler");
         Scanner scanner = new Scanner(System.in);
-        this.commandHandler = new CommandHandler(scanner::nextLine, ' ');
+        this.commandHandler.scanLoop(scanner::nextLine);
     }
 
     private void logProperties() {
@@ -113,7 +114,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         return consoleReaders;
     }
 
-    public CommandHandler getCommandHandler() {
+    public synchronized CommandHandler getCommandHandler() {
         return commandHandler;
     }
 

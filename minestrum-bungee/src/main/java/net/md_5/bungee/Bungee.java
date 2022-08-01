@@ -1,6 +1,7 @@
 package net.md_5.bungee;
 
 import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.minestrum.Minestrum;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -28,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,7 +46,6 @@ import net.md_5.bungee.api.config.ConfigurationAdapter;
 import net.md_5.bungee.api.config.ListenerInfo;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.md_5.bungee.chat.KeybindComponentSerializer;
@@ -176,13 +175,9 @@ public class Bungee extends ProxyServer {
         }
         reloadMessages();
 
-        pluginManager = new PluginManager( this );
-        getPluginManager().registerCommand( null, new CommandReload() );
-        getPluginManager().registerCommand( null, new CommandEnd() );
-        getPluginManager().registerCommand( null, new CommandIP() );
-        getPluginManager().registerCommand( null, new CommandBungee() );
-        getPluginManager().registerCommand( null, new CommandPerms() );
+        Minestrum.getInstance().getLogger().log(GLevel.Debug, "test");
 
+        pluginManager = new PluginManager( this );
     }
 
     /**
@@ -201,15 +196,6 @@ public class Bungee extends ProxyServer {
         }
 
         eventLoops = PipelineUtils.newEventLoopGroup( 0, new ThreadFactoryBuilder().setNameFormat( "Netty IO Thread #%1$d" ).build() );
-
-        if ( config.isForgeSupport() )
-        {
-            registerChannel( ForgeConstants.FML_TAG );
-            registerChannel( ForgeConstants.FML_HANDSHAKE_TAG );
-            registerChannel( ForgeConstants.FORGE_REGISTER );
-
-            getLogger().warning( "MinecraftForge support is currently unmaintained and may have unresolved issues. Please use at your own risk." );
-        }
 
         isRunning = true;
 
@@ -317,16 +303,8 @@ public class Bungee extends ProxyServer {
     }
 
     @Override
-    public void stop(final String reason)
-    {
-        new Thread( "Shutdown Thread" )
-        {
-            @Override
-            public void run()
-            {
-                independentThreadStop( reason, true );
-            }
-        }.start();
+    public void stop(final String reason) {
+        independentThreadStop( reason, true );
     }
 
     // This must be run on a separate thread to avoid deadlock!
@@ -379,52 +357,16 @@ public class Bungee extends ProxyServer {
         saveThread.cancel();
         metricsThread.cancel();
 
-        getLogger().info( "Disabling plugins" );
-
-        List<Plugin> reversedList = new ArrayList<>(pluginManager.getPlugins());
-        Collections.reverse(reversedList);
-
-        for ( Plugin plugin : reversedList)
-        {
-            try
-            {
-                plugin.onDisable();
-                for ( Handler handler : plugin.getLogger().getHandlers() )
-                {
-                    handler.close();
-                }
-            } catch ( Throwable t )
-            {
-                getLogger().log( Level.SEVERE, "Exception disabling plugin " + plugin.getDescription().getName(), t );
-            }
-            getScheduler().cancel( plugin );
-            plugin.getExecutorService().shutdownNow();
-        }
-
         getLogger().info( "Closing IO threads" );
         eventLoops.shutdownGracefully();
         try
         {
             eventLoops.awaitTermination( Long.MAX_VALUE, TimeUnit.NANOSECONDS );
-        } catch ( InterruptedException ex )
+        } catch ( InterruptedException ignored)
         {
         }
 
-        getLogger().info( "Thank you and goodbye" );
-        // Need to close loggers after last message!
-        for ( Handler handler : getLogger().getHandlers() )
-        {
-            handler.close();
-        }
-
-        // Unlock the thread before optionally calling system exit, which might invoke this function again.
-        // If that happens, the system will obtain the lock, and then see that isRunning == false and return without doing anything.
         shutdownLock.unlock();
-
-        if ( callSystemExit )
-        {
-            System.exit( 0 );
-        }
     }
 
     /**

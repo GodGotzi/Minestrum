@@ -33,8 +33,7 @@ public class PermissionCheckEvent extends Event
     @Getter(AccessLevel.NONE)
     private boolean hasPermission;
 
-    public boolean hasPermission()
-    {
+    public boolean hasPermission() {
         return hasPermission;
     }
 }
