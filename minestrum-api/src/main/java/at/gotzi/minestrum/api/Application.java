@@ -52,7 +52,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
             properties.load(propertyStream);
         } catch (Exception e) {
             this.logger.warning("Could not load Config -> " + e.getMessage());
-            shutdown();
+            earlyShutdown();
         }
 
         this.logger.log(GLevel.Info, "Logging Config");
@@ -64,7 +64,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         this.logger.log(GLevel.Info, "Loading ConsoleReader");
     }
 
-    public abstract void shutdown();
+    public abstract void earlyShutdown();
 
     public abstract void stop();
 

@@ -4,6 +4,8 @@ import java.util.logging.Handler;
 
 public abstract class Bot {
 
+    public Bot() {}
+
     private Handler errorhandler;
 
     public void setErrorhandler(Handler errorhandler) {

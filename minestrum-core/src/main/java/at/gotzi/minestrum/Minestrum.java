@@ -53,10 +53,7 @@ public class Minestrum extends Application {
 
         if (!ConnectionHelper.ping("https://www.google.com")) {
             this.getLogger().log(GLevel.Warning, "Could not Connect to Google Servers, assume that System got no Internet");
-            this.getLogger().log(GLevel.Warning, "Canceling Start...");
-            this.getLogger().log(GLevel.Warning, "Application will shut down in 30-1");
-
-            ShutdownTimer.startDefaultShutdown();
+            this.earlyShutdown();
         }
 
         this.getLogger().log(GLevel.Important, "Internet confirmed");
@@ -132,8 +129,10 @@ public class Minestrum extends Application {
     }
 
     @Override
-    public void shutdown() {
-
+    public void earlyShutdown() {
+        this.getLogger().log(GLevel.Warning, "Canceling Start...");
+        this.getLogger().log(GLevel.Warning, "Application will shut down in 30-1");
+        ShutdownTimer.startDefaultShutdown();
     }
 
     private void registerCommands() {

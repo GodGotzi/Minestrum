@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.Logger;
 
@@ -63,7 +64,7 @@ public final class ErrorHandler {
         return this.registry;
     }
 
-    public Collection<HistoryView<ErrorView>> getHistory() {
-        return Collections.unmodifiableCollection(this.registry.getHistory());
+    public List<HistoryView<ErrorView>> getHistory() {
+        return Collections.unmodifiableList(this.registry.getHistory());
     }
 }
