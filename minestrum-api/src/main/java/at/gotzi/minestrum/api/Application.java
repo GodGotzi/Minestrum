@@ -2,16 +2,12 @@ package at.gotzi.minestrum.api;
 
 import at.gotzi.api.GHelper;
 import at.gotzi.api.ano.Comment;
-import at.gotzi.api.command.CommandHandler;
 import at.gotzi.api.logging.GLevel;
 import at.gotzi.api.logging.GLogger;
-import jline.console.ConsoleReader;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -19,8 +15,6 @@ public abstract class Application  implements ArgumentStartable<String[]> {
 
     public static boolean DEBUG;
     private final Logger logger;
-    private final List<ConsoleReader> consoleReaders;
-    private CommandHandler commandHandler;
     private Properties properties;
     private String[] args;
 
@@ -31,8 +25,6 @@ public abstract class Application  implements ArgumentStartable<String[]> {
 
         this.logger = GLogger.getDefaultGotziLogger("main", true, true);
         GHelper.LOGGER = (GLogger) this.logger;
-
-        this.consoleReaders = new ArrayList<>();
     }
 
     @Comment.Init
@@ -61,7 +53,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         Application.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
         ((GLogger)this.logger).setDebug(Application.DEBUG);
 
-        this.logger.log(GLevel.Info, "Loading ConsoleReader");
+        this.start();
     }
 
     public abstract void earlyShutdown();
@@ -87,14 +79,6 @@ public abstract class Application  implements ArgumentStartable<String[]> {
     @Comment.Getter
     public Logger getLogger() {
         return logger;
-    }
-
-    public List<ConsoleReader> getConsoleReaders() {
-        return consoleReaders;
-    }
-
-    public synchronized CommandHandler getCommandHandler() {
-        return commandHandler;
     }
 
     public String[] getArgs() {

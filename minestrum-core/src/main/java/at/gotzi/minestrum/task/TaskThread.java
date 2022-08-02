@@ -8,13 +8,11 @@ public class TaskThread extends Thread {
 
     protected TaskThread(Runnable runnable, UnregisterAction<String> unregisterAction, String name) {
         super(runnable, name);
-
         this.unregisterAction = unregisterAction;
     }
 
     public void tryStop() {
         unregisterAction.run(getName());
-        stop();
+        interrupt();
     }
-
 }

@@ -24,17 +24,18 @@ public class EmailBot extends Bot {
 
     @Override
     public EmailBot start() {
-        final Properties properties = new Properties();
-        properties.put("mail.smtp.host", this.properties.getProperty("email_host"));
-        properties.put("mail.smtp.port", this.properties.getProperty("email_port"));
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        Session session = Session.getInstance(properties, new Authenticator() {
+        final Properties emailProperties = new Properties();
+        emailProperties.put("mail.smtp.host", this.properties.getProperty("email_host"));
+        emailProperties.put("mail.smtp.port", this.properties.getProperty("email_port"));
+        emailProperties.put("mail.smtp.ssl.enable", "true");
+        emailProperties.put("mail.smtp.auth", "true");
+
+        Session session = Session.getInstance(emailProperties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(properties.getProperty("email"),
+                return new PasswordAuthentication(emailProperties.getProperty("email"),
                         PropertyHelper.clearHidingProperty(
-                                properties.getProperty("email_password"))
+                                emailProperties.getProperty("email_password"))
                 );
             }
         });

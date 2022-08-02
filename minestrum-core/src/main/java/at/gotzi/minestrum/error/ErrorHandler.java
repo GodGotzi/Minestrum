@@ -11,7 +11,6 @@ import at.gotzi.minestrum.utils.TimeHelper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Handler;
@@ -21,7 +20,6 @@ public final class ErrorHandler {
 
     private final Minestrum minestrum;
     private final Logger errorLogger;
-
     private final ErrorRegistry registry;
 
     @Comment.Constructor
@@ -33,8 +31,8 @@ public final class ErrorHandler {
         GHelper.initFile(file);
 
         this.registry = new ErrorRegistry(file);
-
         this.errorLogger = GLogger.getDefaultGotziLogger("error-logger", true, true);
+
         try {
             loadHandlers();
         } catch (IOException e) {
@@ -47,7 +45,7 @@ public final class ErrorHandler {
         final Handler dcErrorHandler = minestrum.getDiscordBot().getErrorhandler();
         final Handler emailErrorHandler = minestrum.getEmailBot().getErrorhandler();
 
-        ((GLogger)errorLogger).setLogSaveForFile(new File("test.txt"), GLogger.getFormat(), new String[]{});
+        //((GLogger)errorLogger).setLogSaveForFile(new File("test.txt"), GLogger.getFormat(), new String[]{});
 
         if (!Minestrum.DEBUG) {
             errorLogger.addHandler(dcErrorHandler);

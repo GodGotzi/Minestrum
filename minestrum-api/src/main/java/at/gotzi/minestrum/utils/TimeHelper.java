@@ -10,7 +10,7 @@ public class TimeHelper {
     }
 
     public static String getSimpleDateForFile() {
-        return new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+        return new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss").format(new Date());
     }
 
 

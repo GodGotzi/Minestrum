@@ -6,28 +6,25 @@ public class TaskRunner {
         return () -> {
             try {
                 Thread.sleep(millis);
-                task.run();
-            } catch (InterruptedException ignored) { return; }
-            task.run();
+                if (!Thread.currentThread().isInterrupted())
+                    task.run();
+            } catch (InterruptedException ignored) { }
         };
     }
 
     public Runnable repeatingDelayedTask(Runnable task, long millis) {
         return () -> {
-            while (true) {
+            while (true && !Thread.currentThread().isInterrupted()) {
                 try {
                     Thread.sleep(millis);
-                } catch (InterruptedException ignored) {
-                    return;
-                }
-                task.run();
+                } catch (InterruptedException ignored) { }
             }
         };
     }
 
     public Runnable repeatingTask(Runnable task) {
         return () -> {
-            while(true) task.run();
+            while(true && !Thread.currentThread().isInterrupted()) task.run();
         };
     }
 
@@ -35,8 +32,8 @@ public class TaskRunner {
         return () -> {
             try {
                 Thread.sleep(millis);
-            } catch (InterruptedException ignored) { return; }
-            while(true) task.run();
+            } catch (InterruptedException ignored) { }
+            while(true && !Thread.currentThread().isInterrupted()) task.run();
         };
     }
 }

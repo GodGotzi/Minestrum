@@ -8,6 +8,7 @@ import at.gotzi.api.logging.GLogger;
 import at.gotzi.minestrum.api.Application;
 import at.gotzi.minestrum.api.Bot;
 import at.gotzi.minestrum.api.task.AsyncTaskHandler;
+import at.gotzi.minestrum.commands.ErrorCommand;
 import at.gotzi.minestrum.commands.StopCommand;
 import at.gotzi.minestrum.commands.VersionCommand;
 import at.gotzi.minestrum.email.EmailBot;
@@ -35,10 +36,10 @@ public class Minestrum extends Application {
     private CommandHandler commandHandler;
     private AsyncTaskHandler<Task> taskHandler;
     private Bungee bungee;
-
     private File errorFolder;
-
     private File loggingFolder;
+
+    private File file;
 
     public Minestrum() {
         instance = this;
@@ -107,7 +108,7 @@ public class Minestrum extends Application {
         this.getLogger().log(GLevel.Info, "Register Commands");
         this.registerCommands();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Shutdown Thread"));
     }
 
     @Override
@@ -136,11 +137,13 @@ public class Minestrum extends Application {
     }
 
     private void registerCommands() {
-        getCommandHandler().registerCommand(new StopCommand("stop", this));
-        getCommandHandler().registerCommand(new VersionCommand("version", this));
+        this.commandHandler.registerCommand(new StopCommand("stop", this));
+        this.commandHandler.registerCommand(new VersionCommand("version", this));
+        this.commandHandler.registerCommand(new ErrorCommand("error", this));
     }
 
     private void startCommandHandler() {
+        this.getLogger().log(GLevel.Debug, GHelper.getCallerClassName());
         this.getLogger().log(GLevel.Info, "Loading CommandHandler");
         Scanner scanner = new Scanner(System.in);
         this.commandHandler.scanLoop(scanner::nextLine);
@@ -170,6 +173,10 @@ public class Minestrum extends Application {
     @Comment.Getter
     public ErrorHandler getErrorHandler() {
         return errorHandler;
+    }
+
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
     }
 
     @Comment.Getter

@@ -7,37 +7,23 @@ import java.util.LinkedList;
 
 public abstract class History<T> extends LinkedList<HistoryView<T>> {
 
-    private Formatter<T> formatter;
+    private Formatter<T> showFormatter;
+    private Formatter<T> infoFormatter;
+    private LineBuilder lineHistory;
 
-    public History(Formatter<T> formatter) {
-        this.formatter = formatter;
+    public History() {
+        this.lineHistory = new LineBuilder();
     }
-
-    public History() {}
 
     @Override
     public String toString() {
-        HistoryView<T> next;
-        LineBuilder lineBuilder = new LineBuilder();
-
-        while (!isEmpty()) {
-            next = peek();
-            lineBuilder.addLine(formatter.format(next.getValue()));
-        }
-
-        return lineBuilder.toString();
+        return lineHistory.toString();
     }
 
-    public String clearHistory() {
-        HistoryView<T> next;
-        LineBuilder lineBuilder = new LineBuilder();
-
-        while (!isEmpty()) {
-            next = poll();
-            lineBuilder.addLine(formatter.format(next.getValue()));
-        }
-
-        return lineBuilder.toString();
+    @Override
+    public void clear() {
+        this.lineHistory = new LineBuilder();
+        super.clear();
     }
 
     public String next() {
@@ -47,7 +33,8 @@ public abstract class History<T> extends LinkedList<HistoryView<T>> {
     }
 
     public boolean addElement(T t) {
-        HistoryView<T> historyView = new HistoryView<>(t, this.formatter);
+        HistoryView<T> historyView = new HistoryView<>(t, this.showFormatter);
+        lineHistory.addLine(infoFormatter.format(historyView.getValue()));
         return super.add(historyView);
     }
 
@@ -55,11 +42,19 @@ public abstract class History<T> extends LinkedList<HistoryView<T>> {
         super.stream().filter(historyView -> historyView.getValue() == t).findAny().ifPresent(super::remove);
     }
 
-    public void setFormatter(Formatter<T> formatter) {
-        this.formatter = formatter;
+    public void setInfoFormatter(Formatter<T> infoFormatter) {
+        this.infoFormatter = infoFormatter;
     }
 
-    public Formatter<T> getFormatter() {
-        return formatter;
+    public void setShowFormatter(Formatter<T> showFormatter) {
+        this.showFormatter = showFormatter;
+    }
+
+    public Formatter<T> getInfoFormatter() {
+        return infoFormatter;
+    }
+
+    public Formatter<T> getShowFormatter() {
+        return showFormatter;
     }
 }

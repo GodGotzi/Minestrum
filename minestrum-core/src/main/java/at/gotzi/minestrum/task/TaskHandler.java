@@ -3,6 +3,7 @@ package at.gotzi.minestrum.task;
 import at.gotzi.minestrum.api.registry.Registry;
 import at.gotzi.minestrum.api.task.AsyncTaskHandler;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -85,7 +86,6 @@ public class TaskHandler implements AsyncTaskHandler<Task>, Registry<Task> {
     }
 
     public void stopTasks() {
-        taskMap.values().forEach(Task::stop);
-        taskMap.clear();
+        new ArrayList<>(taskMap.values()).forEach(Task::stop);
     }
 }

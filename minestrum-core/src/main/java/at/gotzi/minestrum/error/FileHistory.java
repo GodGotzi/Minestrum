@@ -12,10 +12,23 @@ public class FileHistory extends History<ErrorView> {
 
     public FileHistory(File file) throws IOException {
         this.outputStreamWriter = new OutputStreamWriter(new FileOutputStream(file));
-        super.setFormatter(this::format);
+        super.setShowFormatter(this::showFormat);
+        super.setInfoFormatter(this::infoFormat);
     }
 
-    private String format(ErrorView view) {
+    private String showFormat(ErrorView view) {
+        StringBuilder builder = new StringBuilder();
+        String date = TimeHelper.getSimpleDate();
+
+        builder.append("[").append(date)
+                .append("]").append(" [Exception -> ")
+                .append(view.exception().getClass().getSimpleName()).append("]")
+                .append(" message -> ").append(view.msg()).append(" StackTrace -> \n").append(view.stackTrace());
+
+        return builder.toString();
+    }
+
+    private String infoFormat(ErrorView view) {
         StringBuilder builder = new StringBuilder();
         String date = TimeHelper.getSimpleDate();
 

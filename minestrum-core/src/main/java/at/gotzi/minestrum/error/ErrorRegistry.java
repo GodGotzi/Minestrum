@@ -24,6 +24,7 @@ public final class ErrorRegistry implements Registry<ErrorView> {
         history.addElement(errorView);
     }
 
+    @Deprecated
     @Override
     public void unregister(ErrorView errorView) {
         history.removeElement(errorView);
