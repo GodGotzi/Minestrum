@@ -1,34 +1,37 @@
 package at.gotzi.minestrum.discord;
 
-import at.gotzi.api.template.logging.GDefaultFormatter;
-import at.gotzi.api.template.logging.GLevel;
-import at.gotzi.api.template.logging.GLogger;
-import at.gotzi.minestrum.Minestrum;
-import at.gotzi.minestrum.api.Bot;
 import at.gotzi.minestrum.utils.PropertyHelper;
+import at.gotzi.api.logging.GDefaultFormatter;
+import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.Bot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Handler;
+import java.util.logging.Logger;
 
-public class DiscordBot extends Bot<DiscordBot> {
+public class DiscordBot extends Bot {
 
-    private final GLogger logger;
+    private final Logger logger;
+
+    private final Properties properties;
 
     private JDA jda;
 
-    public DiscordBot() {
-        this.logger = GLogger.getDefaultGotziLogger("discord-logger", true, true);
+    public DiscordBot(Logger logger, Properties properties) {
+        this.logger = logger;
+        this.properties = properties;
     }
 
     @Override
     public DiscordBot start() {
 
         String token = PropertyHelper.clearHidingProperty(
-                Minestrum.getInstance().getProperty("dc_token").toString()
+                this.properties.getProperty("dc_token")
         );
 
         try {
@@ -51,20 +54,24 @@ public class DiscordBot extends Bot<DiscordBot> {
             this.logger.log(GLevel.Info, "Discord-Bot is ready to hear your commands!");
 
         } catch (Exception e) {
-            Minestrum.getInstance().getLogger().log(GLevel.Warning, "Could not build Discord Bot -> " + e.getMessage());
+            this.logger.log(GLevel.Warning, "Could not build Discord Bot -> " + e.getMessage());
             return null;
         }
 
-
-        final long errorChannelID = Long.parseLong(Minestrum.getInstance().getProperty("dc_error_log_channel").toString());
-        final Handler errorhandler = new DiscordErrorHandler("Error", this.jda.getTextChannelById(errorChannelID));
+        final long errorChannelID = Long.parseLong(this.properties.getProperty("dc_error_log_channel"));
+        final Handler errorhandler = new ErrorLoggingHandler("Error", this.jda.getTextChannelById(errorChannelID));
         errorhandler.setFormatter(new GDefaultFormatter(false));
         setErrorhandler(errorhandler);
 
         return this;
     }
 
-    public JDA getJda() {
-        return jda;
+    @Override
+    public void stop() {
+        try {
+            this.jda.shutdown();
+        } catch (Exception e) {
+            this.jda.shutdownNow();
+        }
     }
 }

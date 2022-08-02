@@ -1,6 +1,6 @@
 package net.md_5.bungee.module;
 
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Preconditions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.logging.Level;
+
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.PluginDescription;
 import net.md_5.bungee.util.CaseInsensitiveMap;

@@ -12,6 +12,7 @@
         <module name="minestrum-data" />
         <module name="minestrum-gui" />
         <module name="minestrum-bungee" />
+        <module name="minestrum-api" />
         <module name="GotziAPI" />
         <module name="minestrum-discord" />
       </profile>

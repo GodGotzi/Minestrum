@@ -1,13 +1,11 @@
 package net.md_5.bungee.api.plugin;
 
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.eventbus.Subscribe;
-import com.google.common.graph.GraphBuilder;
-import com.google.common.graph.Graphs;
-import com.google.common.graph.MutableGraph;
+
 import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -26,7 +24,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.logging.Level;
+
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;

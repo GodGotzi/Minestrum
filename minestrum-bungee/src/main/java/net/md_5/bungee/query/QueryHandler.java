@@ -1,6 +1,6 @@
 package net.md_5.bungee.query;
 
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.netty.buffer.ByteBuf;
@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ProxyServer;

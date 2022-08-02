@@ -1,6 +1,6 @@
 package at.gotzi.minestrum.utils;
 
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import at.gotzi.minestrum.Minestrum;
 
 import java.io.IOException;

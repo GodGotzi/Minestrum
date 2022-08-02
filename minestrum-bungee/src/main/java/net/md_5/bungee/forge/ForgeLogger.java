@@ -2,7 +2,6 @@ package net.md_5.bungee.forge;
 
 import java.util.logging.Level;
 
-import at.gotzi.api.template.logging.GLevel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.Bungee;

@@ -2,7 +2,7 @@ package at.gotzi.minestrum.commands;
 
 import at.gotzi.api.command.GCommand;
 import at.gotzi.api.command.GCommandContext;
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import at.gotzi.minestrum.Minestrum;
 
 public class VersionCommand extends GCommand {

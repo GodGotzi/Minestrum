@@ -6,5 +6,4 @@ public class PropertyHelper {
         return property.substring(1, property.length()-1);
     }
 
-
 }

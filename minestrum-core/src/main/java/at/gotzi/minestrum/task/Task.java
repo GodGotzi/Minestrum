@@ -1,10 +1,12 @@
 package at.gotzi.minestrum.task;
 
-public class Task {
+import at.gotzi.minestrum.api.task.ITask;
+
+public class Task implements ITask<TaskThread> {
     private final String name;
     private final Runnable runnable;
 
-    private MinestrumThread minestrumThread;
+    private TaskThread taskThread;
     private boolean stop;
 
     public Task(String name, Runnable runnable) {
@@ -13,24 +15,29 @@ public class Task {
         this.stop = false;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
-    protected void run() {
+    @Override
+    public void run() {
         this.runnable.run();
     }
 
+    @Override
     public boolean isStopped() {
         return stop;
     }
 
-    protected synchronized void stop() {
-        minestrumThread.tryStop();
+    @Override
+    public synchronized void stop() {
+        taskThread.tryStop();
         stop = true;
     }
 
-    public void setMinestrumThread(MinestrumThread minestrumThread) {
-        this.minestrumThread = minestrumThread;
+    @Override
+    public void setThread(TaskThread thread) {
+        this.taskThread = thread;
     }
 }

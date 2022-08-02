@@ -1,16 +1,14 @@
 package net.md_5.bungee.conf;
 
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Preconditions;
 import gnu.trove.map.TMap;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import lombok.Getter;
 import net.md_5.bungee.api.BungeeFile;

@@ -16,11 +16,12 @@
         <module>minestrum-email</module>
         <module>minestrum-gui</module>
         <module>minestrum-bungee</module>
+        <module>minestrum-api</module>
     </modules>
 
     <properties>
-        <output-dir>C:\Users\Elias\Desktop\Minestrum Test</output-dir>
-        <output-lib-dir>C:\Users\Elias\Desktop\Minestrum Test\lib</output-lib-dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>

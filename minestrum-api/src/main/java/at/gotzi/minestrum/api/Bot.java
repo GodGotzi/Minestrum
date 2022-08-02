@@ -2,7 +2,7 @@ package at.gotzi.minestrum.api;
 
 import java.util.logging.Handler;
 
-public abstract class Bot<T extends Bot<?>> {
+public abstract class Bot {
 
     private Handler errorhandler;
 
@@ -14,6 +14,8 @@ public abstract class Bot<T extends Bot<?>> {
         return errorhandler;
     }
 
-    public abstract T start();
+    public abstract Bot start();
+
+    public abstract void stop();
 
 }

@@ -1,6 +1,6 @@
 package net.md_5.bungee.conf;
 
-import at.gotzi.api.template.logging.GLevel;
+import at.gotzi.api.logging.GLevel;
 import com.google.common.base.Charsets;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
+
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.Util;
 import net.md_5.bungee.api.BungeeFile;

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/GotziAPI/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GotziAPI/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-bungee/api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-bungee/api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-bungee/bootstrap/src/main/java" charset="UTF-8" />
@@ -41,5 +45,17 @@
     <file url="file://$PROJECT_DIR$/minestrum-bungee/slf4j/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-bungee/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-bungee/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-data/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-data/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-discord/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-discord/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-email/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-email/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-gui/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-gui/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

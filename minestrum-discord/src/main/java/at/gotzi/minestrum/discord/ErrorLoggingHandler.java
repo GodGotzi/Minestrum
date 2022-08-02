@@ -6,12 +6,12 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
-public class DiscordErrorHandler extends Handler {
+public class ErrorLoggingHandler extends Handler {
 
     private final TextChannel textChannel;
     private final String title;
 
-    public DiscordErrorHandler(String title, TextChannel textChannel) {
+    public ErrorLoggingHandler(String title, TextChannel textChannel) {
         this.textChannel = textChannel;
         this.title = title;
     }
