@@ -5,7 +5,6 @@ import at.gotzi.api.ano.Comment;
 import at.gotzi.api.command.CommandHandler;
 import at.gotzi.api.logging.GLevel;
 import at.gotzi.api.logging.GLogger;
-import at.gotzi.minestrum.api.Application;
 import at.gotzi.minestrum.api.Bot;
 import at.gotzi.minestrum.api.task.AsyncTaskHandler;
 import at.gotzi.minestrum.commands.ErrorCommand;
@@ -19,14 +18,11 @@ import at.gotzi.minestrum.task.Task;
 import at.gotzi.minestrum.task.TaskHandler;
 import at.gotzi.minestrum.utils.ConnectionHelper;
 import at.gotzi.minestrum.utils.ShutdownTimer;
-import jline.console.ConsoleReader;
 import net.md_5.bungee.Bungee;
 import net.md_5.bungee.api.BungeeFile;
 
 import java.io.File;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class Minestrum extends Application {
 
@@ -38,8 +34,6 @@ public class Minestrum extends Application {
     private Bungee bungee;
     private File errorFolder;
     private File loggingFolder;
-
-    private File file;
 
     public Minestrum() {
         instance = this;
@@ -143,7 +137,6 @@ public class Minestrum extends Application {
     }
 
     private void startCommandHandler() {
-        this.getLogger().log(GLevel.Debug, GHelper.getCallerClassName());
         this.getLogger().log(GLevel.Info, "Loading CommandHandler");
         Scanner scanner = new Scanner(System.in);
         this.commandHandler.scanLoop(scanner::nextLine);

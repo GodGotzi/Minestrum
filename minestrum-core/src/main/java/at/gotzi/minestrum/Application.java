@@ -1,9 +1,10 @@
-package at.gotzi.minestrum.api;
+package at.gotzi.minestrum;
 
 import at.gotzi.api.GHelper;
 import at.gotzi.api.ano.Comment;
 import at.gotzi.api.logging.GLevel;
 import at.gotzi.api.logging.GLogger;
+import at.gotzi.minestrum.api.ArgumentStartable;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.IOException;
