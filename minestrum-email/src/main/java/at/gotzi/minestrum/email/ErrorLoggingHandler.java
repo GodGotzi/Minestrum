@@ -1,7 +1,7 @@
 package at.gotzi.minestrum.email;
 
 
-import at.gotzi.minestrum.utils.PropertyHelper;
+import at.gotzi.minestrum.utils.PropertyUtils;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -36,7 +36,7 @@ public class ErrorLoggingHandler extends Handler {
             message.setFrom(new InternetAddress(this.properties.getProperty("email")));
             message.addRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(
-                            PropertyHelper.clearHidingProperty(
+                            PropertyUtils.clearHidingProperty(
                                     this.properties.getProperty("email_error_addresses")
                             )
                     )

@@ -1,10 +1,10 @@
-package at.gotzi.minestrum.commands;
+package at.gotzi.minestrum.command.commands;
 
-import at.gotzi.api.command.GCommand;
-import at.gotzi.api.command.GCommandContext;
 import at.gotzi.minestrum.Minestrum;
+import at.gotzi.minestrum.api.command.CommandContext;
+import at.gotzi.minestrum.command.Command;
 
-public class StopCommand extends GCommand {
+public class StopCommand extends Command {
 
     private final Minestrum minestrum;
 
@@ -20,7 +20,7 @@ public class StopCommand extends GCommand {
         setNativeAction(this::nativeAction);
     }
 
-    private void nativeAction(GCommandContext commandContext) {
+    private void nativeAction(CommandContext commandContext) {
         minestrum.stop();
     }
 }

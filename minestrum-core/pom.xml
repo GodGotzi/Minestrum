@@ -61,12 +61,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>at.gotzi.api</groupId>
-            <artifactId>GotziAPI</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>at.gotzi.minestrum</groupId>
             <artifactId>minestrum-api</artifactId>
             <version>1.0-SNAPSHOT</version>

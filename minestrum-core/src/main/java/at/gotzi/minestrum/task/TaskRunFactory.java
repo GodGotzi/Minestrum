@@ -1,6 +1,6 @@
 package at.gotzi.minestrum.task;
 
-public class TaskRunner {
+public class TaskRunFactory {
 
     public Runnable delayedTask(Runnable task, long millis) {
         return () -> {

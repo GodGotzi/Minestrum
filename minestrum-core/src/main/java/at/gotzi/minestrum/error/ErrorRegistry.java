@@ -1,8 +1,9 @@
 package at.gotzi.minestrum.error;
 
-import at.gotzi.minestrum.api.registry.History;
+import at.gotzi.minestrum.api.registry.history.History;
 import at.gotzi.minestrum.api.registry.Registry;
 import at.gotzi.minestrum.api.error.ErrorView;
+import at.gotzi.minestrum.api.registry.history.FileHistory;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public final class ErrorRegistry implements Registry<ErrorView> {
 
     public ErrorRegistry(File file) {
         try {
-            this.history = new FileHistory(file);
+            this.history = new FileHistory<>(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -10,14 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>minestrum-api</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>at.gotzi.api</groupId>
-            <artifactId>GotziAPI</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -1,7 +1,7 @@
 package at.gotzi.minestrum.email;
 
-import at.gotzi.api.logging.GDefaultFormatter;
-import at.gotzi.minestrum.utils.PropertyHelper;
+import at.gotzi.minestrum.api.logging.LogDefaultFormatter;
+import at.gotzi.minestrum.utils.PropertyUtils;
 import at.gotzi.minestrum.api.Bot;
 
 import javax.mail.Authenticator;
@@ -34,14 +34,14 @@ public class EmailBot extends Bot {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(emailProperties.getProperty("email"),
-                        PropertyHelper.clearHidingProperty(
+                        PropertyUtils.clearHidingProperty(
                                 emailProperties.getProperty("email_password"))
                 );
             }
         });
 
         final Handler errorhandler = new ErrorLoggingHandler(session, this.logger, this.properties);
-        errorhandler.setFormatter(new GDefaultFormatter(false));
+        errorhandler.setFormatter(new LogDefaultFormatter(false));
 
         setErrorhandler(errorhandler);
         return this;

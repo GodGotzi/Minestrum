@@ -1,6 +1,6 @@
 package at.gotzi.minestrum.api.task;
 
-public interface AsyncTaskHandler<T extends ITask> {
+public interface AsyncTaskScheduler<T extends ITask<?>> {
 
     void runDelayedRepeatingTask(T task, long millis);
 

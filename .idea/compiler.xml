@@ -13,7 +13,6 @@
         <module name="minestrum-gui" />
         <module name="minestrum-bungee" />
         <module name="minestrum-api" />
-        <module name="GotziAPI" />
         <module name="minestrum-discord" />
       </profile>
     </annotationProcessing>
@@ -44,6 +43,7 @@
       <module name="cmd-list" target="8" />
       <module name="cmd-send" target="8" />
       <module name="cmd-server" target="8" />
+      <module name="GotziAPI" target="17" />
       <module name="log" target="8" />
       <module name="query" target="8" />
       <module name="reconnect-yaml" target="8" />

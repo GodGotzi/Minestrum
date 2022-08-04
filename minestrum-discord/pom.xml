@@ -12,12 +12,6 @@
     <artifactId>minestrum-discord</artifactId>
     <dependencies>
         <dependency>
-            <groupId>at.gotzi.api</groupId>
-            <artifactId>GotziAPI</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>5.0.0-alpha.13</version>

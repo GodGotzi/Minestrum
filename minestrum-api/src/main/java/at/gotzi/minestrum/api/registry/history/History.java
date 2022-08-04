@@ -1,4 +1,4 @@
-package at.gotzi.minestrum.api.registry;
+package at.gotzi.minestrum.api.registry.history;
 
 import at.gotzi.minestrum.api.format.Formatter;
 import at.gotzi.minestrum.api.format.LineBuilder;

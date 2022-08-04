@@ -1,11 +1,11 @@
-package at.gotzi.minestrum.commands;
+package at.gotzi.minestrum.command.commands;
 
-import at.gotzi.api.command.GCommand;
-import at.gotzi.api.command.GCommandContext;
-import at.gotzi.api.logging.GLevel;
 import at.gotzi.minestrum.Minestrum;
+import at.gotzi.minestrum.api.command.CommandContext;
+import at.gotzi.minestrum.api.logging.LogLevel;
+import at.gotzi.minestrum.command.Command;
 
-public class VersionCommand extends GCommand {
+public class VersionCommand extends Command {
 
     private final Minestrum minestrum;
 
@@ -21,9 +21,9 @@ public class VersionCommand extends GCommand {
         setNativeAction(this::nativeAction);
     }
 
-    private void nativeAction(GCommandContext gCommandContext) {
+    private void nativeAction(CommandContext gCommandContext) {
         String version = this.minestrum.getProperties().getProperty("version");
-        getCommandLogger().log(GLevel.Info, "Version: {0}", version);
+        getCommandLogger().log(LogLevel.Info, "Version: {0}", version);
 
     }
 }

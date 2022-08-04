@@ -1,8 +1,8 @@
 package at.gotzi.minestrum.discord;
 
-import at.gotzi.minestrum.utils.PropertyHelper;
-import at.gotzi.api.logging.GDefaultFormatter;
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogDefaultFormatter;
+import at.gotzi.minestrum.api.logging.LogLevel;
+import at.gotzi.minestrum.utils.PropertyUtils;
 import at.gotzi.minestrum.api.Bot;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -30,12 +30,12 @@ public class DiscordBot extends Bot {
     @Override
     public DiscordBot start() {
 
-        String token = PropertyHelper.clearHidingProperty(
+        String token = PropertyUtils.clearHidingProperty(
                 this.properties.getProperty("dc_token")
         );
 
         try {
-            this.logger.log(GLevel.Info, "Discord-Bot logging in...");
+            this.logger.log(LogLevel.Info, "Discord-Bot logging in...");
 
             final JDABuilder builder= JDABuilder.createDefault(token);
             builder.setStatus(OnlineStatus.ONLINE);
@@ -47,20 +47,20 @@ public class DiscordBot extends Bot {
             this.jda.addEventListener(new ReadyListener(atomicBoolean));
 
             while (!atomicBoolean.get()) {
-                this.logger.log(GLevel.Info, "Waiting for Discord Bot...");
+                this.logger.log(LogLevel.Info, "Waiting for Discord Bot...");
                 Thread.sleep(200);
             }
 
-            this.logger.log(GLevel.Info, "Discord-Bot is ready to hear your commands!");
+            this.logger.log(LogLevel.Info, "Discord-Bot is ready to hear your commands!");
 
         } catch (Exception e) {
-            this.logger.log(GLevel.Warning, "Could not build Discord Bot -> " + e.getMessage());
+            this.logger.log(LogLevel.Warning, "Could not build Discord Bot -> " + e.getMessage());
             return null;
         }
 
         final long errorChannelID = Long.parseLong(this.properties.getProperty("dc_error_log_channel"));
         final Handler errorhandler = new ErrorLoggingHandler("Error", this.jda.getTextChannelById(errorChannelID));
-        errorhandler.setFormatter(new GDefaultFormatter(false));
+        errorhandler.setFormatter(new LogDefaultFormatter(false));
         setErrorhandler(errorhandler);
 
         return this;
