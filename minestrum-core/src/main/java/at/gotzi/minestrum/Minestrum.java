@@ -85,7 +85,7 @@ public class Minestrum extends Application {
 
         this.getLogger().log(LogLevel.Info, "Initialize CommandHandler");
 
-        this.commandHandler = new CommandHandler(this, '#');
+        this.commandHandler = new CommandHandler('#');
         Task task = new Task("command-handler", this::startCommandHandler);
         this.taskHandler.runTask(task);
 
@@ -186,6 +186,10 @@ public class Minestrum extends Application {
 
     public AsyncTaskScheduler<Task> getTaskHandler() {
         return taskHandler;
+    }
+
+    public ConnectionHub getConnectionHub() {
+        return connectionHub;
     }
 
     public static Minestrum getInstance() {

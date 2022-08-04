@@ -5,6 +5,7 @@ import at.gotzi.minestrum.api.ArgumentStartable;
 import at.gotzi.minestrum.api.logging.LogLevel;
 import at.gotzi.minestrum.api.logging.MinestrumLogger;
 import at.gotzi.minestrum.utils.MinestrumUtils;
+import jline.WindowsTerminal;
 import jline.console.ConsoleReader;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -53,7 +54,7 @@ public abstract class Application  implements ArgumentStartable<String[]> {
         this.logger.log(LogLevel.Info, "Logging Config");
         this.logProperties();
 
-        this.consoleReader = new ConsoleReader(System.in, System.out);
+
         Application.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
         ((MinestrumLogger)this.logger).setDebug(Application.DEBUG);
 

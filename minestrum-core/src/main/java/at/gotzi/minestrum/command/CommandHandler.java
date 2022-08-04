@@ -17,13 +17,11 @@ public class CommandHandler implements Completer {
 
     private final Properties properties = new Properties();
     private final Map<String, Command> commandMap = new LinkedHashMap<>();
-    private final Minestrum minestrum;
 
     private char commandChar;
 
-    public CommandHandler(Minestrum minestrum, char commandChar) {
+    public CommandHandler(char commandChar) {
         this.commandChar = commandChar;
-        this.minestrum = minestrum;
 
         InputStream in = CommandHandler.class.getClassLoader().getResourceAsStream("command-handler.properties");
 
@@ -80,17 +78,18 @@ public class CommandHandler implements Completer {
      * @param cmd The command name
      * @param args The arguments of the command.
      */
-    public synchronized void executeCommand(String cmd, String[] args) {
+    public void executeCommand(String cmd, String[] args) {
         if (commandMap.get(cmd) == null) {
-            this.minestrum.getLogger().log(LogLevel.Info, properties.getProperty("commandNotExists"), cmd);
+            Command.getCommandLogger().log(LogLevel.Info, properties.getProperty("commandNotExists"), cmd);
             return;
         }
+
         commandMap.get(cmd).execute(new CommandContext(cmd, args, properties));
     }
 
     @Override
     public int complete(String s, int i, List<CharSequence> list) {
-        this.minestrum.getLogger().log(LogLevel.Debug, "test");
+
         return 0;
     }
 
