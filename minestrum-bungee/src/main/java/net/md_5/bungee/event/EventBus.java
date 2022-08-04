@@ -1,6 +1,6 @@
 package net.md_5.bungee.event;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.collect.ImmutableSet;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -55,13 +55,13 @@ public class EventBus
                     throw new Error( "Method rejected target/argument: " + event, ex );
                 } catch ( InvocationTargetException ex )
                 {
-                    logger.log(GLevel.Warning, MessageFormat.format( "Error dispatching event {0} to listener {1}", event, method.getListener() ), ex.getCause() );
+                    logger.log(LogLevel.Warning, MessageFormat.format( "Error dispatching event {0} to listener {1}", event, method.getListener() ), ex.getCause() );
                 }
 
                 long elapsed = System.nanoTime() - start;
                 if ( elapsed > 50000000 )
                 {
-                    logger.log( GLevel.Warning, "Plugin listener {0} took {1}ms to process event {2}!", new Object[]
+                    logger.log( LogLevel.Warning, "Plugin listener {0} took {1}ms to process event {2}!", new Object[]
                     {
                         method.getListener().getClass().getName(), elapsed / 1000000, event
                     } );
@@ -82,7 +82,7 @@ public class EventBus
                 Class<?>[] params = m.getParameterTypes();
                 if ( params.length != 1 )
                 {
-                    logger.log( GLevel.Info, "Method {0} in class {1} annotated with {2} does not have single argument", new Object[]
+                    logger.log( LogLevel.Info, "Method {0} in class {1} annotated with {2} does not have single argument", new Object[]
                     {
                         m, listener.getClass(), annotation
                     } );

@@ -1,6 +1,6 @@
 package net.md_5.bungee.api.plugin;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -194,7 +194,7 @@ public final class PluginManager {
             {
                 if ( proxy.getConfig().isLogCommands() )
                 {
-                    proxy.getLogger().log(GLevel.Info, "{0} executed command: /{1}", new Object[]
+                    proxy.getLogger().log(LogLevel.Info, "{0} executed command: /{1}", new Object[]
                     {
                         sender.getName(), commandLine
                     } );
@@ -210,7 +210,7 @@ public final class PluginManager {
         } catch ( Exception ex )
         {
             sender.sendMessage( ChatColor.RED + "An internal error occurred whilst executing this command, please check the console log for details." );
-            ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Error in dispatching command", ex );
+            ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Error in dispatching command", ex );
         }
         return true;
     }
@@ -244,7 +244,7 @@ public final class PluginManager {
             PluginDescription plugin = entry.getValue();
             if ( !enablePlugin( pluginStatuses, new Stack<PluginDescription>(), plugin ) )
             {
-                ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Failed to enable {0}", entry.getKey() );
+                ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Failed to enable {0}", entry.getKey() );
             }
         }
         toLoad.clear();
@@ -258,13 +258,13 @@ public final class PluginManager {
             try
             {
                 plugin.onEnable();
-                ProxyServer.getInstance().getLogger().log( GLevel.Info, "Enabled plugin {0} version {1} by {2}", new Object[]
+                ProxyServer.getInstance().getLogger().log( LogLevel.Info, "Enabled plugin {0} version {1} by {2}", new Object[]
                 {
                     plugin.getDescription().getName(), plugin.getDescription().getVersion(), plugin.getDescription().getAuthor()
                 } );
             } catch ( Throwable t )
             {
-                ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Exception encountered when loading plugin: " + plugin.getDescription().getName(), t );
+                ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Exception encountered when loading plugin: " + plugin.getDescription().getName(), t );
             }
         }
     }
@@ -301,7 +301,7 @@ public final class PluginManager {
                         dependencyGraph.append( element.getName() ).append( " -> " );
                     }
                     dependencyGraph.append( plugin.getName() ).append( " -> " ).append( dependName );
-                    ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Circular dependency detected: {0}", dependencyGraph );
+                    ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Circular dependency detected: {0}", dependencyGraph );
                     status = false;
                 } else
                 {
@@ -313,7 +313,7 @@ public final class PluginManager {
 
             if ( dependStatus == Boolean.FALSE && plugin.getDepends().contains( dependName ) ) // only fail if this wasn't a soft dependency
             {
-                ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} (required by {1}) is unavailable", new Object[]
+                ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} (required by {1}) is unavailable", new Object[]
                 {
                     String.valueOf( dependName ), plugin.getName()
                 } );
@@ -336,13 +336,13 @@ public final class PluginManager {
 
                 plugins.put( plugin.getName(), clazz );
                 clazz.onLoad();
-                ProxyServer.getInstance().getLogger().log( GLevel.Info, "Loaded plugin {0} version {1} by {2}", new Object[]
+                ProxyServer.getInstance().getLogger().log( LogLevel.Info, "Loaded plugin {0} version {1} by {2}", new Object[]
                 {
                     plugin.getName(), plugin.getVersion(), plugin.getAuthor()
                 } );
             } catch ( Throwable t )
             {
-                proxy.getLogger().log( GLevel.Warning, "Error loading plugin " + plugin.getName(), t );
+                proxy.getLogger().log( LogLevel.Warning, "Error loading plugin " + plugin.getName(), t );
             }
         }
 
@@ -384,7 +384,7 @@ public final class PluginManager {
                     }
                 } catch ( Exception ex )
                 {
-                    ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Could not load plugin from file " + file, ex );
+                    ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Could not load plugin from file " + file, ex );
                 }
             }
         }
@@ -409,7 +409,7 @@ public final class PluginManager {
         long elapsed = System.nanoTime() - start;
         if ( elapsed > 250000000 )
         {
-            ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Event {0} took {1}ms to process!", new Object[]
+            ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Event {0} took {1}ms to process!", new Object[]
             {
                 event, elapsed / 1000000
             } );

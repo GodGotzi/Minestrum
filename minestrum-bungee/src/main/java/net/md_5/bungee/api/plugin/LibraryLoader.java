@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.RepositorySystem;
@@ -59,7 +59,7 @@ class LibraryLoader
             @Override
             public void transferStarted(TransferEvent event) throws TransferCancelledException
             {
-                logger.log(GLevel.Info, "Downloading {0}", event.getResource().getRepositoryUrl() + event.getResource().getResourceName() );
+                logger.log(LogLevel.Info, "Downloading {0}", event.getResource().getRepositoryUrl() + event.getResource().getResourceName() );
             }
         } );
         session.setReadOnly();
@@ -73,7 +73,7 @@ class LibraryLoader
         {
             return null;
         }
-        logger.log( GLevel.Info, "[{0}] Loading {1} libraries... please wait", new Object[]
+        logger.log( LogLevel.Info, "[{0}] Loading {1} libraries... please wait", new Object[]
         {
             desc.getName(), desc.getLibraries().size()
         } );
@@ -111,7 +111,7 @@ class LibraryLoader
             }
 
             jarFiles.add( url );
-            logger.log( GLevel.Info, "[{0}] Loaded library {1}", new Object[]
+            logger.log( LogLevel.Info, "[{0}] Loaded library {1}", new Object[]
             {
                 desc.getName(), file
             } );

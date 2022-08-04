@@ -1,6 +1,6 @@
 package net.md_5.bungee.netty;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.base.Preconditions;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -47,7 +47,7 @@ public class HandlerBoss extends ChannelInboundHandlerAdapter
 
             if ( !( handler instanceof InitialHandler || handler instanceof PingHandler ) )
             {
-                ProxyServer.getInstance().getLogger().log(GLevel.Info, "{0} has connected", handler );
+                ProxyServer.getInstance().getLogger().log(LogLevel.Info, "{0} has connected", handler );
             }
         }
     }
@@ -62,7 +62,7 @@ public class HandlerBoss extends ChannelInboundHandlerAdapter
 
             if ( !( handler instanceof InitialHandler || handler instanceof PingHandler ) )
             {
-                ProxyServer.getInstance().getLogger().log( GLevel.Info, "{0} has disconnected", handler );
+                ProxyServer.getInstance().getLogger().log( LogLevel.Info, "{0} has disconnected", handler );
             }
         }
     }
@@ -140,37 +140,37 @@ public class HandlerBoss extends ChannelInboundHandlerAdapter
             {
                 if ( cause instanceof ReadTimeoutException )
                 {
-                    ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} - read timed out", handler );
+                    ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} - read timed out", handler );
                 } else if ( cause instanceof DecoderException )
                 {
                     if ( cause instanceof CorruptedFrameException )
                     {
-                        ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} - corrupted frame: {1}", new Object[]
+                        ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} - corrupted frame: {1}", new Object[]
                         {
                             handler, cause.getMessage()
                         } );
                     } else if ( cause.getCause() instanceof BadPacketException )
                     {
-                        ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} - bad packet, are mods in use!? {1}", new Object[]
+                        ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} - bad packet, are mods in use!? {1}", new Object[]
                         {
                             handler, cause.getCause().getMessage()
                         } );
                     } else if ( cause.getCause() instanceof OverflowPacketException )
                     {
-                        ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} - overflow in packet detected! {1}", new Object[]
+                        ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} - overflow in packet detected! {1}", new Object[]
                         {
                             handler, cause.getCause().getMessage()
                         } );
                     } else
                     {
-                        ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} - could not decode packet! {1}", new Object[]
+                        ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} - could not decode packet! {1}", new Object[]
                         {
                             handler, cause.getCause() != null ? cause.getCause() : cause
                         } );
                     }
                 } else if ( cause instanceof IOException || ( cause instanceof IllegalStateException && handler instanceof InitialHandler ) )
                 {
-                    ProxyServer.getInstance().getLogger().log( GLevel.Warning, "{0} - {1}: {2}", new Object[]
+                    ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "{0} - {1}: {2}", new Object[]
                     {
                         handler, cause.getClass().getSimpleName(), cause.getMessage()
                     } );
@@ -183,7 +183,7 @@ public class HandlerBoss extends ChannelInboundHandlerAdapter
                 } else
                 {
                     cause.printStackTrace();
-                    //ProxyServer.getInstance().getLogger().log(GLevel.Debug, cause);
+                    //ProxyServer.getInstance().getLogger().log(LogLevel.Debug, cause);
                     ProxyServer.getInstance().getLogger().log( Level.SEVERE, handler + " - encountered exception", cause );
                 }
             }

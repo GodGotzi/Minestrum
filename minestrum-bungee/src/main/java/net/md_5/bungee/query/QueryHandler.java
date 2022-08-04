@@ -1,6 +1,6 @@
 package net.md_5.bungee.query;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.netty.buffer.ByteBuf;
@@ -57,7 +57,7 @@ public class QueryHandler extends SimpleChannelInboundHandler<DatagramPacket>
             handleMessage( ctx, msg );
         } catch ( Throwable t )
         {
-            bungee.getLogger().log(GLevel.Warning, "Error whilst handling query packet from " + msg.sender(), t );
+            bungee.getLogger().log(LogLevel.Warning, "Error whilst handling query packet from " + msg.sender(), t );
         }
     }
 
@@ -66,7 +66,7 @@ public class QueryHandler extends SimpleChannelInboundHandler<DatagramPacket>
         ByteBuf in = msg.content();
         if ( in.readUnsignedByte() != 0xFE || in.readUnsignedByte() != 0xFD )
         {
-            bungee.getLogger().log( GLevel.Warning, "Query - Incorrect magic!: {0}", msg.sender() );
+            bungee.getLogger().log( LogLevel.Warning, "Query - Incorrect magic!: {0}", msg.sender() );
             return;
         }
 
@@ -159,7 +159,7 @@ public class QueryHandler extends SimpleChannelInboundHandler<DatagramPacket>
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception
     {
-        bungee.getLogger().log( GLevel.Warning, "Error whilst handling query packet from " + ctx.channel().remoteAddress(), cause );
+        bungee.getLogger().log( LogLevel.Warning, "Error whilst handling query packet from " + ctx.channel().remoteAddress(), cause );
     }
 
     @Data

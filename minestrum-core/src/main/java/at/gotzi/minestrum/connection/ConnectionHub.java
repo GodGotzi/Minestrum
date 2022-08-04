@@ -30,11 +30,11 @@ public class ConnectionHub {
 
             this.minestrum.getLogger().log(LogLevel.Info, "Google connected... Ping: " + (endTime-startTime-200));
             this.minestrum.getLogger().log(LogLevel.Info, "Closing Connection with Google");
-            this.minestrum.getLogger().log(LogLevel.Warning, "Could not Connect to Google Servers, assume that System got no Internet");
             conn.getInputStream().close();
 
             return true;
         } catch (IOException e) {
+            this.minestrum.getLogger().log(LogLevel.Warning, "Could not Connect to Google Servers, assume that System got no Internet");
             return false;
         }
     }

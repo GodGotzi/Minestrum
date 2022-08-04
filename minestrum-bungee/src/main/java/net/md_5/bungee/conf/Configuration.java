@@ -1,6 +1,6 @@
 package net.md_5.bungee.conf;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.base.Preconditions;
 import gnu.trove.map.TMap;
 import java.io.File;
@@ -80,7 +80,7 @@ public class Configuration implements ProxyConfig
             try {
                 favicon = Favicon.create( ImageIO.read( fav ) );
             } catch ( IOException | IllegalArgumentException ex ) {
-                ProxyServer.getInstance().getLogger().log(GLevel.Warning, "Could not load server icon", ex );
+                ProxyServer.getInstance().getLogger().log(LogLevel.Warning, "Could not load server icon", ex );
             }
         }
 
@@ -141,7 +141,7 @@ public class Configuration implements ProxyConfig
             {
                 if ( !servers.containsKey( server ) )
                 {
-                    ProxyServer.getInstance().getLogger().log( GLevel.Warning, "Forced host server {0} is not defined", server);
+                    ProxyServer.getInstance().getLogger().log( LogLevel.Warning, "Forced host server {0} is not defined", server);
                 }
             }
         }

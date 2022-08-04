@@ -1,6 +1,6 @@
 package net.md_5.bungee.module;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.base.Preconditions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -148,7 +148,7 @@ public class ModuleManager
             }
         } catch ( Exception ex )
         {
-            ProxyServer.getInstance().getLogger().log(GLevel.Warning, "Could not check module from file " + file, ex );
+            ProxyServer.getInstance().getLogger().log(LogLevel.Warning, "Could not check module from file " + file, ex );
         }
 
         return null;

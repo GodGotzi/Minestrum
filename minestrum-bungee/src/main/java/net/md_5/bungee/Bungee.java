@@ -1,6 +1,6 @@
 package net.md_5.bungee;
 
-import at.gotzi.api.logging.GLevel;
+import at.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -223,12 +223,12 @@ public class Bungee extends ProxyServer {
 
             if ( info.isProxyProtocol() )
             {
-                getLogger().log( GLevel.Warning, "Using PROXY protocol for listener {0}, please ensure this listener is adequately firewalled.", info.getSocketAddress() );
+                getLogger().log( LogLevel.Warning, "Using PROXY protocol for listener {0}, please ensure this listener is adequately firewalled.", info.getSocketAddress() );
 
                 if ( connectionThrottle != null )
                 {
                     connectionThrottle = null;
-                    getLogger().log( GLevel.Warning, "Since PROXY protocol is in use, internal connection throttle has been disabled." );
+                    getLogger().log( LogLevel.Warning, "Since PROXY protocol is in use, internal connection throttle has been disabled." );
                 }
             }
 
@@ -236,10 +236,10 @@ public class Bungee extends ProxyServer {
                 if ( future.isSuccess() )
                 {
                     listeners.add( future.channel() );
-                    getLogger().log( GLevel.Info, "Listening on {0}", info.getSocketAddress());
+                    getLogger().log( LogLevel.Info, "Listening on {0}", info.getSocketAddress());
                 } else
                 {
-                    getLogger().log( GLevel.Warning, "Could not bind to host " + info.getSocketAddress(), future.cause() );
+                    getLogger().log( LogLevel.Warning, "Could not bind to host " + info.getSocketAddress(), future.cause() );
                 }
             };
 
@@ -259,10 +259,10 @@ public class Bungee extends ProxyServer {
                     if ( future.isSuccess() )
                     {
                         listeners.add( future.channel() );
-                        getLogger().log( GLevel.Info, "Started query on " + future.channel().localAddress() );
+                        getLogger().log( LogLevel.Info, "Started query on " + future.channel().localAddress() );
                     } else
                     {
-                        getLogger().log( GLevel.Warning, "Could not bind to host " + info.getSocketAddress(), future.cause() );
+                        getLogger().log( LogLevel.Warning, "Could not bind to host " + info.getSocketAddress(), future.cause() );
                     }
                 };
                 new RemoteQuery( this, info ).start( PipelineUtils.getDatagramChannel(), new InetSocketAddress( info.getHost().getAddress(), info.getQueryPort() ), eventLoops, bindListener );
@@ -274,7 +274,7 @@ public class Bungee extends ProxyServer {
     {
         for ( Channel listener : listeners )
         {
-            getLogger().log( GLevel.Info, "Closing listener {0}", listener );
+            getLogger().log( LogLevel.Info, "Closing listener {0}", listener );
             try
             {
                 listener.close().syncUninterruptibly();
@@ -321,7 +321,7 @@ public class Bungee extends ProxyServer {
         connectionLock.readLock().lock();
         try
         {
-            getLogger().log( GLevel.Info, "Disconnecting {0} connections", connections.size() );
+            getLogger().log( LogLevel.Info, "Disconnecting {0} connections", connections.size() );
             for ( UserConnection user : connections.values() )
             {
                 user.disconnect( reason );
@@ -401,7 +401,7 @@ public class Bungee extends ProxyServer {
                 customBundle = new PropertyResourceBundle( rd );
             } catch ( IOException ex )
             {
-                getLogger().log( GLevel.Warning, "Could not load custom messages.properties", ex );
+                getLogger().log( LogLevel.Warning, "Could not load custom messages.properties", ex );
             }
         }
     }
@@ -553,7 +553,7 @@ public class Bungee extends ProxyServer {
 
     @Override
     public void broadcast(BaseComponent... message) {
-        getLogger().log(GLevel.Info, BaseComponent.toLegacyText( message ));
+        getLogger().log(LogLevel.Info, BaseComponent.toLegacyText( message ));
         for ( ProxiedPlayer player : getPlayers() )
         {
             player.sendMessage( message );
@@ -563,7 +563,7 @@ public class Bungee extends ProxyServer {
     @Override
     public void broadcast(BaseComponent message)
     {
-        getLogger().log(GLevel.Info, BaseComponent.toLegacyText( message ));
+        getLogger().log(LogLevel.Info, BaseComponent.toLegacyText( message ));
         for ( ProxiedPlayer player : getPlayers() ) {
             player.sendMessage( message );
         }
