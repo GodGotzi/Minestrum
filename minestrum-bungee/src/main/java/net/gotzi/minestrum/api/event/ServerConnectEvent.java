@@ -17,7 +17,7 @@ import net.gotzi.minestrum.api.ServerConnectRequest;
  * certain players from accessing certain servers.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class ServerConnectEvent extends Event implements Cancellable
 {

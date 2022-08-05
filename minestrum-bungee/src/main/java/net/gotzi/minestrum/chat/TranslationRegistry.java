@@ -6,11 +6,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,21 +27,21 @@ public final class TranslationRegistry
         try
         {
             INSTANCE.addProvider( new JsonProvider( "/assets/minecraft/lang/en_us.json" ) );
-        } catch ( Exception ex )
+        } catch ( Exception ignored)
         {
         }
 
         try
         {
             INSTANCE.addProvider( new JsonProvider( "/mojang-translations/en_us.json" ) );
-        } catch ( Exception ex )
+        } catch ( Exception ignored)
         {
         }
 
         try
         {
             INSTANCE.addProvider( new ResourceBundleProvider( "mojang-translations/en_US" ) );
-        } catch ( Exception ex )
+        } catch ( Exception ignored)
         {
         }
     }
@@ -102,7 +99,7 @@ public final class TranslationRegistry
 
         public JsonProvider(String resourcePath) throws IOException
         {
-            try ( InputStreamReader rd = new InputStreamReader( JsonProvider.class.getResourceAsStream( resourcePath ), Charsets.UTF_8 ) )
+            try ( InputStreamReader rd = new InputStreamReader(Objects.requireNonNull(JsonProvider.class.getResourceAsStream(resourcePath)), Charsets.UTF_8 ) )
             {
                 JsonObject obj = new Gson().fromJson( rd, JsonObject.class );
                 for ( Map.Entry<String, JsonElement> entries : obj.entrySet() )

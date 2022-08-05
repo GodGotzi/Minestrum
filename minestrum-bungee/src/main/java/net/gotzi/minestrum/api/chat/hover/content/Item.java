@@ -21,7 +21,7 @@ public class Item extends Content
     /**
      * Optional. Size of the item stack.
      */
-    private int count = -1;
+    private int count;
     /**
      * Optional. Item tag.
      */

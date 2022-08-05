@@ -14,7 +14,7 @@ import net.gotzi.minestrum.api.chat.TextComponent;
  * Represents a player getting kicked from a server.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class ServerKickEvent extends Event implements Cancellable
 {
@@ -48,7 +48,7 @@ public class ServerKickEvent extends Event implements Cancellable
     public enum State
     {
 
-        CONNECTING, CONNECTED, UNKNOWN;
+        CONNECTING, CONNECTED, UNKNOWN
     }
 
     @Deprecated

@@ -21,19 +21,16 @@ import lombok.RequiredArgsConstructor;
 public class Favicon
 {
 
-    private static final TypeAdapter<Favicon> FAVICON_TYPE_ADAPTER = new TypeAdapter<Favicon>()
-    {
+    private static final TypeAdapter<Favicon> FAVICON_TYPE_ADAPTER = new TypeAdapter<>() {
         @Override
-        public void write(JsonWriter out, Favicon value) throws IOException
-        {
-            TypeAdapters.STRING.write( out, value == null ? null : value.getEncoded() );
+        public void write(JsonWriter out, Favicon value) throws IOException {
+            TypeAdapters.STRING.write(out, value == null ? null : value.getEncoded());
         }
 
         @Override
-        public Favicon read(JsonReader in) throws IOException
-        {
-            String enc = TypeAdapters.STRING.read( in );
-            return enc == null ? null : create( enc );
+        public Favicon read(JsonReader in) throws IOException {
+            String enc = TypeAdapters.STRING.read(in);
+            return enc == null ? null : create(enc);
         }
     };
 

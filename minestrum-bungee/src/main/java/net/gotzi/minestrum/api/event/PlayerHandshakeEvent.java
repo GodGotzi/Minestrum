@@ -12,7 +12,7 @@ import net.gotzi.minestrum.protocol.packet.Handshake;
  * known.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class PlayerHandshakeEvent extends Event
 {

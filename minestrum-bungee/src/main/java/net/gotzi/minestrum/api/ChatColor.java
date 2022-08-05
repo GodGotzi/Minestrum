@@ -24,15 +24,15 @@ public final class ChatColor
     /**
      * Pattern to remove all colour codes.
      */
-    public static final Pattern STRIP_COLOR_PATTERN = Pattern.compile( "(?i)" + String.valueOf( COLOR_CHAR ) + "[0-9A-FK-ORX]" );
+    public static final Pattern STRIP_COLOR_PATTERN = Pattern.compile( "(?i)" + COLOR_CHAR + "[0-9A-FK-ORX]" );
     /**
      * Colour instances keyed by their active character.
      */
-    private static final Map<Character, ChatColor> BY_CHAR = new HashMap<Character, ChatColor>();
+    private static final Map<Character, ChatColor> BY_CHAR = new HashMap<>();
     /**
      * Colour instances keyed by their name.
      */
-    private static final Map<String, ChatColor> BY_NAME = new HashMap<String, ChatColor>();
+    private static final Map<String, ChatColor> BY_NAME = new HashMap<>();
     /**
      * Represents black.
      */

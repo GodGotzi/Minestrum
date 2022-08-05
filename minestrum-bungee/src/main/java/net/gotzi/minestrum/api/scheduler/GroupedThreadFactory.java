@@ -3,6 +3,7 @@ package net.gotzi.minestrum.api.scheduler;
 import java.util.concurrent.ThreadFactory;
 import lombok.Data;
 import net.gotzi.minestrum.api.plugin.Plugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 @Data
 @Deprecated
@@ -27,7 +28,7 @@ public class GroupedThreadFactory implements ThreadFactory
     }
 
     @Override
-    public Thread newThread(Runnable r)
+    public Thread newThread(@NonNull Runnable r)
     {
         return new Thread( group, r );
     }

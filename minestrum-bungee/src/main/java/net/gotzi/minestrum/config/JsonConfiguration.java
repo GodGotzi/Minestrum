@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class JsonConfiguration extends ConfigurationProvider {
 
-    private final Gson json = new GsonBuilder().serializeNulls().setPrettyPrinting().registerTypeAdapter( Configuration.class, (JsonSerializer<Configuration>) (src, typeOfSrc, context) -> context.serialize( ( (Configuration) src ).self )).create();
+    private final Gson json = new GsonBuilder().serializeNulls().setPrettyPrinting().registerTypeAdapter( Configuration.class, (JsonSerializer<Configuration>) (src, typeOfSrc, context) -> context.serialize( src.self )).create();
 
     @Override
     public void save(Configuration config, File file) throws IOException {

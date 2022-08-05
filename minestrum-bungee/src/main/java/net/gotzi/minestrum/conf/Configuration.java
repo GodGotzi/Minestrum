@@ -1,5 +1,6 @@
 package net.gotzi.minestrum.conf;
 
+import net.gotzi.minestrum.api.config.ConfigurationAdapter;
 import net.gotzi.minestrum.api.logging.LogLevel;
 import com.google.common.base.Preconditions;
 import gnu.trove.map.TMap;
@@ -17,7 +18,6 @@ import net.gotzi.minestrum.api.BungeeFile;
 import net.gotzi.minestrum.api.Favicon;
 import net.gotzi.minestrum.api.ProxyConfig;
 import net.gotzi.minestrum.api.ProxyServer;
-import net.gotzi.minestrum.api.config.ConfigurationAdapter;
 import net.gotzi.minestrum.api.config.ListenerInfo;
 import net.gotzi.minestrum.api.config.ServerInfo;
 

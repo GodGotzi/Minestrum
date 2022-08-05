@@ -30,7 +30,7 @@ public class Util
         try
         {
             uri = new URI( hostline );
-        } catch ( URISyntaxException ex )
+        } catch ( URISyntaxException ignored)
         {
         }
 

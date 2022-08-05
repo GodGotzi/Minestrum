@@ -8,6 +8,8 @@ import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.LastHttpContent;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 import lombok.RequiredArgsConstructor;
 import net.gotzi.minestrum.api.Callback;
 
@@ -34,9 +36,8 @@ public class HttpHandler extends SimpleChannelInboundHandler<HttpObject>
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception
     {
-        if ( msg instanceof HttpResponse )
+        if ( msg instanceof HttpResponse response)
         {
-            HttpResponse response = (HttpResponse) msg;
             int responseCode = response.status().code();
 
             if ( responseCode == HttpResponseStatus.NO_CONTENT.code() )
@@ -50,10 +51,9 @@ public class HttpHandler extends SimpleChannelInboundHandler<HttpObject>
                 throw new IllegalStateException( "Expected HTTP response 200 OK, got " + response.status() );
             }
         }
-        if ( msg instanceof HttpContent )
+        if (msg instanceof HttpContent content)
         {
-            HttpContent content = (HttpContent) msg;
-            buffer.append( content.content().toString( Charset.forName( "UTF-8" ) ) );
+            buffer.append( content.content().toString(StandardCharsets.UTF_8) );
 
             if ( msg instanceof LastHttpContent )
             {

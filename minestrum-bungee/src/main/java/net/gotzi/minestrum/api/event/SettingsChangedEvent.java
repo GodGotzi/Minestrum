@@ -20,7 +20,7 @@ import net.gotzi.minestrum.api.plugin.Event;
  * </ul>
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class SettingsChangedEvent extends Event
 {

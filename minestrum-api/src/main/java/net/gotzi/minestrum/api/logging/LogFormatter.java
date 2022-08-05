@@ -5,7 +5,7 @@ import java.util.logging.LogRecord;
 
 public abstract class LogFormatter extends Formatter {
 
-    private boolean colors = true;
+    private final boolean colors;
 
     public LogFormatter(boolean colors) {
         this.colors = colors;

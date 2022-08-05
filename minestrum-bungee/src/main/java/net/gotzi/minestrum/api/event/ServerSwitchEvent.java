@@ -11,7 +11,7 @@ import net.gotzi.minestrum.api.plugin.Event;
  * Called when a player has changed servers.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class ServerSwitchEvent extends Event
 {

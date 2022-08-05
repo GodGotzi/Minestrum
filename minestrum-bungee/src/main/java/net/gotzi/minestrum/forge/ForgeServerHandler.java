@@ -29,7 +29,7 @@ public class ForgeServerHandler
     @Getter
     private boolean serverForge = false;
 
-    private final ArrayDeque<PluginMessage> packetQueue = new ArrayDeque<PluginMessage>();
+    private final ArrayDeque<PluginMessage> packetQueue = new ArrayDeque<>();
 
     /**
      * Handles any {@link PluginMessage} that contains a FML Handshake or Forge

@@ -11,7 +11,7 @@ import net.gotzi.minestrum.api.plugin.Event;
  * to be connected to a server.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class PostLoginEvent extends Event
 {

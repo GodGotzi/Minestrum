@@ -14,7 +14,7 @@ import net.gotzi.minestrum.api.plugin.Event;
  * information to the server before the player logs in.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class ServerConnectedEvent extends Event
 {

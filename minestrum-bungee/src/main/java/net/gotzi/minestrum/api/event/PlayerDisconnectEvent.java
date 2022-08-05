@@ -11,7 +11,7 @@ import net.gotzi.minestrum.api.plugin.Event;
  * that perform an action on the passed player instance.
  */
 @Data
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class PlayerDisconnectEvent extends Event
 {

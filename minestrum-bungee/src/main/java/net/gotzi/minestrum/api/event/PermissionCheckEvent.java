@@ -14,7 +14,7 @@ import net.gotzi.minestrum.api.CommandSender;
  */
 @Data
 @AllArgsConstructor
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class PermissionCheckEvent extends Event
 {

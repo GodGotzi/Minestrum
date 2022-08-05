@@ -198,7 +198,7 @@ public final class TextComponent extends BaseComponent
         {
             return;
         }
-        setExtra( new ArrayList<BaseComponent>( Arrays.asList( extras ) ) );
+        setExtra(new ArrayList<>(Arrays.asList(extras)) );
     }
 
     /**

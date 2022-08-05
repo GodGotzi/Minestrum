@@ -10,7 +10,7 @@ import net.gotzi.minestrum.api.plugin.Event;
 
 @Data
 @AllArgsConstructor
-@ToString(callSuper = false)
+@ToString()
 @EqualsAndHashCode(callSuper = false)
 public class ServerDisconnectEvent extends Event
 {

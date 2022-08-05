@@ -22,7 +22,7 @@ public class ModuleVersion
             return null;
         }
 
-        String buildNumber = version.substring( lastColon + 1, version.length() );
+        String buildNumber = version.substring( lastColon + 1);
         String gitCommit = version.substring( secondLastColon + 1, lastColon ).replaceAll( "\"", "" );
 
         if ( "unknown".equals( buildNumber ) || "unknown".equals( gitCommit ) )

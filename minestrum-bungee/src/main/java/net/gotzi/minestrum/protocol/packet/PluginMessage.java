@@ -22,30 +22,25 @@ import net.gotzi.minestrum.protocol.ProtocolConstants;
 public class PluginMessage extends DefinedPacket
 {
 
-    public static final Function<String, String> MODERNISE = new Function<String, String>()
-    {
-        @Override
-        public String apply(String tag)
+    public static final Function<String, String> MODERNISE = tag -> {
+        // Transform as per Bukkit
+        if ( tag.equals( "BungeeCord" ) )
         {
-            // Transform as per Bukkit
-            if ( tag.equals( "BungeeCord" ) )
-            {
-                return "bungeecord:main";
-            }
-            if ( tag.equals( "bungeecord:main" ) )
-            {
-                return "BungeeCord";
-            }
-
-            // Code that gets to here is UNLIKELY to be viable on the Bukkit side of side things,
-            // but we keep it anyway. It will eventually be enforced API side.
-            if ( tag.indexOf( ':' ) != -1 )
-            {
-                return tag;
-            }
-
-            return "legacy:" + tag.toLowerCase( Locale.ROOT );
+            return "bungeecord:main";
         }
+        if ( tag.equals( "bungeecord:main" ) )
+        {
+            return "BungeeCord";
+        }
+
+        // Code that gets to here is UNLIKELY to be viable on the Bukkit side of side things,
+        // but we keep it anyway. It will eventually be enforced API side.
+        if ( tag.indexOf( ':' ) != -1 )
+        {
+            return tag;
+        }
+
+        return "legacy:" + tag.toLowerCase( Locale.ROOT );
     };
     //
     private String tag;

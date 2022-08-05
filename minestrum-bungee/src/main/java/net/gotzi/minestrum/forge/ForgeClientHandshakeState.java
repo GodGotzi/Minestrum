@@ -9,7 +9,7 @@ import net.gotzi.minestrum.UserConnection;
 /**
  * Handshake sequence manager for the Bungee - Forge Client (Upstream) link.
  * Modelled after the Forge implementation. See
- * https://github.com/MinecraftForge/FML/blob/master/src/main/java/cpw/mods/fml/common/network/handshake/FMLHandshakeClientState.java
+ * <a href="https://github.com/MinecraftForge/FML/blob/master/src/main/java/cpw/mods/fml/common/network/handshake/FMLHandshakeClientState.java">...</a>
  */
 enum ForgeClientHandshakeState implements IForgeClientPacketHandler<ForgeClientHandshakeState>
 {

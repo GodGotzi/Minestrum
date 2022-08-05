@@ -6,14 +6,7 @@ import java.util.Map;
 import net.gotzi.minestrum.api.config.ListenerInfo;
 import net.gotzi.minestrum.api.config.ServerInfo;
 
-/**
- * Core configuration adaptor for the proxy api.
- *
- * @deprecated This class is subject to rapid change between releases
- */
-@Deprecated
-public interface ProxyConfig
-{
+public interface ProxyConfig {
 
     /**
      * Time before users are disconnected due to no network activity.

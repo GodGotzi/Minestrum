@@ -3,7 +3,7 @@ package net.gotzi.minestrum.util;
 import gnu.trove.strategy.HashingStrategy;
 import java.util.Locale;
 
-class CaseInsensitiveHashingStrategy implements HashingStrategy
+class CaseInsensitiveHashingStrategy implements HashingStrategy<Object>
 {
 
     static final CaseInsensitiveHashingStrategy INSTANCE = new CaseInsensitiveHashingStrategy();
