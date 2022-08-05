@@ -52,7 +52,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>at.gotzi.minestrum.MinestrumLoader</mainClass>
+                            <mainClass>net.gotzi.minestrum.MinestrumLoader</mainClass>
                         </manifest>
                     </archive>
                     <outputDirectory>${output-dir}</outputDirectory>

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: at.gotzi.minestrum.MinestrumLoader
+Main-Class: net.gotzi.minestrum.MinestrumLoader
 
