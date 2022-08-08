@@ -27,15 +27,15 @@ public final class ErrorHandler {
     private final Formatter<ErrorView> infoFormatter = this::infoFormat;
 
     @Comment.Constructor
-    public ErrorHandler(Minestrum minestrum) {
+    public ErrorHandler(Minestrum minestrum, Logger logger) {
         this.minestrum = minestrum;
+        this.errorLogger = logger;
 
         File file = new File(this.minestrum.getErrorFolder().getPath() + "/" +
                 TimeUtils.getSimpleDateForFile() + ".log");
         FileUtils.initFile(file);
 
         this.registry = new ErrorRegistry(file);
-        this.errorLogger = MinestrumLogger.getDefaultGotziLogger("error-logger", true, true);
 
         try {
             loadHandlers();

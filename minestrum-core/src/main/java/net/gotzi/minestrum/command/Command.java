@@ -11,15 +11,14 @@ import net.gotzi.minestrum.api.logging.MinestrumLogger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class Command implements Executable<CommandContext>, Initializable {
-
-    private static final MinestrumLogger commandLogger = MinestrumLogger
-            .getDefaultGotziLogger("command-logger", true, true);
 
     private final List<CommandArgument> arguments = new ArrayList<>();
     private final String label;
     private CommandAction nativeAction;
+    private Logger logger;
 
     @Comment.Constructor
     public Command(String label) {
@@ -130,7 +129,11 @@ public abstract class Command implements Executable<CommandContext>, Initializab
         this.nativeAction = nativeAction;
     }
 
-    public static MinestrumLogger getCommandLogger() {
-        return commandLogger;
+    public Logger getCommandLogger() {
+        return this.logger;
+    }
+
+    protected void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }

@@ -156,7 +156,6 @@ net\gotzi\minestrum\ConnectionThrottle.class
 net\gotzi\minestrum\module\JenkinsModuleSource.class
 net\gotzi\minestrum\api\chat\ClickEvent.class
 net\gotzi\minestrum\compress\PacketCompressor.class
-net\gotzi\minestrum\protocol\packet\PluginMessage$1.class
 net\gotzi\minestrum\netty\ChannelWrapper.class
 net\gotzi\minestrum\protocol\MinecraftDecoder.class
 net\gotzi\minestrum\protocol\packet\Title.class

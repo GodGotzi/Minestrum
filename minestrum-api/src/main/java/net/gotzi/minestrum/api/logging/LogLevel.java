@@ -9,6 +9,7 @@ public class LogLevel extends java.util.logging.Level {
     public static final LogLevel Debug = new LogLevel(AnsiColor.CYAN + "Debug", AnsiColor.WHITE, 952);
     public static final LogLevel Warning = new LogLevel("Warning", AnsiColor.YELLOW, 953);
     public static final LogLevel Important = new LogLevel("Important", AnsiColor.GREEN, 954);
+    public static final LogLevel Fine = new LogLevel("Fine", AnsiColor.GREEN, 955);
 
     public String color;
 

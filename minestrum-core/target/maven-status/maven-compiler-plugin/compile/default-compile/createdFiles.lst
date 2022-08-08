@@ -2,6 +2,7 @@ net\gotzi\minestrum\command\CommandHandler.class
 net\gotzi\minestrum\task\Task.class
 net\gotzi\minestrum\command\commands\VersionCommand.class
 net\gotzi\minestrum\task\TaskThread.class
+net\gotzi\minestrum\command\CommandScanner.class
 net\gotzi\minestrum\Minestrum.class
 net\gotzi\minestrum\error\ErrorRegistry.class
 net\gotzi\minestrum\command\commands\ErrorCommand.class
@@ -15,5 +16,4 @@ net\gotzi\minestrum\command\CommandArgument.class
 net\gotzi\minestrum\utils\ShutdownTimer.class
 net\gotzi\minestrum\command\commands\StopCommand.class
 net\gotzi\minestrum\Minestrum$1.class
-net\gotzi\minestrum\Application.class
 net\gotzi\minestrum\task\TaskRunFactory.class

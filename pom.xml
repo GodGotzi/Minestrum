@@ -30,8 +30,8 @@
         <profile>
             <id>Gotzi</id>
             <properties>
-                <output-dir>C:\Users\Elias\Desktop\Minestrum Test</output-dir>
-                <output-lib-dir>C:\Users\Elias\Desktop\Minestrum Test\lib</output-lib-dir>
+                <output-dir>C:\Minestrum\test</output-dir>
+                <output-lib-dir>C:\Minestrum\test\lib</output-lib-dir>
             </properties>
         </profile>
         <profile>

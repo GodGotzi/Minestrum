@@ -35,7 +35,8 @@ public class EmailBot extends Bot {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(emailProperties.getProperty("email"),
                         PropertyUtils.clearHidingProperty(
-                                emailProperties.getProperty("email_password"))
+                                emailProperties.getProperty("email_password")
+                        )
                 );
             }
         });

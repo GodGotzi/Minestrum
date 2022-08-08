@@ -1,5 +1,7 @@
 package net.gotzi.minestrum.task;
 
+import net.gotzi.minestrum.Minestrum;
+
 public class TaskRunFactory {
 
     public Runnable delayedTask(Runnable task, long millis) {
@@ -14,7 +16,7 @@ public class TaskRunFactory {
 
     public Runnable repeatingDelayedTask(Runnable task, long millis) {
         return () -> {
-            while (true && !Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted() && !Minestrum.getInstance().isShutdown()) {
                 try {
                     Thread.sleep(millis);
                 } catch (InterruptedException ignored) { }
@@ -24,7 +26,7 @@ public class TaskRunFactory {
 
     public Runnable repeatingTask(Runnable task) {
         return () -> {
-            while(true && !Thread.currentThread().isInterrupted()) task.run();
+            while(!Thread.currentThread().isInterrupted() && !Minestrum.getInstance().isShutdown()) task.run();
         };
     }
 
@@ -33,7 +35,7 @@ public class TaskRunFactory {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException ignored) { }
-            while(true && !Thread.currentThread().isInterrupted()) task.run();
+            while(!Thread.currentThread().isInterrupted() && !Minestrum.getInstance().isShutdown()) task.run();
         };
     }
 }

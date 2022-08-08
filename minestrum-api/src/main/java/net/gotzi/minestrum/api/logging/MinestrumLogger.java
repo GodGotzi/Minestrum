@@ -1,5 +1,6 @@
 package net.gotzi.minestrum.api.logging;
 
+import jline.console.ConsoleReader;
 import net.gotzi.minestrum.ano.Comment;
 import net.gotzi.minestrum.api.format.ansi.AnsiColor;
 
@@ -27,13 +28,17 @@ public class MinestrumLogger extends java.util.logging.Logger {
      *         - Colors.WHITE
      *         - Colors.CYAN
      */
-    public static MinestrumLogger getDefaultGotziLogger(String name, boolean consoleLogging, boolean consoleColors) {
+    public static MinestrumLogger getNativeLogger(String name) {
+        return new MinestrumLogger(name);
+    }
+
+    public static MinestrumLogger getConsoleLogger(String name, ConsoleReader reader, String prompt) {
         MinestrumLogger logger = new MinestrumLogger(name);
-        if (consoleLogging) {
-            StreamHandler streamHandler = new ConsoleHandler();
-            streamHandler.setFormatter(new LogDefaultFormatter(consoleColors));
-            logger.addHandler(streamHandler);
-        }
+        TerminalHandler terminalHandler = new TerminalHandler(reader);
+        terminalHandler.setFormatter(new LogDefaultFormatter(true));
+        logger.addHandler(terminalHandler);
+        logger.setUseParentHandlers(false);
+        logger.setPrompt(prompt);
 
         return logger;
     }
@@ -52,12 +57,13 @@ public class MinestrumLogger extends java.util.logging.Logger {
 
     private String name;
 
+    private String prompt;
+
     private boolean debug;
 
     @Comment.Constructor
     public MinestrumLogger(String name) {
         super(name, null);
-        setUseParentHandlers(false);
         LogManager.getLogManager().addLogger(this);
     }
 
@@ -104,5 +110,9 @@ public class MinestrumLogger extends java.util.logging.Logger {
             outputStreamWriter.append(line).append("\n");
         }
         outputStreamWriter.flush();
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
     }
 }

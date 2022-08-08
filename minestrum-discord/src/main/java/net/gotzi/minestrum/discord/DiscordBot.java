@@ -39,7 +39,8 @@ public class DiscordBot extends Bot {
 
             final JDABuilder builder= JDABuilder.createDefault(token);
             builder.setStatus(OnlineStatus.ONLINE);
-            builder.setActivity(Activity.watching("over Minestrum Server"));
+
+            builder.setActivity(Activity.playing("Minestrum"));
 
             this.jda = builder.build();
 

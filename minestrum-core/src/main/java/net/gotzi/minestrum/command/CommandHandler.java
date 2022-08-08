@@ -1,10 +1,11 @@
 package net.gotzi.minestrum.command;
 
-import jline.console.ConsoleReader;
+import jline.console.completer.Completer;
 import net.gotzi.minestrum.api.command.CommandContext;
 import net.gotzi.minestrum.api.command.CommandException;
 import net.gotzi.minestrum.api.logging.LogLevel;
-import jline.console.completer.Completer;
+import net.gotzi.minestrum.api.task.AsyncTaskScheduler;
+import net.gotzi.minestrum.task.Task;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,16 +13,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class CommandHandler implements Completer {
 
     private final Properties properties = new Properties();
     private final Map<String, Command> commandMap = new LinkedHashMap<>();
+    private final char commandChar;
+    private final AsyncTaskScheduler<Task> taskScheduler;
+    private Logger logger;
 
-    private char commandChar;
-
-    public CommandHandler(char commandChar) {
+    public CommandHandler(AsyncTaskScheduler<Task> taskScheduler, char commandChar) {
         this.commandChar = commandChar;
+        this.taskScheduler = taskScheduler;
 
         InputStream in = CommandHandler.class.getClassLoader().getResourceAsStream("command-handler.properties");
 
@@ -34,24 +38,24 @@ public class CommandHandler implements Completer {
         }
     }
 
-    /**
-     * This function will run the executeCommand function every tick, and will pass the scanner's scan() function as the
-     * command, and an empty object array as the arguments.
-     *
-     * @param reader The reader to use.
-     */
-    public void scanLoop(ConsoleReader reader) {
+    public void scanLoop(CommandScanner commandScanner) {
         String scan;
 
         try {
-            while(true) {
-                scan = reader.readLine();
-                if (scan != null && scan.length() != 0)
-                    this.executeCommand(scan);
+            scan = commandScanner.scan();
+
+            if (scan != null && scan.length() != 0) {
+                if (isCommand(scan))
+                    executeCommand(scan);
             }
         } catch (Exception e) {
             throw new CommandException(e.getMessage());
         }
+    }
+
+    private void startCommandExecuteTask(String line) {
+        Task task = new Task("command-execute", () -> executeCommand(line));
+        taskScheduler.runTask(task);
     }
 
     /**
@@ -60,7 +64,24 @@ public class CommandHandler implements Completer {
      * @param command The command you want to register.
      */
     public synchronized void registerCommand(Command command) {
+        command.setLogger(this.logger);
         commandMap.put(command.getLabel(), command);
+    }
+
+    private boolean isCommand(String line) {
+        if (line.charAt(0) == commandChar || commandChar == ' ') {
+            if (commandChar != ' ') line = line.substring(1);
+            String[] cmdSplit = line.split(" ", 2);
+
+            if (!commandMap.containsKey(cmdSplit[0])) {
+                this.logger.log(LogLevel.Info, properties.getProperty("commandNotExists"), cmdSplit[0]);
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -69,12 +90,10 @@ public class CommandHandler implements Completer {
      * @param line The line of text that was sent to the bot.
      */
     public synchronized void executeCommand(String line) {
-        if (line.charAt(0) == commandChar || commandChar == ' ') {
-            if (commandChar != ' ') line = line.substring(1);
-            String[] cmdSplit = line.split(" ", 2);
-            if (cmdSplit.length < 2) executeCommand(cmdSplit[0], new String[]{});
-            else executeCommand(cmdSplit[0], cmdSplit[1].split(" "));
-        }
+        if (commandChar != ' ') line = line.substring(1);
+        String[] cmdSplit = line.split(" ", 2);
+        if (cmdSplit.length < 2) executeCommand(cmdSplit[0], new String[]{});
+        else executeCommand(cmdSplit[0], cmdSplit[1].split(" "));
     }
 
     /**
@@ -84,25 +103,20 @@ public class CommandHandler implements Completer {
      * @param args The arguments of the command.
      */
     public void executeCommand(String cmd, String[] args) {
-        if (commandMap.get(cmd) == null) {
-            Command.getCommandLogger().log(LogLevel.Info, properties.getProperty("commandNotExists"), cmd);
-            return;
-        }
-
         commandMap.get(cmd).execute(new CommandContext(cmd, args, properties));
-    }
-
-    @Override
-    public int complete(String s, int i, List<CharSequence> list) {
-
-        return 0;
-    }
-
-    public synchronized void setCommandChar(char commandChar) {
-        this.commandChar = commandChar;
     }
 
     public Properties getProperties() {
         return properties;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    @Override
+    public int complete(String buffer, int cursor, List<CharSequence> candidates) {
+
+        return 0;
     }
 }

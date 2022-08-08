@@ -20,4 +20,5 @@ public abstract class LogFormatter extends Formatter {
     public abstract String formatWithColors(LogRecord logRecord);
 
     public abstract String formatWithOutColors(LogRecord logRecord);
+
 }

@@ -13,7 +13,7 @@ import net.gotzi.minestrum.api.connection.ProxiedPlayer;
  * You can create a new configuration by calling
  * {@link ProxyServer#createTitle()}.
  */
-interface Title
+public interface Title
 {
 
     /**
