@@ -10,17 +10,18 @@ import net.gotzi.minestrum.command.CommandScanner;
 import net.gotzi.minestrum.command.commands.ErrorCommand;
 import net.gotzi.minestrum.command.commands.StopCommand;
 import net.gotzi.minestrum.command.commands.VersionCommand;
+import net.gotzi.minestrum.discord.DiscordBot;
 import net.gotzi.minestrum.email.EmailBot;
 import net.gotzi.minestrum.error.ErrorHandler;
-import net.gotzi.minestrum.discord.DiscordBot;
 import net.gotzi.minestrum.api.error.ErrorView;
-import net.gotzi.minestrum.api.logging.MinestrumLogger;
+import net.gotzi.minestrum.logging.LogDefaultFormatter;
+import net.gotzi.minestrum.logging.MinestrumLogger;
 import net.gotzi.minestrum.connection.ConnectionHub;
 import net.gotzi.minestrum.task.Task;
 import net.gotzi.minestrum.task.TaskScheduler;
+import net.gotzi.minestrum.terminal.TerminalHandler;
 import net.gotzi.minestrum.utils.FileUtils;
 import net.gotzi.minestrum.utils.MinestrumUtils;
-import net.gotzi.minestrum.utils.ShutdownTimer;
 import net.gotzi.minestrum.api.BungeeFile;
 import org.fusesource.jansi.AnsiConsole;
 import java.io.File;
@@ -47,7 +48,6 @@ public class Minestrum {
     private Bungee bungee;
     private File errorFolder;
     private File loggingFolder;
-
     private boolean shutdown = false;
 
     public Minestrum() throws IOException {
@@ -62,7 +62,8 @@ public class Minestrum {
 
         this.taskHandler = new TaskScheduler();
 
-        this.commandHandler = new CommandHandler(this.taskHandler, '#');
+        this.commandHandler = new CommandHandler(this.taskHandler,
+                properties.getProperty("command_char").charAt(0));
 
         this.consoleReader = new ConsoleReader(System.in, System.out);
         this.prompt = properties.getProperty("console_prompt") + " ";
@@ -70,10 +71,17 @@ public class Minestrum {
         this.consoleReader.setPrompt(this.prompt);
 
         Task task = new Task("command-handler", this::startCommandHandler);
+        this.commandHandler.setTask(task);
         this.taskHandler.runRepeatingTask(task);
 
-        this.logger = MinestrumLogger.getConsoleLogger("main", this.consoleReader, this.prompt);
+        this.logger = MinestrumLogger.getConsoleLogger("main", new TerminalHandler(consoleReader));
         MinestrumUtils.LOGGER = this.logger;
+
+        Minestrum.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
+        ((MinestrumLogger)this.logger).setDebug(Minestrum.DEBUG);
+
+        //System.setErr( new PrintStream( new LoggingOutputStream( logger, LogLevel.Error ), true ) );
+        //System.setOut( new PrintStream( new LoggingOutputStream( logger, LogLevel.Info ), true ) );
     }
 
     public void start(String[] strings) {
@@ -85,9 +93,6 @@ public class Minestrum {
         this.logger.log(LogLevel.Info, "Logging Config");
         this.logProperties();
 
-        Minestrum.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
-        ((MinestrumLogger)this.logger).setDebug(Minestrum.DEBUG);
-
         this.startup();
     }
 
@@ -95,7 +100,7 @@ public class Minestrum {
     public void startup() {
         this.loadFolderStructure();
         this.commandHandler.setLogger(
-                MinestrumLogger.getConsoleLogger("command-logger", this.consoleReader, this.prompt)
+                MinestrumLogger.getConsoleLogger("command-logger", new TerminalHandler(consoleReader))
         );
 
         this.connectionHub = new ConnectionHub(this);
@@ -109,8 +114,11 @@ public class Minestrum {
 
         this.logger.log(LogLevel.Info, "Starting... Discord-Bot");
 
+        LogDefaultFormatter botFormatter = new LogDefaultFormatter(false);
+
         this.discordBot = new DiscordBot(
-                MinestrumLogger.getConsoleLogger("discord-logger", this.consoleReader, this.prompt),
+                MinestrumLogger.getConsoleLogger("discord-logger", new TerminalHandler(consoleReader)),
+                botFormatter,
                 this.properties
         ).start();
 
@@ -119,15 +127,17 @@ public class Minestrum {
         this.logger.log(LogLevel.Info, "Starting... Email-Bot");
 
         this.emailBot = new EmailBot(
-                MinestrumLogger.getConsoleLogger("email-logger", this.consoleReader, this.prompt),
-                properties).start();
+                MinestrumLogger.getConsoleLogger("email-logger",new TerminalHandler(consoleReader)),
+                botFormatter,
+                properties
+        ).start();
 
         this.logger.log(LogLevel.Important, "Email-Bot ready");
 
         this.logger.log(LogLevel.Info, "Initialize ErrorHandler");
 
         this.errorHandler = new ErrorHandler(this,
-                MinestrumLogger.getConsoleLogger("error-logger", this.consoleReader, this.prompt)
+                MinestrumLogger.getConsoleLogger("error-logger", new TerminalHandler(consoleReader))
         );
 
         this.logger.log(LogLevel.Important, "ErrorHandler ready!");
@@ -137,6 +147,9 @@ public class Minestrum {
 
         this.logger.log(LogLevel.Info, "Register Commands");
         this.registerCommands();
+
+        //Task task = new Task("Prompt Animation", promptAnimation::start);
+        //taskHandler.runTask(task);
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Shutdown Thread"));
     }
@@ -163,7 +176,7 @@ public class Minestrum {
     public void earlyShutdown() {
         this.logger.log(LogLevel.Warning, "Canceling Start...");
         this.logger.log(LogLevel.Warning, "Application will shut down in 30-1");
-        ShutdownTimer.startDefaultShutdown(this);
+        //ShutdownTimer.startDefaultShutdown(this);
     }
 
     private void registerCommands() {

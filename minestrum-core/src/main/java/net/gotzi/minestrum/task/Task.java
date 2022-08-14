@@ -15,6 +15,10 @@ public class Task implements ITask<TaskThread> {
         this.stop = false;
     }
 
+    public TaskThread getTaskThread() {
+        return taskThread;
+    }
+
     @Override
     public String getName() {
         return name;

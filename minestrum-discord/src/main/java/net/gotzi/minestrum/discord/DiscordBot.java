@@ -1,6 +1,5 @@
 package net.gotzi.minestrum.discord;
 
-import net.gotzi.minestrum.api.logging.LogDefaultFormatter;
 import net.gotzi.minestrum.api.logging.LogLevel;
 import net.gotzi.minestrum.utils.PropertyUtils;
 import net.gotzi.minestrum.api.Bot;
@@ -11,20 +10,22 @@ import net.dv8tion.jda.api.entities.Activity;
 
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 public class DiscordBot extends Bot {
 
     private final Logger logger;
-
     private final Properties properties;
+    private final Formatter formatter;
 
     private JDA jda;
 
-    public DiscordBot(Logger logger, Properties properties) {
+    public DiscordBot(Logger logger, Formatter formatter, Properties properties) {
         this.logger = logger;
         this.properties = properties;
+        this.formatter = formatter;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class DiscordBot extends Bot {
 
         final long errorChannelID = Long.parseLong(this.properties.getProperty("dc_error_log_channel"));
         final Handler errorhandler = new ErrorLoggingHandler("Error", this.jda.getTextChannelById(errorChannelID));
-        errorhandler.setFormatter(new LogDefaultFormatter(false));
+        errorhandler.setFormatter(formatter);
         setErrorhandler(errorhandler);
 
         return this;

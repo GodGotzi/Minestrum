@@ -17,8 +17,7 @@ import net.gotzi.minestrum.api.SkinConfiguration;
  * The most significant bit (bit 7, 0x80) appears to be unused.
  */
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class PlayerSkinConfiguration implements SkinConfiguration
-{
+public class PlayerSkinConfiguration implements SkinConfiguration {
 
     // 127 = 01111111
     static final SkinConfiguration SKIN_SHOW_ALL = new PlayerSkinConfiguration( (byte) 127 );

@@ -23,6 +23,8 @@ public class CommandHandler implements Completer {
     private final AsyncTaskScheduler<Task> taskScheduler;
     private Logger logger;
 
+    private Task task;
+
     public CommandHandler(AsyncTaskScheduler<Task> taskScheduler, char commandChar) {
         this.commandChar = commandChar;
         this.taskScheduler = taskScheduler;
@@ -30,9 +32,7 @@ public class CommandHandler implements Completer {
         InputStream in = CommandHandler.class.getClassLoader().getResourceAsStream("command-handler.properties");
 
         try {
-            synchronized (properties) {
-                properties.load(in);
-            }
+            properties.load(in);
         } catch (IOException e) {
             throw new ExceptionInInitializerError();
         }
@@ -43,10 +43,9 @@ public class CommandHandler implements Completer {
 
         try {
             scan = commandScanner.scan();
-
             if (scan != null && scan.length() != 0) {
                 if (isCommand(scan))
-                    executeCommand(scan);
+                    startCommandExecuteTask(scan);
             }
         } catch (Exception e) {
             throw new CommandException(e.getMessage());
@@ -118,5 +117,13 @@ public class CommandHandler implements Completer {
     public int complete(String buffer, int cursor, List<CharSequence> candidates) {
 
         return 0;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Task getTask() {
+        return task;
     }
 }

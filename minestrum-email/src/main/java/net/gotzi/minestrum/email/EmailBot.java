@@ -1,6 +1,4 @@
 package net.gotzi.minestrum.email;
-
-import net.gotzi.minestrum.api.logging.LogDefaultFormatter;
 import net.gotzi.minestrum.utils.PropertyUtils;
 import net.gotzi.minestrum.api.Bot;
 
@@ -8,18 +6,21 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Properties;
+import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 public class EmailBot extends Bot {
 
     private final Logger logger;
-
     private final Properties properties;
+    private final Formatter formatter;
 
-    public EmailBot(Logger logger, Properties properties) {
+
+    public EmailBot(Logger logger, Formatter formatter, Properties properties) {
         this.logger = logger;
         this.properties = properties;
+        this.formatter = formatter;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class EmailBot extends Bot {
         });
 
         final Handler errorhandler = new ErrorLoggingHandler(session, this.logger, this.properties);
-        errorhandler.setFormatter(new LogDefaultFormatter(false));
+        errorhandler.setFormatter(formatter);
 
         setErrorhandler(errorhandler);
         return this;

@@ -6,7 +6,6 @@ import net.gotzi.minestrum.api.error.ErrorView;
 import net.gotzi.minestrum.api.format.Formatter;
 import net.gotzi.minestrum.api.logging.LogLevel;
 import net.gotzi.minestrum.api.registry.history.HistoryView;
-import net.gotzi.minestrum.api.logging.MinestrumLogger;
 import net.gotzi.minestrum.utils.FileUtils;
 import net.gotzi.minestrum.utils.TimeUtils;
 

@@ -6,7 +6,6 @@ import net.gotzi.minestrum.api.Initializable;
 import net.gotzi.minestrum.api.command.CommandAction;
 import net.gotzi.minestrum.api.command.CommandContext;
 import net.gotzi.minestrum.api.logging.LogLevel;
-import net.gotzi.minestrum.api.logging.MinestrumLogger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
