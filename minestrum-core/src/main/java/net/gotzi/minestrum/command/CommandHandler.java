@@ -9,10 +9,7 @@ import net.gotzi.minestrum.task.Task;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class CommandHandler implements Completer {
@@ -44,6 +41,8 @@ public class CommandHandler implements Completer {
         try {
             scan = commandScanner.scan();
             if (scan != null && scan.length() != 0) {
+                scan = scan.trim();
+
                 if (isCommand(scan))
                     startCommandExecuteTask(scan);
             }
@@ -115,22 +114,58 @@ public class CommandHandler implements Completer {
 
     @Override
     public int complete(String buffer, int cursor, List<CharSequence> candidates) {
-        if (buffer != null && buffer.length() != 0) {
-            if (isCommand(buffer)) {
-                String[] cmdSplit = buffer.split(" ", 2);
-                return completeCommand(cmdSplit[0], cmdSplit[1], cursor, candidates);
-            } else {
-                //other
+        final SortedSet<String> commands = new TreeSet<>(commandMap.keySet());
+
+        if (buffer == null) {
+            candidates.addAll(commands);
+        } else {
+            String prefix = buffer;
+            if (buffer.length() > cursor) {
+                prefix = buffer.substring(0, cursor);
+            }
+            for (String match : commands.tailSet(prefix)) {
+                if (!match.startsWith(prefix)) {
+                    break;
+                }
+                candidates.add(match);
             }
         }
+        if (candidates.size() == 1) {
+            candidates.set(0, candidates.get(0) + " ");
+        }
+        return candidates.isEmpty() ? -1 : 0;
 
-        candidates.clear();
-        return 0;
+        /*
+        if (buffer != null && buffer.length() != 0) {
+
+            if (isCommand(buffer, false)) {
+                String[] cmdSplit = buffer.split(" ", 2);
+                return completeCommand(cmdSplit[0], cmdSplit[1], cursor, candidates);
+            } else if ((buffer.charAt(0) == commandChar || commandChar == ' ') && buffer.length() == cursor) {
+                this.logger.log(LogLevel.Debug, "2");
+
+                commandMap.values().forEach(command ->
+                        candidates.add((commandChar == ' ' ? "" : commandChar) + command.getLabel())
+                );
+
+                for (int i = 0; i < buffer.length(); i++) {
+                    for (CharSequence str : new ArrayList<>(candidates)) {
+                        if (i == str.length() || buffer.charAt(i) != str.charAt(i))
+                            candidates.remove(str);
+                    }
+                }
+
+                if (buffer.charAt(0) == commandChar) return -1;
+            }
+
+            this.logger.log(LogLevel.Debug, "end");
+        }
+
+        return 0;*/
     }
 
     private int completeCommand(String cmd, String buffer, int cursor, List<CharSequence> candidates) {
 
-        //TODO algo for command completing
 
         return 0;
     }
