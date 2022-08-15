@@ -115,6 +115,22 @@ public class CommandHandler implements Completer {
 
     @Override
     public int complete(String buffer, int cursor, List<CharSequence> candidates) {
+        if (buffer != null && buffer.length() != 0) {
+            if (isCommand(buffer)) {
+                String[] cmdSplit = buffer.split(" ", 2);
+                return completeCommand(cmdSplit[0], cmdSplit[1], cursor, candidates);
+            } else {
+                //other
+            }
+        }
+
+        candidates.clear();
+        return 0;
+    }
+
+    private int completeCommand(String cmd, String buffer, int cursor, List<CharSequence> candidates) {
+
+        //TODO algo for command completing
 
         return 0;
     }
