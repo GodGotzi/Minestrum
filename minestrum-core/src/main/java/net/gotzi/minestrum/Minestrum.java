@@ -66,7 +66,7 @@ public class Minestrum {
                 properties.getProperty("command_char").charAt(0));
 
         this.consoleReader = new ConsoleReader(System.in, System.out);
-        this.prompt = properties.getProperty("console_prompt");
+        this.prompt = properties.getProperty("console_prompt") + " ";
         this.consoleReader.addCompleter(this.commandHandler);
         this.consoleReader.setPrompt(this.prompt);
 

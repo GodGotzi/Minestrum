@@ -119,7 +119,9 @@ public class CommandHandler implements Completer {
         if (buffer == null) {
             candidates.addAll(commands);
         } else {
-            String prefix = buffer;
+            String prefix;
+            if (commandChar == ' ') prefix = buffer;
+            else prefix = buffer.substring(1);
             if (buffer.length() > cursor) {
                 prefix = buffer.substring(0, cursor);
             }
@@ -130,9 +132,11 @@ public class CommandHandler implements Completer {
                 candidates.add(match);
             }
         }
+
         if (candidates.size() == 1) {
-            candidates.set(0, candidates.get(0) + " ");
+            candidates.set(0, (commandChar == ' ' ? "" : "#") + candidates.get(0));
         }
+
         return candidates.isEmpty() ? -1 : 0;
 
         /*
