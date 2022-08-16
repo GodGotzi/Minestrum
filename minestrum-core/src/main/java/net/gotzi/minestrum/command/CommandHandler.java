@@ -45,8 +45,7 @@ public class CommandHandler implements Completer {
                     startCommandExecuteTask(scan);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //throw new CommandException(e.getMessage());
+            throw new CommandException(e.getMessage());
         }
     }
 

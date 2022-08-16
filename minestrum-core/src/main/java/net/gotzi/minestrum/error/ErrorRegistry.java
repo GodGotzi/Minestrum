@@ -22,7 +22,7 @@ public final class ErrorRegistry implements Registry<ErrorView> {
 
     @Override
     public void register(ErrorView errorView) {
-        history.addElement(errorView);
+        history.addRawElement(errorView);
     }
 
     @Deprecated

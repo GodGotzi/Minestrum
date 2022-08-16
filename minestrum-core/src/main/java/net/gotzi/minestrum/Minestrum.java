@@ -14,7 +14,7 @@ import net.gotzi.minestrum.discord.DiscordBot;
 import net.gotzi.minestrum.email.EmailBot;
 import net.gotzi.minestrum.error.ErrorHandler;
 import net.gotzi.minestrum.api.error.ErrorView;
-import net.gotzi.minestrum.logging.LogDefaultFormatter;
+import net.gotzi.minestrum.logging.format.LogDefaultFormatter;
 import net.gotzi.minestrum.logging.MinestrumLogger;
 import net.gotzi.minestrum.connection.ConnectionHub;
 import net.gotzi.minestrum.task.Task;
@@ -40,6 +40,8 @@ public class Minestrum {
     private final CommandHandler commandHandler;
     private final String prompt;
 
+    private final TerminalHandler terminalHandler;
+
     private String[] args;
     private Bot discordBot;
     private Bot emailBot;
@@ -60,6 +62,8 @@ public class Minestrum {
         this.properties = new Properties();
         properties.load(propertyStream);
 
+        this.loadFolderStructure();
+
         this.taskHandler = new TaskScheduler();
 
         this.commandHandler = new CommandHandler(this.taskHandler,
@@ -73,7 +77,14 @@ public class Minestrum {
         Task task = new Task("command-handler", this::startCommandHandler);
         this.taskHandler.runRepeatingTask(task);
 
-        this.logger = MinestrumLogger.getConsoleLogger("main", new TerminalHandler(consoleReader));
+        this.terminalHandler = new TerminalHandler(
+                consoleReader,
+                new LogDefaultFormatter(true),
+                new LogDefaultFormatter(false),
+                loggingFolder
+        );
+
+        this.logger = MinestrumLogger.getConsoleLogger("main", this.terminalHandler);
         MinestrumUtils.LOGGER = this.logger;
 
         Minestrum.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
@@ -97,9 +108,8 @@ public class Minestrum {
 
     @Comment.Init
     public void startup() {
-        this.loadFolderStructure();
         this.commandHandler.setLogger(
-                MinestrumLogger.getConsoleLogger("command-logger", new TerminalHandler(consoleReader))
+                MinestrumLogger.getConsoleLogger("command-logger",  this.terminalHandler)
         );
 
         this.connectionHub = new ConnectionHub(this);
@@ -116,7 +126,7 @@ public class Minestrum {
         LogDefaultFormatter botFormatter = new LogDefaultFormatter(false);
 
         this.discordBot = new DiscordBot(
-                MinestrumLogger.getConsoleLogger("discord-logger", new TerminalHandler(consoleReader)),
+                MinestrumLogger.getConsoleLogger("discord-logger", this.terminalHandler),
                 botFormatter,
                 this.properties
         ).start();
@@ -126,7 +136,7 @@ public class Minestrum {
         this.logger.log(LogLevel.Info, "Starting... Email-Bot");
 
         this.emailBot = new EmailBot(
-                MinestrumLogger.getConsoleLogger("email-logger",new TerminalHandler(consoleReader)),
+                MinestrumLogger.getConsoleLogger("email-logger", this.terminalHandler),
                 botFormatter,
                 properties
         ).start();
@@ -136,7 +146,7 @@ public class Minestrum {
         this.logger.log(LogLevel.Info, "Initialize ErrorHandler");
 
         this.errorHandler = new ErrorHandler(this,
-                MinestrumLogger.getConsoleLogger("error-logger", new TerminalHandler(consoleReader))
+                MinestrumLogger.getConsoleLogger("error-logger",  this.terminalHandler)
         );
 
         this.logger.log(LogLevel.Important, "ErrorHandler ready!");
@@ -160,6 +170,14 @@ public class Minestrum {
             @Override
             public void run() {
                 try {
+                    FileUtils.clearTrashInFolder(errorFolder,
+                            Integer.parseInt(properties.getProperty("dir_log_file_amount"))
+                    );
+
+                    FileUtils.clearTrashInFolder(loggingFolder,
+                            Integer.parseInt(properties.getProperty("dir_log_file_amount"))
+                    );
+
                     discordBot.stop();
                     bungee.stop();
                     taskHandler.stopTasks();
@@ -236,18 +254,6 @@ public class Minestrum {
         return properties;
     }
 
-    public AsyncTaskScheduler<Task> getTaskHandler() {
-        return taskHandler;
-    }
-
-    public CommandHandler getCommandHandler() {
-        return commandHandler;
-    }
-
-    public String[] getArgs() {
-        return args;
-    }
-
     public Bot getDiscordBot() {
         return discordBot;
     }
@@ -266,18 +272,6 @@ public class Minestrum {
 
     public ErrorHandler getErrorHandler() {
         return errorHandler;
-    }
-
-    public String getPrompt() {
-        return prompt;
-    }
-
-    public ConnectionHub getConnectionHub() {
-        return connectionHub;
-    }
-
-    public Bungee getBungee() {
-        return bungee;
     }
 
     public File getErrorFolder() {

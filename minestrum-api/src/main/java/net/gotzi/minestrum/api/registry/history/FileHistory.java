@@ -11,8 +11,8 @@ public class FileHistory<T> extends History<T> {
     }
 
     @Override
-    public boolean addElement(T t) {
-        final boolean ret = super.addElement(t);
+    public boolean addRawElement(T t) {
+        final boolean ret = super.addRawElement(t);
 
         if (ret) {
             try {
