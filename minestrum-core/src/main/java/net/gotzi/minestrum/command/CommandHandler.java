@@ -20,8 +20,6 @@ public class CommandHandler implements Completer {
     private final AsyncTaskScheduler<Task> taskScheduler;
     private Logger logger;
 
-    private Task task;
-
     public CommandHandler(AsyncTaskScheduler<Task> taskScheduler, char commandChar) {
         this.commandChar = commandChar;
         this.taskScheduler = taskScheduler;
@@ -47,7 +45,8 @@ public class CommandHandler implements Completer {
                     startCommandExecuteTask(scan);
             }
         } catch (Exception e) {
-            throw new CommandException(e.getMessage());
+            e.printStackTrace();
+            //throw new CommandException(e.getMessage());
         }
     }
 
@@ -115,70 +114,48 @@ public class CommandHandler implements Completer {
     @Override
     public int complete(String buffer, int cursor, List<CharSequence> candidates) {
         final SortedSet<String> commands = new TreeSet<>(commandMap.keySet());
+        String prefix;
 
         if (buffer == null) {
             candidates.addAll(commands);
-        } else {
-            String prefix;
-            if (commandChar == ' ') prefix = buffer;
-            else prefix = buffer.substring(1);
+        } else if (buffer.charAt(0) == commandChar || commandChar == ' ') {
+            prefix = buffer;
+
             if (buffer.length() > cursor) {
-                prefix = buffer.substring(0, cursor);
+                prefix = buffer.substring(0, cursor).trim();
             }
-            for (String match : commands.tailSet(prefix)) {
-                if (!match.startsWith(prefix)) {
-                    break;
+
+            if (commandChar != ' ') prefix = prefix.substring(1);
+
+            String[] prefixSplit = prefix.split(" ", 2);
+
+            if (prefixSplit.length == 1) {
+                for (String match : commands.tailSet(prefix)) {
+
+                    if (!match.startsWith(prefix)) {
+                        break;
+                    }
+
+                    candidates.add(match);
                 }
-                candidates.add(match);
+
+            } else {
+                if (!commandMap.containsKey(prefixSplit[0])) {
+                    candidates.clear();
+                } else {
+                    String[] argSplit = prefixSplit[1].split(" ");
+                    String[] prefixArgs = Arrays.copyOfRange(argSplit, 0, argSplit.length-1);
+                    Command command = commandMap.get(prefixSplit[0]);
+                    List<CharSequence> argCandidates = command.completeArgument(prefixArgs, argSplit[argSplit.length-1]);
+                    argCandidates.forEach(charSequence -> candidates.add(prefixSplit[0] + " " + charSequence));
+                }
             }
         }
 
         if (candidates.size() == 1) {
-            candidates.set(0, (commandChar == ' ' ? "" : "#") + candidates.get(0));
+            candidates.set(0, String.valueOf((commandChar == ' ' ? "" : commandChar)) + candidates.get(0));
         }
 
         return candidates.isEmpty() ? -1 : 0;
-
-        /*
-        if (buffer != null && buffer.length() != 0) {
-
-            if (isCommand(buffer, false)) {
-                String[] cmdSplit = buffer.split(" ", 2);
-                return completeCommand(cmdSplit[0], cmdSplit[1], cursor, candidates);
-            } else if ((buffer.charAt(0) == commandChar || commandChar == ' ') && buffer.length() == cursor) {
-                this.logger.log(LogLevel.Debug, "2");
-
-                commandMap.values().forEach(command ->
-                        candidates.add((commandChar == ' ' ? "" : commandChar) + command.getLabel())
-                );
-
-                for (int i = 0; i < buffer.length(); i++) {
-                    for (CharSequence str : new ArrayList<>(candidates)) {
-                        if (i == str.length() || buffer.charAt(i) != str.charAt(i))
-                            candidates.remove(str);
-                    }
-                }
-
-                if (buffer.charAt(0) == commandChar) return -1;
-            }
-
-            this.logger.log(LogLevel.Debug, "end");
-        }
-
-        return 0;*/
-    }
-
-    private int completeCommand(String cmd, String buffer, int cursor, List<CharSequence> candidates) {
-
-
-        return 0;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
-    public Task getTask() {
-        return task;
     }
 }

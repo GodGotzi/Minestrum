@@ -71,7 +71,6 @@ public class Minestrum {
         this.consoleReader.setPrompt(this.prompt);
 
         Task task = new Task("command-handler", this::startCommandHandler);
-        this.commandHandler.setTask(task);
         this.taskHandler.runRepeatingTask(task);
 
         this.logger = MinestrumLogger.getConsoleLogger("main", new TerminalHandler(consoleReader));
@@ -257,8 +256,8 @@ public class Minestrum {
         this.shutdown = shutdown;
     }
 
-    public synchronized boolean isShutdown() {
-        return this.shutdown;
+    public synchronized boolean isRunning() {
+        return !this.shutdown;
     }
 
     public Bot getEmailBot() {

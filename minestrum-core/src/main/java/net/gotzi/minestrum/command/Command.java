@@ -7,14 +7,12 @@ import net.gotzi.minestrum.api.command.CommandAction;
 import net.gotzi.minestrum.api.command.CommandContext;
 import net.gotzi.minestrum.api.logging.LogLevel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 public abstract class Command implements Executable<CommandContext>, Initializable {
 
-    private final List<CommandArgument> arguments = new ArrayList<>();
+    private final SortedSet<CommandArgument> arguments = new TreeSet<>();
     private final String label;
     private CommandAction nativeAction;
     private Logger logger;
@@ -52,8 +50,10 @@ public abstract class Command implements Executable<CommandContext>, Initializab
             getCommandLogger().log(LogLevel.Info, gotziCommandContext.properties().getProperty("onFalseSyntax"),
                     gotziCommandContext.cmd());
             return;
-        } else if (gotziCommandContext.args().length == 1)
+        } else if (gotziCommandContext.args().length == 1) {
             gArgument.getCommandAction().run(gotziCommandContext);
+            return;
+        }
 
         for (int i = 0; i < gotziCommandContext.args().length-1; i++) {
             gArgument = getNextArgument(gArgument, gotziCommandContext);
@@ -69,10 +69,34 @@ public abstract class Command implements Executable<CommandContext>, Initializab
         }
     }
 
-    public int tabComplete(String buffer, int cursor, List<CharSequence> candidates) {
+    public List<CharSequence> completeArgument(String[] prefixArgs, String prefix) {
+        List<CharSequence> candidates = new LinkedList<>();
+        SortedSet<CommandArgument> nextArguments = arguments;
 
+        for (String argPrefix : prefixArgs) {
+            CommandArgument commandArgument = nextArguments.stream()
+                    .filter(arg ->
+                            arg.getLabel().equals(argPrefix) || arg instanceof CommandArgumentValue
+                    ).findFirst().orElse(null);
+            if (commandArgument == null) return candidates;
 
-        return 0;
+            nextArguments = commandArgument.getSubCommands();
+        }
+
+        for (CommandArgument argument : nextArguments) {
+            if (argument.getLabel().startsWith(prefix)) {
+                StringBuilder stringBuilder = new StringBuilder();
+
+                for (String prefixArg : prefixArgs)
+                    stringBuilder.append(prefixArg).append(" ");
+
+                stringBuilder.append(argument.getLabel());
+
+                candidates.add(stringBuilder.toString().trim());
+            }
+        }
+
+        return candidates;
     }
 
     /**
@@ -84,7 +108,9 @@ public abstract class Command implements Executable<CommandContext>, Initializab
      */
     private CommandArgument getNextArgument(CommandArgument gArgument, CommandContext gotziCommandContext) {
         if (gArgument.getSubCommands() == null) return null;
-        return Arrays.stream(gArgument.getSubCommands()).filter(arg -> filterGotziArguments(gArgument, gotziCommandContext)).findFirst().orElse(null);
+        return gArgument.getSubCommands().stream().filter(arg ->
+                filterGotziArguments(arg, gotziCommandContext)
+        ).findFirst().orElse(null);
     }
 
     /**
@@ -99,9 +125,7 @@ public abstract class Command implements Executable<CommandContext>, Initializab
      * @return A boolean value.
      */
     private boolean filterGotziArguments(CommandArgument gArgument, CommandContext gotziCommandContext) {
-        return gArgument.getIndex() < gotziCommandContext.args().length &&
-                (gArgument.getLabel().equals(gotziCommandContext.args()[gArgument.getIndex()])
-                        || gArgument instanceof CommandArgumentValue);
+        return gArgument.getIndex() < gotziCommandContext.args().length && (gArgument.getLabel().equals(gotziCommandContext.args()[gArgument.getIndex()]) || gArgument instanceof CommandArgumentValue);
     }
 
     /**
@@ -120,8 +144,8 @@ public abstract class Command implements Executable<CommandContext>, Initializab
     }
 
     @Comment.Getter
-    public List<CommandArgument> getArguments() {
-        return arguments;
+    public SortedSet<CommandArgument> getArguments() {
+        return Collections.unmodifiableSortedSet(arguments);
     }
 
     public void setNativeAction(CommandAction nativeAction) {

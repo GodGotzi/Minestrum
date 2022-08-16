@@ -16,17 +16,18 @@ public class TaskRunFactory {
 
     public Runnable repeatingDelayedTask(Runnable task, long millis) {
         return () -> {
-            while (!Thread.currentThread().isInterrupted() && !Minestrum.getInstance().isShutdown()) {
+            while (!Thread.currentThread().isInterrupted() && Minestrum.getInstance().isRunning()) {
                 try {
                     Thread.sleep(millis);
                 } catch (InterruptedException ignored) { }
+                task.run();
             }
         };
     }
 
     public Runnable repeatingTask(Runnable task) {
         return () -> {
-            while(!Thread.currentThread().isInterrupted() && !Minestrum.getInstance().isShutdown()) task.run();
+            while(!Thread.currentThread().isInterrupted() && Minestrum.getInstance().isRunning()) task.run();
         };
     }
 
@@ -35,7 +36,7 @@ public class TaskRunFactory {
             try {
                 Thread.sleep(millis);
             } catch (InterruptedException ignored) { }
-            while(!Thread.currentThread().isInterrupted() && !Minestrum.getInstance().isShutdown()) task.run();
+            while(!Thread.currentThread().isInterrupted() && Minestrum.getInstance().isRunning()) task.run();
         };
     }
 }
