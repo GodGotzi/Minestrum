@@ -34,4 +34,8 @@ public class LogRegistry implements Registry<LogRecord> {
     public void unregister(LogRecord logRecord) {
         history.removeRawElement(logRecord);
     }
+
+    public History<LogRecord> getHistory() {
+        return history;
+    }
 }

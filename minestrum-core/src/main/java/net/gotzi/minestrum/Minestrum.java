@@ -8,6 +8,7 @@ import net.gotzi.minestrum.api.task.AsyncTaskScheduler;
 import net.gotzi.minestrum.command.CommandHandler;
 import net.gotzi.minestrum.command.CommandScanner;
 import net.gotzi.minestrum.command.commands.ErrorCommand;
+import net.gotzi.minestrum.command.commands.LogCommand;
 import net.gotzi.minestrum.command.commands.StopCommand;
 import net.gotzi.minestrum.command.commands.VersionCommand;
 import net.gotzi.minestrum.discord.DiscordBot;
@@ -19,7 +20,7 @@ import net.gotzi.minestrum.logging.MinestrumLogger;
 import net.gotzi.minestrum.connection.ConnectionHub;
 import net.gotzi.minestrum.task.Task;
 import net.gotzi.minestrum.task.TaskScheduler;
-import net.gotzi.minestrum.terminal.TerminalHandler;
+import net.gotzi.minestrum.logging.LogHandler;
 import net.gotzi.minestrum.utils.FileUtils;
 import net.gotzi.minestrum.utils.MinestrumUtils;
 import net.gotzi.minestrum.api.BungeeFile;
@@ -40,7 +41,7 @@ public class Minestrum {
     private final CommandHandler commandHandler;
     private final String prompt;
 
-    private final TerminalHandler terminalHandler;
+    private final LogHandler logHandler;
 
     private String[] args;
     private Bot discordBot;
@@ -77,14 +78,14 @@ public class Minestrum {
         Task task = new Task("command-handler", this::startCommandHandler);
         this.taskHandler.runRepeatingTask(task);
 
-        this.terminalHandler = new TerminalHandler(
+        this.logHandler = new LogHandler(
                 consoleReader,
                 new LogDefaultFormatter(true),
                 new LogDefaultFormatter(false),
                 loggingFolder
         );
 
-        this.logger = MinestrumLogger.getConsoleLogger("main", this.terminalHandler);
+        this.logger = MinestrumLogger.getConsoleLogger("main", this.logHandler);
         MinestrumUtils.LOGGER = this.logger;
 
         Minestrum.DEBUG =  Boolean.parseBoolean(this.properties.getProperty("debug"));
@@ -109,7 +110,7 @@ public class Minestrum {
     @Comment.Init
     public void startup() {
         this.commandHandler.setLogger(
-                MinestrumLogger.getConsoleLogger("command-logger",  this.terminalHandler)
+                MinestrumLogger.getConsoleLogger("command-logger",  this.logHandler)
         );
 
         this.connectionHub = new ConnectionHub(this);
@@ -126,7 +127,7 @@ public class Minestrum {
         LogDefaultFormatter botFormatter = new LogDefaultFormatter(false);
 
         this.discordBot = new DiscordBot(
-                MinestrumLogger.getConsoleLogger("discord-logger", this.terminalHandler),
+                MinestrumLogger.getConsoleLogger("discord-logger", this.logHandler),
                 botFormatter,
                 this.properties
         ).start();
@@ -136,7 +137,7 @@ public class Minestrum {
         this.logger.log(LogLevel.Info, "Starting... Email-Bot");
 
         this.emailBot = new EmailBot(
-                MinestrumLogger.getConsoleLogger("email-logger", this.terminalHandler),
+                MinestrumLogger.getConsoleLogger("email-logger", this.logHandler),
                 botFormatter,
                 properties
         ).start();
@@ -146,7 +147,7 @@ public class Minestrum {
         this.logger.log(LogLevel.Info, "Initialize ErrorHandler");
 
         this.errorHandler = new ErrorHandler(this,
-                MinestrumLogger.getConsoleLogger("error-logger",  this.terminalHandler)
+                MinestrumLogger.getConsoleLogger("error-logger",  this.logHandler)
         );
 
         this.logger.log(LogLevel.Important, "ErrorHandler ready!");
@@ -200,6 +201,7 @@ public class Minestrum {
         this.commandHandler.registerCommand(new StopCommand("stop", this));
         this.commandHandler.registerCommand(new VersionCommand("version", this));
         this.commandHandler.registerCommand(new ErrorCommand("error", this));
+        this.commandHandler.registerCommand(new LogCommand("log", this));
     }
 
     private void startBungee() {
@@ -268,6 +270,10 @@ public class Minestrum {
 
     public Bot getEmailBot() {
         return emailBot;
+    }
+
+    public LogHandler getLogHandler() {
+        return logHandler;
     }
 
     public ErrorHandler getErrorHandler() {

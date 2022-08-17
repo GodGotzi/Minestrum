@@ -21,8 +21,9 @@ net\gotzi\minestrum\task\TaskScheduler.class
 net\gotzi\minestrum\logging\LogRegistry.class
 net\gotzi\minestrum\command\Command.class
 net\gotzi\minestrum\command\CommandArgumentValue.class
+net\gotzi\minestrum\command\commands\LogCommand.class
 net\gotzi\minestrum\utils\ShutdownTimer.class
 net\gotzi\minestrum\command\commands\StopCommand.class
 net\gotzi\minestrum\logging\LogDispatcher.class
-net\gotzi\minestrum\terminal\TerminalHandler.class
+net\gotzi\minestrum\logging\LogHandler.class
 net\gotzi\minestrum\task\TaskRunFactory.class

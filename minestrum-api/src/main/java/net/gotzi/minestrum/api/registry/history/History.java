@@ -29,7 +29,7 @@ public abstract class History<T> extends Stack<HistoryView<T>> {
 
     public String next() {
         if (!isEmpty())
-            return peek().show() + "\n";
+            return peek().show();
         return "\n";
     }
 

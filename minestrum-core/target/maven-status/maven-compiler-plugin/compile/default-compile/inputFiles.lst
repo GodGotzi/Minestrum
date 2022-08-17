@@ -4,6 +4,7 @@ C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestru
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\error\ErrorRegistry.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\error\ErrorHandler.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\task\Task.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\logging\LogHandler.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\logging\LogRegistry.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\task\TaskThread.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\MinestrumLoader.java
@@ -11,12 +12,12 @@ C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestru
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\logging\MinestrumLogger.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\command\commands\StopCommand.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\logging\LogDispatcher.java
+C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\command\commands\LogCommand.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\command\commands\ErrorCommand.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\logging\format\LogDefaultFormatter.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\logging\LoggingOutputStream.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\command\CommandArgument.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\task\TaskRunFactory.java
-C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\terminal\TerminalHandler.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\utils\ShutdownTimer.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\command\Command.java
 C:\Users\Elias\Desktop\Minestrum\minestrum-core\src\main\java\net\gotzi\minestrum\command\CommandHandler.java
