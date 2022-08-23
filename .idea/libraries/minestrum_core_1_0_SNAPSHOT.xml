@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="minestrum-core-1.0-SNAPSHOT">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/minestrum-core/out/minestrum-core-1.0-SNAPSHOT.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

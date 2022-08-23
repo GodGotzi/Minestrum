@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../Custom Spigot/Spigot/Spigot-API/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../Custom Spigot/Spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../Custom Spigot/Spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GotziAPI/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/GotziAPI/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spigot-Light/Spigot-API/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spigot-Light/Spigot-API/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spigot-Light/Spigot-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spigot-Light/Spigot-Server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spigot-Light/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spigot-Light/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-api/minestrum-spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-api/minestrum-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-bungee/api/src/main/java" charset="UTF-8" />
@@ -55,7 +66,20 @@
     <file url="file://$PROJECT_DIR$/minestrum-email/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-gui/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/minestrum-gui/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-lobby/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-lobby/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-mcpaper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-mcpaper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-play/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-play/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-spigot/minestrum-spigot-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-spigot/minestrum-spigot-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/minestrum-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$USER_HOME$/IdeaProjects/Spigot/Spigot-API/src/main/resources" charset="UTF-8" />
+    <file url="file://$USER_HOME$/IdeaProjects/Spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$USER_HOME$/IdeaProjects/Spigot/src/main/resources" charset="UTF-8" />
   </component>
 </project>

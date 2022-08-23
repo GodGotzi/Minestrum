@@ -1,3 +1,6 @@
 [submodule "GotziAPI"]
 	path = GotziAPI
 	url = https://github.com/GodGotzi/GotziAPI.git
+[submodule "Spigot-Light"]
+	path = Spigot-Light
+	url = https://github.com/GodGotzi/Spigot-Light
