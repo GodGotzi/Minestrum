@@ -51,6 +51,7 @@
       <module name="minestrum-lobby" target="17" />
       <module name="minestrum-mcpaper" target="17" />
       <module name="minestrum-play" target="17" />
+      <module name="minestrum-server-interface" target="16" />
       <module name="minestrum-spigot" target="1.8" />
       <module name="minestrum-spigot-api" target="1.8" />
       <module name="query" target="8" />
