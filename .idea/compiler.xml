@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Eclipse" />
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -9,10 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="minestrum-core" />
-        <module name="spigot-api" />
         <module name="minestrum-email" />
         <module name="minestrum-data" />
-        <module name="spigot" />
         <module name="minestrum-gui" />
         <module name="minestrum-bungee" />
         <module name="minestrum-api" />
@@ -57,6 +54,8 @@
       <module name="query" target="8" />
       <module name="reconnect-yaml" target="8" />
       <module name="slf4j" target="8" />
+      <module name="spigot" target="1.8" />
+      <module name="spigot-api" target="1.8" />
       <module name="spigot-parent (1)" target="1.5" />
     </bytecodeTargetLevel>
   </component>

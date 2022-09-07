@@ -5,12 +5,6 @@ import net.gotzi.minestrum.api.command.CommandContext;
 import net.gotzi.minestrum.api.logging.LogLevel;
 import net.gotzi.minestrum.command.Command;
 import net.gotzi.minestrum.command.CommandArgument;
-import net.gotzi.spigot.FakeServer;
-import net.gotzi.spigot.data.GameData;
-import net.gotzi.spigot.data.ServerData;
-
-import java.util.UUID;
-
 public class ServerCommand extends Command {
 
     private final Minestrum minestrum;
@@ -32,10 +26,6 @@ public class ServerCommand extends Command {
 
     private void test(CommandContext commandContext) {
 
-        GameData gameData = new GameData(1);
-        ServerData serverData = new ServerData(UUID.randomUUID(), gameData);
-        FakeServer fakeServer = new FakeServer(serverData);
-        //fakeServer.run();
         getCommandLogger().log(LogLevel.DEBUG, "command test, if you see this the test should have been started");
     }
 }

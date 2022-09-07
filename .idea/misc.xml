@@ -15,10 +15,13 @@
         <option value="$PROJECT_DIR$/minestrum-bungee/slf4j/pom.xml" />
         <option value="$PROJECT_DIR$/../GotziAPI/pom.xml" />
         <option value="$PROJECT_DIR$/Spigot-Light/pom.xml" />
+        <option value="$PROJECT_DIR$/../Custom Spigot/Spigot/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/../Custom Spigot/Spigot/Spigot-API/pom.xml" />
+        <option value="$PROJECT_DIR$/../Custom Spigot/Spigot/Spigot-Server/pom.xml" />
         <option value="$PROJECT_DIR$/minestrum-server-interface/pom.xml" />
       </set>
     </option>
