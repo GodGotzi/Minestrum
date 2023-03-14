@@ -1,3 +1,8 @@
+/*
+	Author: Elias (Gotzi) Gottsbacher
+	Copyright (c) 2023 Elias Gottsbacher
+*/
+
 package net.gotzi.minestrum.server;
 
 import net.gotzi.minestrum.api.registry.Registry;

@@ -1,3 +1,8 @@
+/*
+	Author: Elias (Gotzi) Gottsbacher
+	Copyright (c) 2023 Elias Gottsbacher
+*/
+
 package net.gotzi.minestrum.server.servers;
 
 import net.gotzi.minestrum.Minestrum;
@@ -25,5 +30,5 @@ public class Lobby extends Server {
     private Lobby(int portId, Process process, ServerStartedFuture serverStartedFuture) {
         super(portId, process, serverStartedFuture);
     }
-
+    
 }
