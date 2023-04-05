@@ -7,13 +7,15 @@ package net.gotzi.minestrum.server;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.gotzi.bungee.Bungee;
 import net.gotzi.bungee.api.config.ServerInfo;
 import net.gotzi.minestrum.Minestrum;
 import net.gotzi.minestrum.api.error.ErrorView;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
+import java.util.Map;
+import java.util.Properties;
 
 public abstract class Server {
 
@@ -39,6 +41,7 @@ public abstract class Server {
 
         try {
             copyFolder(source, destination);
+            editConfigForNeededPort(destination);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -54,7 +57,31 @@ public abstract class Server {
 
     private String constructCommand(File destination, int ramMB) {
         String path = destination.getAbsolutePath();
-        return String.format("java -Xmx%dM -Xms%dM -jar %s nogui", ramMB, ramMB, path + "/server.jar");
+        return String.format("java -jar %s nogui", ramMB, ramMB, path + "/server.jar");
+    }
+
+    private void editConfigForNeededPort(File destination) throws IOException {
+        FileReader reader = new FileReader(destination.getAbsolutePath() + "/server.properties");
+
+        Properties properties = new Properties();
+        properties.load(reader);
+        reader.close();
+
+        properties.setProperty("query.port", String.valueOf(this.port));
+        properties.setProperty("server-port", String.valueOf(this.port));
+
+
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter(destination.getAbsolutePath() + "/server.properties")
+        );
+
+        for (Map.Entry<Object, Object> entry : properties.entrySet()) {
+            writer.write(entry.getKey() + "=" + entry.getValue());
+            writer.newLine();
+        }
+
+        writer.flush();
+        writer.close();
     }
 
     private void copyFolder(File sourceFolder, File destFolder) throws IOException {

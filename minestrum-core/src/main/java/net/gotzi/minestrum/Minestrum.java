@@ -26,6 +26,7 @@ import net.gotzi.minestrum.email.EmailBot;
 import net.gotzi.minestrum.error.ErrorHandler;
 import net.gotzi.minestrum.api.error.ErrorView;
 import net.gotzi.minestrum.api.logging.format.LogDefaultFormatter;
+import net.gotzi.minestrum.listener.PlayerConnectListener;
 import net.gotzi.minestrum.listener.ServerListener;
 import net.gotzi.minestrum.logging.MinestrumLogger;
 import net.gotzi.minestrum.connection.ConnectionHub;
@@ -265,8 +266,9 @@ public class Minestrum extends Plugin {
                     bungee.registerChannel("proxy"), this.packetReceiver);
 
             ServerListener serverListener = new ServerListener(this.packetReceiver);
-
             this.bungee.getPluginManager().registerListener(this, serverListener);
+            this.bungee.getPluginManager().registerListener(this, new PlayerConnectListener(this));
+
         } catch (Exception e) {
             this.errorHandler.registerError(new ErrorView("failed while starting Proxy", e));
         }

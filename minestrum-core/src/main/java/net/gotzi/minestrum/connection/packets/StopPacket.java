@@ -12,10 +12,7 @@ public class StopPacket extends Packet {
             String port = packetContext.channel().split(":")[1];
             int iPort = Integer.parseInt(port);
             Server server = serverHandler.getServerByPort(iPort);
-            serverHandler.prepareStop(server);
-            server.stop();
-
-            Minestrum.getInstance().getLogger().log(LogLevel.FINE, "Server " + port + " stopped!");
+            serverHandler.stopServer(server);
         });
     }
 }

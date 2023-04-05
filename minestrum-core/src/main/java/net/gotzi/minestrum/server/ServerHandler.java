@@ -49,7 +49,10 @@ public class ServerHandler {
     }
 
     public void stopServer(Server server) {
+        this.prepareStop(server);
+        server.stop();
 
+        Minestrum.getInstance().getLogger().log(LogLevel.FINE, "Server " + server.getPort() + " stopped!");
     }
 
     public void nextLobby(int ramMB, SyncFuture<Lobby> future) {
@@ -78,7 +81,7 @@ public class ServerHandler {
 
                 File sourceFolder = new File(ServerType.getSourceFolder(ServerType.LOBBY, properties));
 
-                Lobby lobby = new Lobby(sourceFolder, destFolder, 2000, port, serverStartedFuture);
+                Lobby lobby = new Lobby(sourceFolder, destFolder, ramMB, port, serverStartedFuture);
                 lobby.setServerInfo(serverInfo);
                 registry.register(lobby);
 
@@ -114,7 +117,7 @@ public class ServerHandler {
 
                 File sourceFolder = new File(ServerType.getSourceFolder(ServerType.PLAY, properties));
 
-                PlayServer playServer = new PlayServer(sourceFolder, destFolder, 2000, port, serverStartedFuture);
+                PlayServer playServer = new PlayServer(sourceFolder, destFolder, ramMB, port, serverStartedFuture);
                 playServer.setServerInfo(playServer.getServerInfo());
                 registry.register(playServer);
 
@@ -142,6 +145,16 @@ public class ServerHandler {
 
         getRegistry().unregister(server);
         minestrum.getBungee().getServers().remove(server.getName());
+    }
+
+    public void checkForNeededServer() {
+
+
+
+
+
+
+
     }
 
     private void getNextFreePort(SyncFuture<Optional<Integer>> future) {
