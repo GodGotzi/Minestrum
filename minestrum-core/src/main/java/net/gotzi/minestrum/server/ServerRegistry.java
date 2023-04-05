@@ -34,8 +34,8 @@ public class ServerRegistry<S extends Server> implements Registry<S> {
         return servers;
     }
 
-    public S getServer(int id) {
-        return servers.get(id);
+    public S getServer(int port) {
+        return servers.get(port);
     }
 
     public Collection<S> getServers() {

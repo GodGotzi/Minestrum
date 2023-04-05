@@ -1,0 +1,8 @@
+net\gotzi\minestrum\data\packet\InitServerPacket.class
+net\gotzi\minestrum\data\ServerType.class
+net\gotzi\minestrum\data\packet\Packet.class
+net\gotzi\minestrum\data\PacketConstructor.class
+net\gotzi\minestrum\data\packet\PlayerPacket.class
+net\gotzi\minestrum\data\packet\StopPacket.class
+net\gotzi\minestrum\data\PacketType.class
+net\gotzi\minestrum\data\packet\StatsPacket.class

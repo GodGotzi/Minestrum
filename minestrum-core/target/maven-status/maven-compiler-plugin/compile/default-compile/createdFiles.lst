@@ -1,0 +1,3 @@
+net\gotzi\minestrum\server\connection\SocketPipe.class
+net\gotzi\minestrum\server\Server.class
+net\gotzi\minestrum\server\ServerStartedFuture.class

@@ -10,10 +10,12 @@
         <module name="minestrum-core" />
         <module name="minestrum-email" />
         <module name="minestrum-data" />
+        <module name="minestrum-plugin-lobby" />
         <module name="minestrum-gui" />
         <module name="minestrum-bungee" />
         <module name="minestrum-api" />
         <module name="minestrum-discord" />
+        <module name="minestrum-plugin-game" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -56,6 +58,7 @@
       <module name="slf4j" target="8" />
       <module name="spigot" target="1.8" />
       <module name="spigot-api" target="1.8" />
+      <module name="spigot-parent" target="1.5" />
       <module name="spigot-parent (1)" target="1.5" />
     </bytecodeTargetLevel>
   </component>
