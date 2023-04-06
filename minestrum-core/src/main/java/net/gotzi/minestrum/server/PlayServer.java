@@ -7,8 +7,8 @@ import java.io.File;
 
 public class PlayServer extends Server {
 
-    public PlayServer(File sourceFolder, File destinationFolder, int ramMB, int portId, ServerStartedFuture serverStartedFuture) {
-        super(sourceFolder, destinationFolder, ramMB, portId, serverStartedFuture);
+    public PlayServer(int maxPlayers, File sourceFolder, File destinationFolder, int portId, ServerStartedFuture serverStartedFuture) {
+        super(maxPlayers, sourceFolder, destinationFolder, portId, serverStartedFuture);
     }
 
     @Override

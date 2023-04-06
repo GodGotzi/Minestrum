@@ -155,6 +155,7 @@ public class Minestrum extends Plugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         this.logger.log(LogLevel.INFO, "Ready!");
 
 

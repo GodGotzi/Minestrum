@@ -9,8 +9,8 @@ import java.io.File;
 
 public class Lobby extends Server {
 
-    public Lobby(File sourceFolder, File destinationFolder, int ramMB, int portId, ServerStartedFuture serverStartedFuture) {
-        super(sourceFolder, destinationFolder, ramMB, portId, serverStartedFuture);
+    public Lobby(int maxPlayers, File sourceFolder, File destinationFolder, int portId, ServerStartedFuture serverStartedFuture) {
+        super(maxPlayers, sourceFolder, destinationFolder, portId, serverStartedFuture);
 
         setName("lobby-" + portId);
     }

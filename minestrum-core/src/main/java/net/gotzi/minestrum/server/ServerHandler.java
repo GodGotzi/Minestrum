@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.ToIntFunction;
 import java.util.logging.Logger;
 
 public class ServerHandler {
@@ -35,13 +36,14 @@ public class ServerHandler {
     @Getter
     private final ServerRegistry<Server> registry;
     private final Properties properties;
+    private final Logger logger;
 
 
-    public ServerHandler(Properties properties, Logger socketLogger, Minestrum minestrum) throws IOException {
-
-        this.registry = new ServerRegistry<Server>();
+    public ServerHandler(Properties properties, Logger logger, Minestrum minestrum) throws IOException {
+        this.registry = new ServerRegistry<>();
         this.properties = properties;
         this.minestrum = minestrum;
+        this.logger = logger;
     }
 
     public Server getServerByPort(int port) {
@@ -55,7 +57,7 @@ public class ServerHandler {
         Minestrum.getInstance().getLogger().log(LogLevel.FINE, "Server " + server.getPort() + " stopped!");
     }
 
-    public void nextLobby(int ramMB, SyncFuture<Lobby> future) {
+    public void nextLobby(SyncFuture<Lobby> future, int maxPlayers) {
         this.getNextFreePort(new SyncFuture<>() {
             @Override
             public void done(Optional<Integer> portOptional) {
@@ -81,7 +83,7 @@ public class ServerHandler {
 
                 File sourceFolder = new File(ServerType.getSourceFolder(ServerType.LOBBY, properties));
 
-                Lobby lobby = new Lobby(sourceFolder, destFolder, ramMB, port, serverStartedFuture);
+                Lobby lobby = new Lobby(maxPlayers, sourceFolder, destFolder, port, serverStartedFuture);
                 lobby.setServerInfo(serverInfo);
                 registry.register(lobby);
 
@@ -91,7 +93,7 @@ public class ServerHandler {
         });
     }
 
-    public void nextServer(int ramMB, SyncFuture<PlayServer> future) {
+    public void nextServer(SyncFuture<PlayServer> future, int maxPlayers) {
         this.getNextFreePort(new SyncFuture<>() {
             @Override
             public void done(Optional<Integer> portOptional) {
@@ -117,7 +119,7 @@ public class ServerHandler {
 
                 File sourceFolder = new File(ServerType.getSourceFolder(ServerType.PLAY, properties));
 
-                PlayServer playServer = new PlayServer(sourceFolder, destFolder, ramMB, port, serverStartedFuture);
+                PlayServer playServer = new PlayServer(maxPlayers, sourceFolder, destFolder, port, serverStartedFuture);
                 playServer.setServerInfo(playServer.getServerInfo());
                 registry.register(playServer);
 
@@ -127,13 +129,13 @@ public class ServerHandler {
         });
     }
 
-    private static int MAX_PORT = 26000;
-    private static int MIN_PORT = 25581;
+    private static int MAX_PORT = 30000;
+    private static int MIN_PORT = 25500;
 
     public void prepareStop(Server server) {
         for (ProxiedPlayer proxiedPlayer : server.getServerInfo().getPlayers()) {
-            Optional<Server> target = registry.getServers().stream().parallel().filter(s -> s.isLobby()).sorted((s1, s2) ->
-                    Integer.compare(s1.getServerInfo().getPlayers().size(), s2.getServerInfo().getPlayers().size())).findFirst();
+            Optional<Server> target = registry.getServers().stream().parallel().filter(s -> s.isLobby())
+                    .sorted(Comparator.comparingInt(s -> s.getServerInfo().getPlayers().size())).findFirst();
 
             try {
                 proxiedPlayer.connect(target.get().getServerInfo());
@@ -145,16 +147,6 @@ public class ServerHandler {
 
         getRegistry().unregister(server);
         minestrum.getBungee().getServers().remove(server.getName());
-    }
-
-    public void checkForNeededServer() {
-
-
-
-
-
-
-
     }
 
     private void getNextFreePort(SyncFuture<Optional<Integer>> future) {

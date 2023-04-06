@@ -24,6 +24,9 @@ public abstract class Server {
     @Getter
     private final int port;
 
+    @Getter
+    private final int maxPlayers;
+
     @Setter
     @Getter
     private String name;
@@ -35,9 +38,10 @@ public abstract class Server {
     @Getter
     private Process process;
 
-    public Server(File source, File destination, int ramMB, int port, ServerStartedFuture future) {
+    public Server(int maxPlayers, File source, File destination, int port, ServerStartedFuture future) {
         this.port = port;
         this.future = future;
+        this.maxPlayers = maxPlayers;
 
         try {
             copyFolder(source, destination);
@@ -46,7 +50,7 @@ public abstract class Server {
             throw new RuntimeException(e);
         }
 
-        String cmd = constructCommand(destination, ramMB);
+        String cmd = constructCommand(destination);
         try {
             this.process = Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {
@@ -55,9 +59,9 @@ public abstract class Server {
         }
     }
 
-    private String constructCommand(File destination, int ramMB) {
+    private String constructCommand(File destination) {
         String path = destination.getAbsolutePath();
-        return String.format("java -jar %s nogui", ramMB, ramMB, path + "/server.jar");
+        return String.format("java -jar %s nogui", path + "/server.jar");
     }
 
     private void editConfigForNeededPort(File destination) throws IOException {
@@ -113,5 +117,4 @@ public abstract class Server {
     }
 
     public abstract boolean isLobby();
-
 }

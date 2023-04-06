@@ -16,12 +16,12 @@ public class PlayerConnectListener implements Listener {
 
     @EventHandler
     public void onServerConnect(ServerConnectEvent connectEvent) {
-        minestrum.getServerHandler().checkForNeededServer();
+
     }
 
     @EventHandler
     public void onProxyExit(PlayerDisconnectEvent disconnectEvent) {
-        minestrum.getServerHandler().checkForNeededServer();
+
     }
 
 }
