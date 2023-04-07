@@ -57,7 +57,7 @@ public class ServerHandler {
         Minestrum.getInstance().getLogger().log(LogLevel.FINE, "Server " + server.getPort() + " stopped!");
     }
 
-    public void nextLobby(SyncFuture<Lobby> future, int maxPlayers) {
+    public void nextLobby(SyncFuture<Lobby> future) {
         this.getNextFreePort(new SyncFuture<>() {
             @Override
             public void done(Optional<Integer> portOptional) {
@@ -83,7 +83,7 @@ public class ServerHandler {
 
                 File sourceFolder = new File(ServerType.getSourceFolder(ServerType.LOBBY, properties));
 
-                Lobby lobby = new Lobby(maxPlayers, sourceFolder, destFolder, port, serverStartedFuture);
+                Lobby lobby = new Lobby(sourceFolder, destFolder, port, serverStartedFuture);
                 lobby.setServerInfo(serverInfo);
                 registry.register(lobby);
 
@@ -134,19 +134,45 @@ public class ServerHandler {
 
     public void prepareStop(Server server) {
         for (ProxiedPlayer proxiedPlayer : server.getServerInfo().getPlayers()) {
-            Optional<Server> target = registry.getServers().stream().parallel().filter(s -> s.isLobby())
-                    .sorted(Comparator.comparingInt(s -> s.getServerInfo().getPlayers().size())).findFirst();
+            Lobby target = findNextLobby();
 
-            try {
-                proxiedPlayer.connect(target.get().getServerInfo());
-            } catch (NoSuchElementException ex) {
-                ErrorView errorView = new ErrorView("No Lobby server exits", ex);
-                this.minestrum.getErrorHandler().registerError(errorView);
-            }
+            proxiedPlayer.connect(target.getServerInfo());
         }
 
         getRegistry().unregister(server);
         minestrum.getBungee().getServers().remove(server.getName());
+    }
+
+    public Lobby findNextLobby() {
+        Optional<Server> target = registry.getServers().stream().parallel().filter(s -> s.isLobby())
+                .sorted(Comparator.comparingInt(s -> s.getServerInfo().getPlayers().size())).findFirst();
+
+        try {
+            return (Lobby) target.get();
+        } catch (NoSuchElementException ex) {
+            ErrorView errorView = new ErrorView("No Lobby server exits", ex);
+            this.minestrum.getErrorHandler().registerError(errorView);
+        }
+
+        return null;
+    }
+
+    public Lobby findNextLobbyWithout(Server lobby) {
+        Optional<Server> target = registry.getServers().stream().parallel().filter(s -> s.isLobby() && s == lobby)
+                .sorted(Comparator.comparingInt(s -> s.getServerInfo().getPlayers().size())).findFirst();
+
+        try {
+            return (Lobby) target.get();
+        } catch (NoSuchElementException ex) {
+            ErrorView errorView = new ErrorView("No Lobby server exits", ex);
+            this.minestrum.getErrorHandler().registerError(errorView);
+        }
+
+        return null;
+    }
+
+    public synchronized void rearrangeLobbyStructure() {
+        //TODO rearrange Lobby structures but not needed
     }
 
     private void getNextFreePort(SyncFuture<Optional<Integer>> future) {
@@ -154,7 +180,7 @@ public class ServerHandler {
         taskScheduler.runTask(new Task("port search", () -> {
             int port = MIN_PORT;
             synchronized (registry) {
-                while (registry.getServerMap().containsKey(port) && available(port)) {
+                while (!registry.getServerMap().containsKey(port) && available(port)) {
                     ++port;
                 }
             }

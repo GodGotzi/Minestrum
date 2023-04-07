@@ -24,9 +24,6 @@ public abstract class Server {
     @Getter
     private final int port;
 
-    @Getter
-    private final int maxPlayers;
-
     @Setter
     @Getter
     private String name;
@@ -38,10 +35,9 @@ public abstract class Server {
     @Getter
     private Process process;
 
-    public Server(int maxPlayers, File source, File destination, int port, ServerStartedFuture future) {
+    public Server(File source, File destination, int port, ServerStartedFuture future) {
         this.port = port;
         this.future = future;
-        this.maxPlayers = maxPlayers;
 
         try {
             copyFolder(source, destination);
@@ -73,7 +69,7 @@ public abstract class Server {
 
         properties.setProperty("query.port", String.valueOf(this.port));
         properties.setProperty("server-port", String.valueOf(this.port));
-
+        editProperties(properties);
 
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(destination.getAbsolutePath() + "/server.properties")
@@ -115,6 +111,8 @@ public abstract class Server {
     public synchronized void stop() {
 
     }
+
+    public abstract void editProperties(Properties properties);
 
     public abstract boolean isLobby();
 }
