@@ -4,14 +4,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-public abstract class Countdown {
+public abstract class GameCountdown {
 
     private int time;
 
     private BukkitTask task;
     private final Plugin plugin;
 
-    public Countdown(int time, Plugin plugin) {
+    public GameCountdown(int time, Plugin plugin) {
         this.time = time;
         this.plugin = plugin;
     }

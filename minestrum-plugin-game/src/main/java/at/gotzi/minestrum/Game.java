@@ -1,21 +1,24 @@
 package at.gotzi.minestrum;
 
-import at.gotzi.minestrum.api.MinestrumPlayerInfo;
+import at.gotzi.minestrum.api.MinestrumGamePlayer;
 import at.gotzi.minestrum.communicate.ProxyListener;
 import at.gotzi.minestrum.config.MessageConfig;
 import at.gotzi.minestrum.config.format.FormatType;
 import at.gotzi.minestrum.config.format.FormatValue;
-import at.gotzi.minestrum.spectator.SpectatorHandler;
+import at.gotzi.minestrum.listener.player.PlayerListener;
+import at.gotzi.minestrum.listener.player.PlayerListenerAdapter;
+import at.gotzi.minestrum.spectator.SpectatorRegistry;
 import at.gotzi.minestrum.state.GameStateHandler;
-import at.gotzi.minestrum.api.PlayerInfo;
-import at.gotzi.minestrum.state.PrimaryGameState;
+import at.gotzi.minestrum.api.GamePlayer;
+import at.gotzi.minestrum.state.GameState;
 import lombok.Getter;
 import net.gotzi.minestrum.communicate.receiver.PacketReceiver;
 import net.gotzi.minestrum.communicate.sender.PacketSender;
+import net.minecraft.server.v1_16_R3.DedicatedServer;
+import net.minecraft.server.v1_16_R3.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,7 +29,7 @@ import java.util.UUID;
 
 public class Game extends JavaPlugin {
 
-    private final Map<UUID, PlayerInfo> playerInfoMap;
+    private final Map<UUID, GamePlayer> playerInfoMap;
 
     @Getter
     private final MessageConfig messageConfig;
@@ -41,7 +44,7 @@ public class Game extends JavaPlugin {
     private final GameStateHandler stateHandler;
 
     @Getter
-    private final SpectatorHandler spectatorHandler;
+    private final SpectatorRegistry spectatorRegistry;
 
     public Game() {
         this.playerInfoMap = new HashMap<>();
@@ -50,20 +53,23 @@ public class Game extends JavaPlugin {
         this.packetSender = new PacketSender((channel, data) -> {
             getServer().sendPluginMessage(this, channel, data);
         }, packetReceiver);
-        this.stateHandler = new GameStateHandler(PrimaryGameState.IDLE, this);
-        this.spectatorHandler = new SpectatorHandler();
+        this.stateHandler = new GameStateHandler(GameState.IDLE, this);
+        this.spectatorRegistry = new SpectatorRegistry();
     }
 
     @Override
     public void onEnable() {
         super.onEnable();
 
+        PlayerListener playerListener = new PlayerListener();
         ProxyListener proxyListener = new ProxyListener(packetReceiver);
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "game:" + this.getServer().getPort());
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "game:", proxyListener);
+        this.getServer().getPluginManager().registerEvents(playerListener, this);
 
-        this.getServer().getPluginManager().registerEvents(new PlayerCoordinator(this), this);
+        playerListener.register(this.stateHandler);
+        playerListener.register(new PlayerConnectionListener(this));
 
         Bukkit.getScheduler().runTaskLater(this, () -> {
 
@@ -75,19 +81,63 @@ public class Game extends JavaPlugin {
         super.onDisable();
 
         this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
-
-
     }
 
-    public PlayerInfo getPlayerInfo(Player player) {
+    public int getMaxGamePlayers() {
+        return Integer.parseInt(((DedicatedServer) MinecraftServer.getServer()).getDedicatedServerProperties()
+                .properties.getProperty("max-game-players"));
+    }
+
+    public GamePlayer getPlayerInfo(Player player) {
         return playerInfoMap.get(player.getUniqueId());
     }
 
-    protected void registerPlayer(Player player) {
-        playerInfoMap.put(player.getUniqueId(), new MinestrumPlayerInfo(this, player));
+    public void registerPlayer(Player player) {
+        playerInfoMap.put(player.getUniqueId(), new MinestrumGamePlayer(this, player));
     }
 
-    protected void unregisterPlayer(Player player) {
+    public void unregisterPlayer(Player player) {
         playerInfoMap.remove(player.getUniqueId());
+    }
+
+    private class PlayerConnectionListener extends PlayerListenerAdapter {
+
+        private final Game game;
+
+        private PlayerConnectionListener(Game game) {
+            this.game = game;
+        }
+
+        @EventHandler
+        public void onJoin(PlayerJoinEvent event) {
+            this.game.registerPlayer(event.getPlayer());
+            boolean full = true;
+
+            if (!full) {
+                event.setJoinMessage(game.getMessageConfig().getMessage(
+                        "join.message", new FormatValue(FormatType.PLAYER, event.getPlayer().getName())
+                ));
+
+                Bukkit.getScheduler().runTaskLater(game, () -> {
+                    this.game.getStateHandler().start();
+                }, 20);
+            } else {
+                event.setJoinMessage("");
+
+            }
+        }
+
+        @EventHandler
+        public void onQuit(PlayerQuitEvent event) {
+            event.setQuitMessage(game.getMessageConfig().getMessage(
+                    "quit.message", new FormatValue(FormatType.PLAYER, event.getPlayer().getName())
+            ));
+
+            Bukkit.getScheduler().runTaskLater(game, () -> {
+                this.game.getStateHandler().cancelCountdown();
+
+                this.game.unregisterPlayer(event.getPlayer());
+            }, 20);
+        }
     }
 }

@@ -46,6 +46,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <artifactId>minestrum-api</artifactId>
+            <groupId>at.gotzi.minestrum</groupId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>

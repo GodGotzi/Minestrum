@@ -3,25 +3,24 @@ package at.gotzi.minestrum.api;
 import at.gotzi.minestrum.Game;
 import org.bukkit.entity.Player;
 
-public class MinestrumPlayerInfo implements PlayerInfo {
+public class MinestrumGamePlayer implements GamePlayer {
 
     private final Game game;
     private final Player player;
 
-    public MinestrumPlayerInfo(Game game, Player player) {
+    public MinestrumGamePlayer(Game game, Player player) {
         this.game = game;
         this.player = player;
     }
 
     @Override
     public boolean isGameSpectator() {
-
-        //TODO
-        return true;
+        return this.game.getSpectatorRegistry().isGameSpectator(player.getUniqueId());
     }
 
     @Override
-    public void quitGame() {
-
+    public Player getNativePlayer() {
+        return this.player;
     }
+
 }

@@ -1,6 +1,6 @@
 package at.gotzi.minestrum.state;
 
-public enum PrimaryGameState {
+public enum GameState {
     IDLE,
     STARTING,
     PLAYING,
