@@ -5,7 +5,7 @@
 
 package net.gotzi.minestrum.data;
 
-import net.gotzi.minestrum.data.packet.Packet;
+import net.gotzi.minestrum.communicate.receiver.Packet;
 
 import java.nio.ByteBuffer;
 

@@ -12,10 +12,14 @@ public class GameStartedPacket extends Packet {
         super("gamestarted", packetContext -> {
             String port = packetContext.channel().split(":")[1];
             int iPort = Integer.parseInt(port);
+
+            PlayServer playServer = (PlayServer) serverHandler.getServerByPort(iPort);
+
+
             serverHandler.nextServer(new SyncFuture<>() {
                 @Override
                 public void done(PlayServer playServer) {}
-            }, serverHandler.getServerByPort(iPort).getMaxPlayers());
+            }, playServer.getMaxPlayers());
 
             Minestrum.getInstance().getLogger().log(LogLevel.FINE, "Game " + port + " started!");
         });

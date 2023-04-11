@@ -8,3 +8,5 @@
 /dataSources.local.xml
 /minestrum-core/src/main/resources
 /logging
+/minestrum-bungee/target/
+/minestrum-core/target/

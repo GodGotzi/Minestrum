@@ -3,6 +3,8 @@ package at.gotzi.minestrum;
 import at.gotzi.minestrum.api.MinestrumGamePlayer;
 import at.gotzi.minestrum.communicate.ProxyListener;
 import at.gotzi.minestrum.config.MessageConfig;
+import at.gotzi.minestrum.config.dynamic.LocationConfig;
+import at.gotzi.minestrum.config.dynamic.RandomspawnConfig;
 import at.gotzi.minestrum.config.format.FormatType;
 import at.gotzi.minestrum.config.format.FormatValue;
 import at.gotzi.minestrum.listener.player.PlayerListener;
@@ -46,6 +48,9 @@ public class Game extends JavaPlugin {
     @Getter
     private final SpectatorRegistry spectatorRegistry;
 
+    @Getter
+    private final LocationCoordinator locationCoordinator;
+
     public Game() {
         this.playerInfoMap = new HashMap<>();
         this.messageConfig = new MessageConfig();
@@ -55,6 +60,11 @@ public class Game extends JavaPlugin {
         }, packetReceiver);
         this.stateHandler = new GameStateHandler(GameState.IDLE, this);
         this.spectatorRegistry = new SpectatorRegistry();
+
+        LocationConfig locationConfig = new LocationConfig("locations.properties");
+        RandomspawnConfig randomspawnConfig = new RandomspawnConfig("random-spawn-locations.properties");
+
+        this.locationCoordinator = new LocationCoordinator(locationConfig, randomspawnConfig);
     }
 
     @Override
