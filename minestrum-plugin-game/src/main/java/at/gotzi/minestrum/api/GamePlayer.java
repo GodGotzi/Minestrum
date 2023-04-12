@@ -8,4 +8,6 @@ public interface GamePlayer {
 
     Player getNativePlayer();
 
+    void killPlayer();
+
 }

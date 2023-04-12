@@ -23,4 +23,9 @@ public class MinestrumGamePlayer implements GamePlayer {
         return this.player;
     }
 
+    @Override
+    public void killPlayer() {
+
+    }
+
 }

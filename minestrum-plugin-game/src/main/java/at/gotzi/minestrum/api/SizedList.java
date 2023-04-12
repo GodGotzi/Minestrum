@@ -1,5 +1,8 @@
 package at.gotzi.minestrum.api;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class SizedList<T> {
     
     private T[] array;
@@ -26,6 +29,10 @@ public class SizedList<T> {
         }
 
         return false;
+    }
+
+    public Stream<T> stream() {
+        return Arrays.stream(array);
     }
 
     public int add(T t) {
