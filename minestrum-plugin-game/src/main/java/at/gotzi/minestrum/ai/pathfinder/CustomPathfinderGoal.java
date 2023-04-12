@@ -1,10 +1,12 @@
 package at.gotzi.minestrum.ai.pathfinder;
 
+import lombok.Getter;
 import net.minecraft.server.v1_16_R3.EntityLiving;
 import net.minecraft.server.v1_16_R3.PathfinderGoal;
 
 public abstract class CustomPathfinderGoal<T extends EntityLiving> extends PathfinderGoal {
 
+    @Getter
     private T entity;
 
     public CustomPathfinderGoal(T entity) {

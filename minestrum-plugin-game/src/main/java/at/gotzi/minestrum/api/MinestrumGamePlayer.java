@@ -28,4 +28,10 @@ public class MinestrumGamePlayer implements GamePlayer {
 
     }
 
+    @Override
+    public boolean isHiding() {
+        return false;
+    }
+
+
 }

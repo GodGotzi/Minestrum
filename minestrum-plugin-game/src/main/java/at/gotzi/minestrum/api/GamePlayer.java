@@ -10,4 +10,6 @@ public interface GamePlayer {
 
     void killPlayer();
 
+    boolean isHiding();
+
 }
